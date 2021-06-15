@@ -316,6 +316,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       );
                     },
                   );
+                  FocusScope.of(context).requestFocus(new FocusNode());
                 } else {
                   checkout(widget.cart, user).then((order) async {
                     Navigator.pushAndRemoveUntil(

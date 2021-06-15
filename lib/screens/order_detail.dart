@@ -203,45 +203,52 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   ],
                 ),
                 SizedBox(width: 5),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 120,
-                      height: 100,
+                Column(
+                  children: List.generate(
+                    widget.order.orderDetails.length,
+                    (index) => Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          height: 100,
+                          child: Image.network(
+                              "${widget.order.orderDetails[index].inventory.product.images[0].url}"),
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 15),
+                              Text(
+                                "${widget.order.orderDetails[index].inventory.product.name}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "Cung cấp bởi ${widget.order.orderDetails[index].inventory.product.collection.brand.name}",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black54,
+                                ),
+                              ),
+                              SizedBox(height: 5),
+                              Text(
+                                "${PriceUtil.toCurrency(widget.order.orderDetails[index].inventory.product.price)} đ x${widget.order.orderDetails[index].quantity}",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 15),
-                          Text(
-                            "Nhà nàng ở cạnh nhà tôi",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Cung cấp bởi Adidas",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black54,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "2,000,000 đ x1",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
