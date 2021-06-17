@@ -3,12 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_nhom17_2021/models/user.dart';
-import 'package:mobile_nhom17_2021/screens/change_password.dart';
-import 'package:mobile_nhom17_2021/screens/login_screen.dart';
-import 'package:mobile_nhom17_2021/screens/my_details.dart';
+import 'package:mobile_nhom17_2021/screens/web/change_password.dart';
+import 'package:mobile_nhom17_2021/screens/web/login_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/my_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../shared.dart';
+
 class AccountScreen extends StatefulWidget {
+  static String routeName = "/account";
   const AccountScreen({Key key}) : super(key: key);
 
   @override
@@ -29,17 +32,14 @@ class _AccountScreenState extends State<AccountScreen> {
       user = User.fromJson(json.decode(prefs.getString("user")));
     } catch (e) {
       print(e);
+      // Navigator.pushNamedAndRemoveUntil(
+      //     context, LoginScreen.routeName, (route) => false);
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => LoginScreen()),
           (route) => false);
     }
     return user;
-  }
-
-  Future<void> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("user");
   }
 
   @override
@@ -55,22 +55,7 @@ class _AccountScreenState extends State<AccountScreen> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         actions: [
-          TextButton(
-            onPressed: () {
-              logout().then((value) {
-                setState(() {});
-              });
-            },
-            child: Text(
-              "Đăng xuất",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
+          _logoutBtn(),
           SizedBox(width: 10),
         ],
       ),
@@ -92,6 +77,25 @@ class _AccountScreenState extends State<AccountScreen> {
             );
           }
         },
+      ),
+    );
+  }
+
+  TextButton _logoutBtn() {
+    return TextButton(
+      onPressed: () {
+        logout().then((value) {
+          setState(() {});
+        });
+      },
+      child: Text(
+        "Đăng xuất",
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+          letterSpacing: 0.5,
+        ),
       ),
     );
   }

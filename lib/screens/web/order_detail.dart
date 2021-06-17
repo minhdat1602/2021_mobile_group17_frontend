@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/models/order.dart';
-import 'package:mobile_nhom17_2021/screens/bottom_nav_screen.dart';
-import 'package:mobile_nhom17_2021/screens/menu_screen.dart';
-import 'package:mobile_nhom17_2021/utils/PriceUtil.dart';
+import 'package:mobile_nhom17_2021/screens/web/menu_screen.dart';
+import 'package:mobile_nhom17_2021/utils/price_toVnd.dart';
 
 class OrderDetailScreen extends StatefulWidget {
+  static String routeName = "/order-detail";
   final Order order;
   const OrderDetailScreen({Key key, this.order}) : super(key: key);
 
@@ -30,7 +30,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => MenuScreen(null)),
+                  MaterialPageRoute(builder: (context) => MenuScreen()),
                   (route) => false);
             },
             child: Text(
@@ -213,7 +213,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           width: 120,
                           height: 100,
                           child: Image.network(
-                              "${widget.order.orderDetails[index].inventory.product.images[0].url}"),
+                              "${widget.order.orderDetails[index].product.images[0].url}"),
                         ),
                         Expanded(
                           child: Column(
@@ -221,7 +221,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             children: [
                               SizedBox(height: 15),
                               Text(
-                                "${widget.order.orderDetails[index].inventory.product.name}",
+                                "${widget.order.orderDetails[index].product.name}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,
@@ -229,7 +229,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                "Cung cấp bởi ${widget.order.orderDetails[index].inventory.product.collection.brand.name}",
+                                "Cung cấp bởi",
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black54,
@@ -237,7 +237,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               ),
                               SizedBox(height: 5),
                               Text(
-                                "${PriceUtil.toCurrency(widget.order.orderDetails[index].inventory.product.price)} đ x${widget.order.orderDetails[index].quantity}",
+                                "${PriceUtil.toCurrency(widget.order.orderDetails[index].product.price)} đ x${widget.order.orderDetails[index].quantity}",
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,

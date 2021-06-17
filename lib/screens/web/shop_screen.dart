@@ -4,21 +4,22 @@ import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_nhom17_2021/config/styles.dart';
-import 'package:mobile_nhom17_2021/http/http_cart.dart';
 import 'package:mobile_nhom17_2021/models/cart.dart';
 import 'package:mobile_nhom17_2021/models/cart_item.dart';
 import 'package:mobile_nhom17_2021/models/inventory.dart';
 import 'package:mobile_nhom17_2021/models/product.dart';
 import 'package:mobile_nhom17_2021/models/user.dart';
-import 'package:mobile_nhom17_2021/screens/product/product_screen.dart';
-import 'package:mobile_nhom17_2021/screens/shopping_cart_screen.dart';
-import 'package:mobile_nhom17_2021/utils/PriceUtil.dart';
+import 'package:mobile_nhom17_2021/screens/web/product/product_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/shopping_cart_screen.dart';
+import 'package:mobile_nhom17_2021/service/cart_service.dart';
+import 'package:mobile_nhom17_2021/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/utils/clear_focus.dart';
 import 'package:mobile_nhom17_2021/widgets/appbar.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopScreen extends StatefulWidget {
+  static String routeName = "/shop";
   final Future<List<Product>> fetchProduct;
 
   ShopScreen({Key key, this.fetchProduct}) : super(key: key);

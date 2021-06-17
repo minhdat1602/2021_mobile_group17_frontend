@@ -13,7 +13,7 @@ Future<Order> checkout(Cart cart, User user) async {
   for (CartItem cartItem in cart.cartItems) {
     orderDetails.add(new OrderDetail(
       discount: cartItem.inventory.product.discount,
-      inventory: cartItem.inventory,
+      product: cartItem.inventory.product,
       price: cartItem.inventory.product.price,
       quantity: cartItem.quantity,
     ));
@@ -34,10 +34,6 @@ Future<Order> checkout(Cart cart, User user) async {
   if (response.statusCode == 200) {
     try {
       order = Order.fromJson(json.decode(response.body));
-      // SharedPreferences sprefs = await SharedPreferences.getInstance();
-      // sprefs.setString("categories", response.body);
-      // Iterable data = json.decode(response.body);
-      // categories = data.map((category) => Category.fromJson(category)).toList();
     } catch (e) {
       print("Something get wrong!");
     }

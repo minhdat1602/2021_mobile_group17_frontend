@@ -1,10 +1,10 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/config/styles.dart';
-import 'package:mobile_nhom17_2021/http/http_user.dart';
 import 'package:mobile_nhom17_2021/models/user.dart';
+import 'package:mobile_nhom17_2021/service/user_service.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
+  static String routeName = "change-password";
   final User user;
   const ChangePasswordScreen({Key key, this.user}) : super(key: key);
   @override

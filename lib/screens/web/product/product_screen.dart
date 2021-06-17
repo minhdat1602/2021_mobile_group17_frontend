@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/config/styles.dart';
 import 'package:mobile_nhom17_2021/models/product.dart';
-import 'package:mobile_nhom17_2021/screens/product/product_size_screen.dart';
-import 'package:mobile_nhom17_2021/screens/product/widgets/delivery_widget.dart';
-import 'package:mobile_nhom17_2021/screens/product/widgets/description_widget.dart';
-import 'package:mobile_nhom17_2021/screens/product/widgets/overview_widget.dart';
-import 'package:mobile_nhom17_2021/screens/product/widgets/returns_widget.dart';
-import 'package:mobile_nhom17_2021/screens/product/widgets/size_guide_widget.dart';
+import 'package:mobile_nhom17_2021/screens/web/product/widgets/delivery_widget.dart';
+import 'package:mobile_nhom17_2021/screens/web/product/widgets/description_widget.dart';
+import 'package:mobile_nhom17_2021/screens/web/product/widgets/overview_widget.dart';
+import 'package:mobile_nhom17_2021/screens/web/product/widgets/returns_widget.dart';
+import 'package:mobile_nhom17_2021/screens/web/product/widgets/size_guide_widget.dart';
+import 'package:mobile_nhom17_2021/screens/web/product_size_screen.dart';
 import 'package:mobile_nhom17_2021/widgets/appbar.dart';
 
 class ProductDetailScreen extends StatefulWidget {

@@ -5,11 +5,13 @@ import 'package:mobile_nhom17_2021/config/styles.dart';
 import 'package:mobile_nhom17_2021/models/cart.dart';
 import 'package:mobile_nhom17_2021/models/cart_item.dart';
 import 'package:mobile_nhom17_2021/models/product.dart';
-import 'package:mobile_nhom17_2021/screens/checkout_info.dart';
-import 'package:mobile_nhom17_2021/utils/PriceUtil.dart';
+import 'package:mobile_nhom17_2021/screens/web/checkout_info.dart';
+import 'package:mobile_nhom17_2021/shared.dart';
+import 'package:mobile_nhom17_2021/utils/price_toVnd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
+  static String routeName = "/shopping-cart";
   ShoppingCartScreen();
   @override
   _ShoppingCartScreenState createState() => _ShoppingCartScreenState();
@@ -25,21 +27,21 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
     super.initState();
   }
 
-  Future<Cart> initCart() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Cart cart;
-    try {
-      cart = Cart.fromJson(json.decode(prefs.getString("cart")));
-    } catch (e) {
-      print(e);
-    }
-    if (cart == null) {
-      cart = new Cart();
-      cart.cartItems = [];
-    }
-    print(cart.toString());
-    return cart;
-  }
+  // Future<Cart> initCart() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   Cart cart;
+  //   try {
+  //     cart = Cart.fromJson(json.decode(prefs.getString("cart")));
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   if (cart == null) {
+  //     cart = new Cart();
+  //     cart.cartItems = [];
+  //   }
+  //   // print(cart.toString());
+  //   return cart;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
         foregroundColor: Colors.white,
       ),
       body: FutureBuilder(
-        future: initCart(),
+        future: getCartFromSprefs(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SingleChildScrollView(
@@ -88,6 +90,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   Widget _buildCheckoutBtn(Cart cart) {
     return ElevatedButton(
         onPressed: () {
+          // Navigator.pus
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -282,12 +285,6 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
         ),
       ),
     );
-  }
-
-  Future<Cart> getCart() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Cart cart = Cart.fromJson(json.decode(prefs.getString("cart")));
-    return cart;
   }
 
   String _getDisplay(Product product) {

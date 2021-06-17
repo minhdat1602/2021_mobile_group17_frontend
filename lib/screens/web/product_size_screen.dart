@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/config/styles.dart';
 import 'package:mobile_nhom17_2021/models/product.dart';
-import 'package:mobile_nhom17_2021/utils/PriceUtil.dart';
+import 'package:mobile_nhom17_2021/utils/price_toVnd.dart';
 
 class ProductSizeScreen extends StatefulWidget {
   Product product;

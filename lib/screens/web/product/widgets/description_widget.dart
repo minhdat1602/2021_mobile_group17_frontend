@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/models/product.dart';
-import 'package:mobile_nhom17_2021/utils/PriceUtil.dart';
+import 'package:mobile_nhom17_2021/utils/price_toVnd.dart';
 
 class DescriptionWidget extends StatelessWidget {
   final Product product;

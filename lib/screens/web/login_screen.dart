@@ -2,13 +2,14 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/config/styles.dart';
-import 'package:mobile_nhom17_2021/http/http_signin.dart';
-import 'package:mobile_nhom17_2021/screens/account_screen.dart';
-import 'package:mobile_nhom17_2021/screens/register_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/account_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/register_screen.dart';
+import 'package:mobile_nhom17_2021/service/signin_service.dart';
 import 'package:mobile_nhom17_2021/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
+  static String routeName = "/login";
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }

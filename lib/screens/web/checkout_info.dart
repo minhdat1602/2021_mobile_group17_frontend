@@ -5,15 +5,17 @@ import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mobile_nhom17_2021/config/styles.dart';
-import 'package:mobile_nhom17_2021/http/http_checkout.dart';
-import 'package:mobile_nhom17_2021/http/http_signin.dart';
+
 import 'package:mobile_nhom17_2021/models/cart.dart';
 import 'package:mobile_nhom17_2021/models/user.dart';
-import 'package:mobile_nhom17_2021/screens/order_detail.dart';
-import 'package:mobile_nhom17_2021/utils/PriceUtil.dart';
+import 'package:mobile_nhom17_2021/screens/web/order_detail.dart';
+import 'package:mobile_nhom17_2021/service/checkout_service.dart';
+import 'package:mobile_nhom17_2021/service/signin_service.dart';
+import 'package:mobile_nhom17_2021/utils/price_toVnd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CheckOutScreen extends StatefulWidget {
+  static String routeName = "/checkout";
   final Cart cart;
   const CheckOutScreen({Key key, this.cart}) : super(key: key);
 

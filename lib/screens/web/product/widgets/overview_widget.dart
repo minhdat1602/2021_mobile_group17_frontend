@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/models/product.dart';
-import 'package:mobile_nhom17_2021/utils/PriceUtil.dart';
+import 'package:mobile_nhom17_2021/utils/price_toVnd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OverviewWidget extends StatefulWidget {

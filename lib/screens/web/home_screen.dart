@@ -1,13 +1,14 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/http/http_brand.dart';
-import 'package:mobile_nhom17_2021/http/http_category.dart';
-import 'package:mobile_nhom17_2021/http/http_product.dart';
-import 'package:mobile_nhom17_2021/screens/shop_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/shop_screen.dart';
+import 'package:mobile_nhom17_2021/service/brand_service.dart';
+import 'package:mobile_nhom17_2021/service/category_service.dart';
+import 'package:mobile_nhom17_2021/service/product_service.dart';
 import 'package:mobile_nhom17_2021/widgets/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
+  static String routeName = "/home";
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }

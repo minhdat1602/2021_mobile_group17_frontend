@@ -1,22 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/models/order_detail.dart';
-import 'package:mobile_nhom17_2021/screens/account_screen.dart';
-import 'package:mobile_nhom17_2021/screens/change_password.dart';
-import 'package:mobile_nhom17_2021/screens/checkout_info.dart';
-
-import 'package:mobile_nhom17_2021/screens/home_screen.dart';
-import 'package:mobile_nhom17_2021/screens/login_screen.dart';
-import 'package:mobile_nhom17_2021/screens/menu_screen.dart';
-import 'package:mobile_nhom17_2021/screens/my_details.dart';
-import 'package:mobile_nhom17_2021/screens/order.dart';
-import 'package:mobile_nhom17_2021/screens/order_detail.dart';
-import 'package:mobile_nhom17_2021/screens/register_screen.dart';
-
-import 'package:mobile_nhom17_2021/screens/whishlist_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/account_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/home_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/menu_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/whishlist/whishlist_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class BottomNavScreen extends StatefulWidget {
+  static String routeName = "/bottom_nav";
   @override
   _BottomNavScreenState createState() => _BottomNavScreenState();
 }
@@ -27,22 +18,9 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   @override
   void initState() {
     _controller = PersistentTabController(initialIndex: 0);
-
     super.initState();
   }
 
-  // final List _screen = [
-  // HomeScreen(),
-  //   MenuScreen(),
-  //   ShopScreen(),
-  //   WhishlistScreen(),
-  //   LoginScreen(),
-  // ];
-  // int _currentIndex = 0;
-  // final List _label = ["Trang chủ", "Cửa hàng", "Yêu thích", "Tài khoản"];
-
-  // @override
-  // Widget build(BuildContext context) {
   @override
   Widget build(BuildContext context) {
     List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -80,14 +58,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
     List<Widget> _buildScreens() {
       return [
-        // OrderScreen(),
-        // OrderDetailScreen(),
         HomeScreen(),
-        // CheckOutScreen(),
-        // RegisterScreen(),
-        MenuScreen(_controller),
-        // MyDetailsScreen(),
-        // ChangePasswordScreen(),
+        MenuScreen(),
         WhishlistScreen(),
         AccountScreen(),
       ];
@@ -127,49 +99,4 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           NavBarStyle.style6, // Choose the nav bar style with this property.
     );
   }
-  // return Scaffold(
-  //   body: _screen[_currentIndex],
-  //   bottomNavigationBar: BottomNavigationBar(
-  //     currentIndex: _currentIndex,
-  //     onTap: (index) => setState(() => _currentIndex = index),
-  //     type: BottomNavigationBarType.fixed,
-  //     backgroundColor: Colors.black,
-  //     showSelectedLabels: false,
-  //     showUnselectedLabels: false,
-  //     selectedItemColor: Colors.white,
-  //     unselectedItemColor: Colors.grey,
-  //     items: [
-  //       _currentIndex == 0 ? Icons.home : Icons.home_outlined,
-  //       _currentIndex == 1 ? Icons.shop_two : Icons.shop_two_outlined,
-  //       _currentIndex == 2 ? Icons.favorite : Icons.favorite_outline,
-  //       _currentIndex == 3 ? Icons.person : Icons.person_outline,
-  //     ]
-  //         .asMap()
-  //         .map(
-  //           (key, value) => MapEntry(
-  //             key,
-  //             BottomNavigationBarItem(
-  //               label: _label[key],
-  //               icon: Container(
-  //                 child: Column(
-  //                   children: [
-  //                     Icon(value),
-  //                     Text(
-  //                       _label[key],
-  //                       style: TextStyle(
-  //                           color: key == _currentIndex
-  //                               ? Colors.white
-  //                               : Colors.grey),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         )
-  //         .values
-  //         .toList(),
-  //   ),
-  // );
-
 }

@@ -1,13 +1,14 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/config/styles.dart';
-import 'package:mobile_nhom17_2021/http/http_signin.dart';
 import 'package:mobile_nhom17_2021/models/user.dart';
 import 'package:mobile_nhom17_2021/models/user_info.dart';
-import 'package:mobile_nhom17_2021/screens/login_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/login_screen.dart';
+import 'package:mobile_nhom17_2021/service/signin_service.dart';
 import 'package:mobile_nhom17_2021/widgets/widgets.dart';
 
 class RegisterScreen extends StatefulWidget {
+  static String routeName = "/register";
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }

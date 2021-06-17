@@ -1,17 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/http/http_product.dart';
 import 'package:mobile_nhom17_2021/models/brand.dart';
 import 'package:mobile_nhom17_2021/models/category.dart';
-import 'package:mobile_nhom17_2021/screens/shop_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/shop_screen.dart';
+import 'package:mobile_nhom17_2021/service/product_service.dart';
 import 'package:mobile_nhom17_2021/widgets/appbar.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuScreen extends StatefulWidget {
-  final PersistentTabController _controller;
-  MenuScreen(this._controller);
+  static String routeName = "/menu";
+  // final PersistentTabController _controller;
+  // MenuScreen(this._controller);
   @override
   _MenuScreenState createState() => _MenuScreenState();
 }
@@ -88,7 +89,7 @@ class _MenuScreenState extends State<MenuScreen> {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         setState(() {
-          widget._controller.index = 0;
+          // widget._controller.index = 0;
         });
       },
     );

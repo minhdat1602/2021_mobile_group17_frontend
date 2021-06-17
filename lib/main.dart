@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:mobile_nhom17_2021/screens/bottom_nav_screen.dart';
-import 'package:mobile_nhom17_2021/screens/login_screen.dart';
-import 'package:mobile_nhom17_2021/screens/register_screen.dart';
+import 'package:mobile_nhom17_2021/routes.dart';
+import 'package:mobile_nhom17_2021/screens/web/bottom_nav_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,11 +17,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         primaryColor: Colors.black,
       ),
-      home: BottomNavScreen(),
-      routes: {
-        "/signup": (context) => RegisterScreen(),
-        "/signin": (context) => LoginScreen(),
-      },
+      routes: routes,
+      initialRoute: BottomNavScreen.routeName,
     );
   }
 }

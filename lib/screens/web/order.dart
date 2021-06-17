@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class OrderScreen extends StatefulWidget {
+  static String routeName = "/order";
   const OrderScreen({Key key}) : super(key: key);
 
   @override

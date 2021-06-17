@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/models/cart.dart';
-import 'package:mobile_nhom17_2021/screens/shopping_cart_screen.dart';
+import 'package:mobile_nhom17_2021/screens/web/shopping_cart_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
