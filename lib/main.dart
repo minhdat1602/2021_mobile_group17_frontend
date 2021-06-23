@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/routes.dart';
-import 'package:mobile_nhom17_2021/screens/web/bottom_nav_screen.dart';
+import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/core/theme/app_theme.dart';
+import 'package:mobile_nhom17_2021/app/core/utils/translates.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  runApp(
+    GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Shoes Project',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Colors.black,
-      ),
-      routes: routes,
-      initialRoute: BottomNavScreen.routeName,
-    );
-  }
+      translations: Translates(), // Thay đổi ngôn ngữ
+      initialRoute: Routes.INITIAL, // khởi tạo routeName
+      locale: Locale('vi', 'VN'), // vị trí để thay đổi ngôn ngữ
+      theme: appThemeData,
+      getPages: AppPages.pages, // routeName
+      defaultTransition: Transition.fade,
+    ),
+  );
 }
