@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mobile_nhom17_2021/app/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:mobile_nhom17_2021/app/services/auth_api.dart';
@@ -18,14 +19,25 @@ class AuthController extends GetxController {
   get user => this._user.value;
   set(User user) => this._user.value = user;
 
+  final box = GetStorage();
+
   @override
   void onInit() {
+    initUser();
     super.onInit();
+  }
+
+  void initUser() {
+    String userStr = box.read("user");
+    if (userStr != null) {
+      _user.value = User.fromJson(json.decode(userStr));
+    }
   }
 
   void signOut() {
     try {
       _user.value = User();
+      box.remove("user");
     } catch (e) {
       Get.snackbar(
         "Đăng xuất thất bại",
@@ -38,7 +50,9 @@ class AuthController extends GetxController {
 
   void signIn(String email, String password) async {
     try {
+      Get.dialog(Center(child: CircularProgressIndicator()));
       _user.value = await authAPI.signIn(email, password);
+      Get.back();
       if (_user.value == null) {
         Get.snackbar(
           "Đăng nhập thất bại !",
@@ -49,12 +63,11 @@ class AuthController extends GetxController {
         _user.value = User();
       } else {
         print("user id: ${_user.value.id}");
-
         // Đăng nhập thành công => Thêm user vào shopping-cart
-        sprefs = await SharedPreferences.getInstance();
-        Cart cart = Cart.fromJson(json.decode(sprefs.getString("cart")));
+        Cart cart = Cart.fromJson(json.decode(box.read("cart")));
         cart.user = _user.value;
-        sprefs.setString("cart", json.encode(cart.toJson()));
+        box.write("cart", json.encode(cart.toJson()));
+        box.write("user", json.encode(_user.value.toJson()));
       }
     } catch (e) {
       Get.snackbar(
@@ -70,7 +83,11 @@ class AuthController extends GetxController {
   void signUp(User user) async {
     try {
       // Đăng ký
-      if (await authAPI.signUp(user)) {
+      Get.dialog(Center(child: CircularProgressIndicator()));
+      bool logged = await authAPI.signUp(user);
+      Get.back();
+
+      if (logged) {
         Get.back();
         Get.snackbar(
           "",

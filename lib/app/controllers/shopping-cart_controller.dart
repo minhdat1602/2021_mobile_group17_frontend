@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mobile_nhom17_2021/app/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/models/cart_item.dart';
 import 'package:mobile_nhom17_2021/app/models/inventory.dart';
@@ -15,6 +16,8 @@ class ShoppingCartController extends GetxController {
   Rx<Cart> cart = Cart().obs;
   SharedPreferences sprefs;
 
+  final box = GetStorage();
+
   @override
   void onInit() {
     initCart();
@@ -22,20 +25,20 @@ class ShoppingCartController extends GetxController {
   }
 
   void initCart() async {
-    sprefs = await SharedPreferences.getInstance();
-    var cartStr = sprefs.getString("cart");
+    // sprefs = await SharedPreferences.getInstance();
+    var cartStr = box.read("cart");
     if (cartStr != null) {
       cart.value = Cart.fromJson(json.decode(cartStr));
     } else {
       Cart initCart = new Cart();
       initCart.cartItems = [];
       cart.value = initCart;
-      sprefs.setString("cart", json.encode(cart.toJson()));
+      box.write("cart", json.encode(initCart.toJson()));
     }
   }
 
   void updateCart(Cart cart) async {
-    sprefs = await SharedPreferences.getInstance();
+    // sprefs = await SharedPreferences.getInstance();
 
     // Tạo cart mới , khác tham chiếu
     Cart newCart = new Cart();
@@ -51,13 +54,13 @@ class ShoppingCartController extends GetxController {
 
     // Hoàn tất update
     this.cart.value = newCart;
-    sprefs.setString("cart", json.encode(this.cart.toJson()));
+    box.write("cart", json.encode(this.cart.toJson()));
   }
 
   void saveProductToCart(Inventory inventory, Product product) async {
     Cart cart;
     //lấy cart từ Sprefs
-    String cartJson = sprefs.get("cart");
+    String cartJson = box.read("cart");
     if (cartJson != null) cart = Cart.fromJson(json.decode(cartJson));
     inventory.product = product;
     List<CartItem> cartItems = cart.cartItems;
@@ -89,7 +92,7 @@ class ShoppingCartController extends GetxController {
     cart.cartItems = cartItems;
 
     //save vào sprefs
-    sprefs.setString("cart", json.encode(cart.toJson()));
+    box.write("cart", json.encode(cart.toJson()));
     this.cart.value = cart;
   }
 
@@ -97,7 +100,7 @@ class ShoppingCartController extends GetxController {
     try {
       cart.value = await shoppingCartAPI.getByUserId(userId);
       if (cart.value != null)
-        sprefs.setString("cart", json.encode(cart.value.toJson()));
+        box.write("cart", json.encode(cart.value.toJson()));
     } catch (e) {
       print(e.message);
     }
