@@ -2,9 +2,10 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user_info.dart';
-import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/user_info.dart';
+
+import 'global_widgets/appbar.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override

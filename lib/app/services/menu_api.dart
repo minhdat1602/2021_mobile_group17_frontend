@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/data/models/brand.dart';
+import 'package:mobile_nhom17_2021/app/models/brand.dart';
 import 'package:http/http.dart' as http;
-import 'package:mobile_nhom17_2021/app/data/models/category.dart';
+import 'package:mobile_nhom17_2021/app/models/category.dart';
 
 const baseUrl = 'http://gerador-nomes.herokuapp.com/nomes/10';
 

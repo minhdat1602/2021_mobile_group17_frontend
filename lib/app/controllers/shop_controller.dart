@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/data/models/cart.dart';
-import 'package:mobile_nhom17_2021/app/data/models/cart_item.dart';
-import 'package:mobile_nhom17_2021/app/data/models/inventory.dart';
-import 'package:mobile_nhom17_2021/app/data/models/product.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/inventory.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:mobile_nhom17_2021/app/data/provider/shop_api.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopController extends GetxController {
@@ -16,7 +15,6 @@ class ShopController extends GetxController {
   var product = Product().obs;
   var recentlyViews = <Product>[].obs;
   var total = 0.obs;
-  var cart = Cart().obs;
 
   var orginList;
 
@@ -24,71 +22,6 @@ class ShopController extends GetxController {
   void onInit() {
     super.onInit();
     recentlyViews.value = [];
-    initCart();
-  }
-
-  void initCart() async {
-    SharedPreferences sprefs = await SharedPreferences.getInstance();
-    var cartStr = sprefs.getString("cart");
-    if (cartStr != null) {
-      cart.value = Cart.fromJson(json.decode(cartStr));
-    } else {
-      cart.value = new Cart();
-      cart.value.cartItems = [];
-
-      var userStr = sprefs.getString("user");
-      if (userStr != null) {
-        User user = User.fromJson(json.decode(userStr));
-        cart.value.user = user;
-      }
-    }
-  }
-
-  Future saveProductToCart(Inventory inventory, Product product) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Cart cart;
-    CartItem cartItem;
-    String cartJson = prefs.get("cart");
-    if (cartJson != null) cart = Cart.fromJson(json.decode(cartJson));
-    inventory.product = product;
-    if (cart == null) {
-      cart = new Cart();
-      cartItem = new CartItem(inventory: inventory, quantity: 1);
-      List<CartItem> cartItems = [];
-      cartItems.add(cartItem);
-      cart.cartItems = cartItems;
-      try {
-        prefs.setString("cart", json.encode(cart.toJson()));
-      } catch (e) {
-        print("ERROR$e");
-      }
-
-      print(cartItems.length);
-    } else {
-      cartItem = new CartItem(inventory: inventory, quantity: 1);
-
-      List<CartItem> cartItems = cart.cartItems;
-      if (cartItems == null) cartItems = [];
-      bool contains = false;
-      int size = cartItems.length;
-      for (int i = 0; i < size; i++) {
-        if (cartItems[i].inventory.id == cartItem.inventory.id) {
-          contains = true;
-          cartItems[i].quantity = cartItems[i].quantity + 1;
-        }
-        if (!contains) {
-          cartItems.add(cartItem);
-          contains = true;
-        }
-        cart.cartItems = cartItems;
-        if (prefs.getString("user") != null) {
-          User user = User.fromJson(json.decode(prefs.getString("user")));
-          cart.user = user;
-        }
-      }
-    }
-    prefs.setString("cart", json.encode(cart.toJson()));
-    this.cart.value = cart;
   }
 
   void fetchProductAll() {

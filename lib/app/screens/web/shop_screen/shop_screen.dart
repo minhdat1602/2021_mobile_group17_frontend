@@ -4,30 +4,32 @@ import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/theme/pallete.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
-import 'package:mobile_nhom17_2021/app/data/models/cart.dart';
-import 'package:mobile_nhom17_2021/app/data/models/cart_item.dart';
-import 'package:mobile_nhom17_2021/app/data/models/inventory.dart';
-import 'package:mobile_nhom17_2021/app/data/models/product.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
-import 'package:mobile_nhom17_2021/app/data/provider/shop_api.dart';
-import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/models/cart.dart';
+import 'package:mobile_nhom17_2021/app/models/cart_item.dart';
+import 'package:mobile_nhom17_2021/app/models/inventory.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/shop_screen/endrawer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopScreen extends StatefulWidget {
   static String routeName = "/shop";
-
+  ShopScreen({Key key}) : super(key: key);
   @override
-  _ShopScreenState createState() => _ShopScreenState();
+  ShopScreenState createState() => ShopScreenState();
 }
 
-class _ShopScreenState extends State<ShopScreen> {
+class ShopScreenState extends State<ShopScreen> {
   ShopController shopController = Get.put(ShopController());
-  final _shopKey = GlobalKey<ScaffoldState>();
+  ShoppingCartController shoppingCartController =
+      Get.put(ShoppingCartController());
+  final shopKey = GlobalKey<ScaffoldState>();
   var rowNum;
   @override
   void initState() {
@@ -36,9 +38,15 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   @override
+  void reassemble() {
+    super.reassemble();
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _shopKey,
+      key: shopKey,
       floatingActionButton: _filterFloatBtn(),
       endDrawer: EndDrawerWidget(),
       appBar: AppBarWidget(title: "Cửa hàng"),
@@ -64,7 +72,7 @@ class _ShopScreenState extends State<ShopScreen> {
   FloatingActionButton _filterFloatBtn() {
     return FloatingActionButton(
       onPressed: () {
-        _shopKey.currentState.openEndDrawer();
+        shopKey.currentState.openEndDrawer();
       },
       child: const Icon(Icons.filter_list_outlined),
       // backgroundColor: Styles.secondaryColor,
@@ -268,13 +276,11 @@ class _ShopScreenState extends State<ShopScreen> {
             child: TextButton(
               onPressed: () {
                 Get.back();
-                shopController
-                    .saveProductToCart(product.inventories[index], product)
-                    .then(
-                      (value) => Get.bottomSheet(
-                        buildSCartQuickBSheet(),
-                      ),
-                    );
+                //save to cart
+                shoppingCartController.saveProductToCart(
+                    product.inventories[index], product);
+                //show list item of cart
+                Get.bottomSheet(buildSCartQuickBSheet());
               },
               child: Text(
                 product.inventories[index].size.size,
@@ -296,129 +302,142 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   Widget buildSCartQuickBSheet() {
-    return SingleChildScrollView(
-      child: Container(
-        width: Get.width,
-        color: Colors.white,
-        margin: EdgeInsets.zero,
-        padding: EdgeInsets.all(3),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: Get.width,
-              child: TextButton(
-                onPressed: () {
-                  print("thanh toán snackbar");
-                  Get.toNamed("/shopping-cart");
-                },
-                child: Text("Thanh toán"),
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  alignment: Alignment.center,
-                  primary: Colors.white,
-                  backgroundColor: Pallete.primaryColor,
+    return Obx(() => SingleChildScrollView(
+          child: Container(
+            width: Get.width,
+            color: Colors.white,
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.all(3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: Get.width,
+                  child: TextButton(
+                    onPressed: () {
+                      print("thanh toán snackbar");
+                      Get.back();
+                      Get.toNamed(Routes.SHOPPING_CART);
+                    },
+                    child: Text("Thanh toán"),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      alignment: Alignment.center,
+                      primary: Colors.white,
+                      backgroundColor: Pallete.primaryColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: Text(
-                  "Tổng giá: ${PriceUtil.toCurrency(shopController.cart.value.totalPrice())} VNĐ",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black)),
-            ),
-            Divider(),
-            Column(
-              children: List.generate(
-                shopController.cart.value.cartItems.length,
-                (index) => Container(
-                  height: 120,
-                  padding: EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(width: 1, color: Colors.grey))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          width: 130,
-                          height: 90,
-                          child: Image(
-                            image: NetworkImage(_getDisplay(shopController.cart
-                                .value.cartItems[index].inventory.product)),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                      "Tổng giá: ${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice())} đ",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black)),
+                ),
+                Divider(),
+                Column(
+                  children: List.generate(
+                    shoppingCartController.cart.value.cartItems.length,
+                    (index) => Container(
+                      height: 120,
+                      padding: EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            child: Text(
-                                shopController.cart.value.cartItems[index]
-                                    .inventory.product.name,
-                                style: TextStyle(color: Colors.black)),
+                          Center(
+                            child: SizedBox(
+                              width: 130,
+                              height: 90,
+                              child: Image(
+                                image: NetworkImage(_getDisplay(
+                                    shoppingCartController.cart.value
+                                        .cartItems[index].inventory.product)),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                    shoppingCartController
+                                        .cart
+                                        .value
+                                        .cartItems[index]
+                                        .inventory
+                                        .product
+                                        .name,
+                                    style: TextStyle(color: Colors.black)),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                        "Size: ${shopController.cart.value.cartItems[index].inventory.size.size}",
-                                        style: TextStyle(color: Colors.black)),
-                                    Text(
-                                      "Còn lại",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Get.theme.primaryColor,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            "Size: ${shoppingCartController.cart.value.cartItems[index].inventory.size.size}",
+                                            style:
+                                                TextStyle(color: Colors.black)),
+                                        Text(
+                                          "Còn lại",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Get.theme.primaryColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        "${PriceUtil.toCurrency(shoppingCartController.cart.value.cartItems[index].inventory.product.price)} đ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14,
+                                            color: Colors.black),
                                       ),
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 30),
-                                  child: Text(
-                                    "${PriceUtil.toCurrency(shopController.cart.value.cartItems[index].inventory.product.price)} VNĐ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${shoppingCartController.cart.value.cartItems[index].quantity}",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "${shopController.cart.value.cartItems[index].quantity}",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      )
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   String _getDisplay(Product product) {
@@ -426,63 +445,6 @@ class _ShopScreenState extends State<ShopScreen> {
       if (product.images[i].display == 1) return product.images[i].url;
     }
     return null;
-  }
-
-  void _saveCartItem(
-      Inventory inventory, Product product, FlashController controller) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Cart cart;
-    CartItem cartItem;
-    String cartJson = prefs.get("cart");
-    if (cartJson != null) cart = Cart.fromJson(json.decode(cartJson));
-    inventory.product = product;
-    if (cart == null) {
-      cart = new Cart();
-      cartItem = new CartItem(inventory: inventory, quantity: 1);
-      List<CartItem> cartItems = [];
-      cartItems.add(cartItem);
-      cart.cartItems = cartItems;
-      try {
-        prefs.setString("cart", json.encode(cart.toJson()));
-      } catch (e) {
-        print("ERROR$e");
-      }
-
-      print(cartItems.length);
-    } else {
-      cartItem = new CartItem(inventory: inventory, quantity: 1);
-
-      List<CartItem> cartItems = cart.cartItems;
-      if (cartItems == null) cartItems = [];
-      bool contains = false;
-      int size = cartItems.length;
-      for (int i = 0; i < size; i++) {
-        if (cartItems[i].inventory.id == cartItem.inventory.id) {
-          contains = true;
-          cartItems[i].quantity = cartItems[i].quantity + 1;
-        }
-        if (!contains) {
-          cartItems.add(cartItem);
-          contains = true;
-        }
-        cart.cartItems = cartItems;
-        if (prefs.getString("user") != null) {
-          User user = User.fromJson(json.decode(prefs.getString("user")));
-          cart.user = user;
-          // saveCart(cart);
-        } else {
-          prefs.setString("cart", json.encode(cart.toJson()));
-        }
-      }
-    }
-    print(json.encode(cart.toJson()));
-    controller.dismiss();
-  }
-
-  Future<Cart> getCart() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Cart cart = Cart.fromJson(json.decode(prefs.getString("cart")));
-    return cart;
   }
 
   Widget _buildProductPrice(Product product) {

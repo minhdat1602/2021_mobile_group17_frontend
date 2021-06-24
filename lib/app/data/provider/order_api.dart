@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:mobile_nhom17_2021/app/data/models/order.dart';
+import 'package:mobile_nhom17_2021/app/models/order.dart';
 import 'package:mobile_nhom17_2021/app/data/provider/contants.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sprefs = SharedPreferences.getInstance();

@@ -1,4 +1,4 @@
-import 'package:mobile_nhom17_2021/app/data/models/supplier.dart';
+import 'package:mobile_nhom17_2021/app/models/supplier.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'input.g.dart';

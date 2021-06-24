@@ -1,5 +1,5 @@
-import 'package:mobile_nhom17_2021/app/data/models/order.dart';
-import 'package:mobile_nhom17_2021/app/data/models/product.dart';
+import 'package:mobile_nhom17_2021/app/models/order.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'order_detail.g.dart';

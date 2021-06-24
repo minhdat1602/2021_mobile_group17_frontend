@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
-import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
+
+import 'global_widgets/appbar.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

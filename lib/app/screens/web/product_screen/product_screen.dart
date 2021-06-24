@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/theme/pallete.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
-import 'package:mobile_nhom17_2021/app/data/models/product.dart';
-import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/product_screen/widgets/description_widget.dart';
 
 import 'widgets/delivery_widget.dart';
@@ -21,6 +23,8 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   int _currentIndex;
+  ShoppingCartController shoppingCartController =
+      Get.find<ShoppingCartController>();
 
   @override
   void initState() {
@@ -116,13 +120,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             child: TextButton(
               onPressed: () {
                 Get.back();
-                Get.find<ShopController>()
-                    .saveProductToCart(product.inventories[index], product)
-                    .then(
-                      (value) => Get.bottomSheet(
-                        buildSCartQuickBSheet(),
-                      ),
-                    );
+                shoppingCartController.saveProductToCart(
+                    product.inventories[index], product);
+                Get.bottomSheet(buildSCartQuickBSheet());
+                // .then(
+                //   (value) => Get.bottomSheet(
+                //     buildSCartQuickBSheet(),
+                //   ),
+                // );
               },
               child: Text(
                 product.inventories[index].size.size,
@@ -144,139 +149,141 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Widget buildSCartQuickBSheet() {
-    return SingleChildScrollView(
-      child: Container(
-        width: Get.width,
-        color: Colors.white,
-        margin: EdgeInsets.zero,
-        padding: EdgeInsets.all(3),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: Get.width,
-              child: TextButton(
-                onPressed: () {
-                  print("thanh toán snackbar");
-                  Get.toNamed("/shopping-cart");
-                },
-                child: Text("Thanh toán"),
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  alignment: Alignment.center,
-                  primary: Colors.white,
-                  backgroundColor: Pallete.primaryColor,
+    return Obx(() => SingleChildScrollView(
+          child: Container(
+            width: Get.width,
+            color: Colors.white,
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.all(3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: Get.width,
+                  child: TextButton(
+                    onPressed: () {
+                      print("thanh toán snackbar");
+                      Get.toNamed(Routes.SHOPPING_CART);
+                    },
+                    child: Text("Thanh toán"),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      alignment: Alignment.center,
+                      primary: Colors.white,
+                      backgroundColor: Pallete.primaryColor,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.only(left: 5),
-              child: Text(
-                  "Tổng giá: ${PriceUtil.toCurrency(Get.find<ShopController>().cart.value.totalPrice())} VNĐ",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black)),
-            ),
-            Divider(),
-            Column(
-              children: List.generate(
-                Get.find<ShopController>().cart.value.cartItems.length,
-                (index) => Container(
-                  height: 120,
-                  padding: EdgeInsets.all(0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(width: 1, color: Colors.grey))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          width: 130,
-                          height: 90,
-                          child: Image(
-                            image: NetworkImage(_getDisplay(
-                                Get.find<ShopController>()
-                                    .cart
-                                    .value
-                                    .cartItems[index]
-                                    .inventory
-                                    .product)),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                SizedBox(height: 5),
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Text(
+                      "Tổng giá: ${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice())} đ",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black)),
+                ),
+                Divider(),
+                Column(
+                  children: List.generate(
+                    shoppingCartController.cart.value.cartItems.length,
+                    (index) => Container(
+                      height: 120,
+                      padding: EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(width: 1, color: Colors.grey))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            child: Text(
-                                Get.find<ShopController>()
-                                    .cart
-                                    .value
-                                    .cartItems[index]
-                                    .inventory
-                                    .product
-                                    .name,
-                                style: TextStyle(color: Colors.black)),
+                          Center(
+                            child: SizedBox(
+                              width: 130,
+                              height: 90,
+                              child: Image(
+                                image: NetworkImage(_getDisplay(
+                                    shoppingCartController.cart.value
+                                        .cartItems[index].inventory.product)),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: Text(
+                                    shoppingCartController
+                                        .cart
+                                        .value
+                                        .cartItems[index]
+                                        .inventory
+                                        .product
+                                        .name,
+                                    style: TextStyle(color: Colors.black)),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                        "Size: ${Get.find<ShopController>().cart.value.cartItems[index].inventory.size.size}",
-                                        style: TextStyle(color: Colors.black)),
-                                    Text(
-                                      "Còn lại",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Get.theme.primaryColor,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            "Size: ${shoppingCartController.cart.value.cartItems[index].inventory.size.size}",
+                                            style:
+                                                TextStyle(color: Colors.black)),
+                                        Text(
+                                          "Còn lại",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Get.theme.primaryColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        "${PriceUtil.toCurrency(shoppingCartController.cart.value.cartItems[index].inventory.product.price)} đ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14,
+                                            color: Colors.black),
                                       ),
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 30),
-                                  child: Text(
-                                    "${PriceUtil.toCurrency(Get.find<ShopController>().cart.value.cartItems[index].inventory.product.price)} VNĐ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${shoppingCartController.cart.value.cartItems[index].quantity}",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "${Get.find<ShopController>().cart.value.cartItems[index].quantity}",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      )
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   String _getDisplay(Product product) {

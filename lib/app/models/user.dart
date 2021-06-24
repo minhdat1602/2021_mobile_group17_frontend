@@ -1,4 +1,4 @@
-import 'package:mobile_nhom17_2021/app/data/models/user_info.dart';
+import 'package:mobile_nhom17_2021/app/models/user_info.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 

@@ -1,5 +1,5 @@
-import 'package:mobile_nhom17_2021/app/data/models/product.dart';
-import 'package:mobile_nhom17_2021/app/data/models/size.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
+import 'package:mobile_nhom17_2021/app/models/size.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'inventory.g.dart';

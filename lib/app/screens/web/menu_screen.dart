@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/menu_controller.dart';
-import 'package:mobile_nhom17_2021/app/data/models/brand.dart';
-import 'package:mobile_nhom17_2021/app/data/models/category.dart';
-import 'package:mobile_nhom17_2021/app/data/provider/shop_api.dart';
-import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/models/brand.dart';
+import 'package:mobile_nhom17_2021/app/models/category.dart';
 import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
-import 'package:mobile_nhom17_2021/app/screens/web/shop_screen/shop_screen.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+
+import 'global_widgets/appbar.dart';
 
 class MenuScreen extends StatelessWidget {
   MenuController menuController = Get.find<MenuController>();

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
-import 'package:mobile_nhom17_2021/app/data/models/order.dart';
-import 'package:mobile_nhom17_2021/app/modules/checkout_module/checkout_controller.dart';
+import 'package:mobile_nhom17_2021/app/models/order.dart';
+import 'package:mobile_nhom17_2021/app/controllers/checkout_controller.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static String routeName = "/order-detail";
@@ -26,7 +27,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       appBar: AppBar(
         brightness: Brightness.dark, // Màu icon giờ pin trên status bar
         title: Text(
-          "Xác nhận đơn hàng",
+          "Thông tin đơn hàng",
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -79,15 +80,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Mã đơn hàng: 2316546313251",
+                      "Mã đơn hàng: ${order.code}",
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
+                        color: Colors.black,
                       ),
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "Ngày đặt hàng: 16/02/2021",
+                      "Ngày đặt hàng: ${DateFormat('kk:mm dd-MM-yyyy').format(order.createdDate)}",
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.black54,
@@ -95,7 +97,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "Đã hủy",
+                      "${order.status.name}",
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.black54,
@@ -139,6 +141,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
+                          color: Colors.black,
                         ),
                       ),
                       SizedBox(height: 5),
@@ -146,6 +149,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         "${order.user.userInfo.firstName} ${order.user.userInfo.lastName}",
                         style: TextStyle(
                           fontSize: 13,
+                          color: Colors.black,
                         ),
                       ),
                       SizedBox(height: 5),
@@ -202,6 +206,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -210,45 +215,52 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                 Column(
                   children: List.generate(
                     order.orderDetails.length,
-                    (index) => Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    (index) => Column(
                       children: [
-                        SizedBox(
-                          width: 120,
-                          height: 100,
-                          child: Image.network(
-                              "${order.orderDetails[index].product.images[0].url}"),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 15),
-                              Text(
-                                "${order.orderDetails[index].product.name}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
+                        index == 0 ? SizedBox() : Divider(),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 120,
+                              height: 100,
+                              child: Image.network(
+                                  "${order.orderDetails[index].product.images[0].url}"),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 15),
+                                  Text(
+                                    "${order.orderDetails[index].product.name}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    "Cung cấp bởi",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
+                                  Text(
+                                    "${PriceUtil.toCurrency(order.orderDetails[index].product.price)} đ x ${order.orderDetails[index].quantity}",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(height: 5),
-                              Text(
-                                "Cung cấp bởi",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                "${PriceUtil.toCurrency(order.orderDetails[index].product.price)} đ x${order.orderDetails[index].quantity}",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -288,6 +300,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
+                        color: Colors.black,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -334,6 +347,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
+                        color: Colors.black,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -381,6 +395,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       "${PriceUtil.toCurrency(order.totalMoney)} đ",
                       style: TextStyle(
                         fontSize: 14,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -401,6 +416,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       "20,000 đ",
                       style: TextStyle(
                         fontSize: 14,
+                        color: Colors.black,
                       ),
                     ),
                   ],

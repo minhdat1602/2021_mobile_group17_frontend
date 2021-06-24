@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/data/models/order.dart';
+import 'package:mobile_nhom17_2021/app/models/order.dart';
 import 'package:mobile_nhom17_2021/app/data/provider/order_api.dart';
 
 class ListOrderController extends GetxController {

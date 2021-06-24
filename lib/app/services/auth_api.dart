@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:mobile_nhom17_2021/app/data/provider/contants.dart';
 import 'package:http/http.dart' as http;
 

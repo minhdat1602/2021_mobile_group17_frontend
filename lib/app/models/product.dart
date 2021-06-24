@@ -1,10 +1,10 @@
-import 'package:mobile_nhom17_2021/app/data/models/category.dart';
-import 'package:mobile_nhom17_2021/app/data/models/collection.dart';
-import 'package:mobile_nhom17_2021/app/data/models/image.dart';
-import 'package:mobile_nhom17_2021/app/data/models/input_detail.dart';
-import 'package:mobile_nhom17_2021/app/data/models/inventory.dart';
-import 'package:mobile_nhom17_2021/app/data/models/review.dart';
-import 'package:mobile_nhom17_2021/app/data/models/type.dart';
+import 'package:mobile_nhom17_2021/app/models/category.dart';
+import 'package:mobile_nhom17_2021/app/models/collection.dart';
+import 'package:mobile_nhom17_2021/app/models/image.dart';
+import 'package:mobile_nhom17_2021/app/models/input_detail.dart';
+import 'package:mobile_nhom17_2021/app/models/inventory.dart';
+import 'package:mobile_nhom17_2021/app/models/review.dart';
+import 'package:mobile_nhom17_2021/app/models/type.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'product.g.dart';
 part 'product.g2.dart';

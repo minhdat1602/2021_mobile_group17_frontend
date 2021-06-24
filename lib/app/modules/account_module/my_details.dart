@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 
 class MyDetailsScreen extends StatefulWidget {
   static String routeName = "/my-detail";

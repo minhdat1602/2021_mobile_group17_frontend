@@ -7,6 +7,7 @@ import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 void main() {
   runApp(
     GetMaterialApp(
+      title: "Giày DJ",
       debugShowCheckedModeBanner: false,
       translations: Translates(), // Thay đổi ngôn ngữ
       initialRoute: Routes.INITIAL, // khởi tạo routeName

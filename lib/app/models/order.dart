@@ -1,7 +1,7 @@
-import 'package:mobile_nhom17_2021/app/data/models/coupon.dart';
-import 'package:mobile_nhom17_2021/app/data/models/order_detail.dart';
-import 'package:mobile_nhom17_2021/app/data/models/status.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/coupon.dart';
+import 'package:mobile_nhom17_2021/app/models/order_detail.dart';
+import 'package:mobile_nhom17_2021/app/models/status.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'order.g.dart';

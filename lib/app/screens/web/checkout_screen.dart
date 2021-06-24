@@ -6,14 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
-import 'package:mobile_nhom17_2021/app/data/models/cart.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/cart.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:mobile_nhom17_2021/app/services/auth_api.dart';
-import 'package:mobile_nhom17_2021/app/data/provider/checkout_api.dart';
-import 'package:mobile_nhom17_2021/app/data/provider/shop_api.dart';
-import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
-import 'package:mobile_nhom17_2021/app/modules/checkout_module/checkout_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/checkout_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -26,18 +24,29 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   String _paymentMethod = "cod";
   String _email, _password;
   final _loginCheckoutForm = GlobalKey<FormState>();
-
+  ShoppingCartController shoppingCartController =
+      Get.put(ShoppingCartController());
   AuthController authController = Get.put(AuthController());
   ShopController shopController = Get.put(ShopController());
-  CheckoutController checkoutController =
-      Get.put(CheckoutController(checkoutAPI: CheckoutAPI()));
+  CheckoutController checkoutController = Get.put(CheckoutController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: "Thông tin thanh toán"),
+      appBar: AppBar(
+        brightness: Brightness.dark, // Màu icon giờ pin trên status bar
+        title: Text(
+          "Thông tin thanh toán",
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+      ),
       body: ListView(
         children: [
-          authController.user == null ? _loginForm() : _buildAddress(),
+          authController.user.id == null ? _loginForm() : _buildAddress(),
           SizedBox(height: 20),
           _buildDeliveryMethod(),
           _buildPaymentMethod(),
@@ -158,9 +167,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Thành tiền", style: TextStyle(color: Colors.redAccent)),
+              Text("Thành tiền",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                  )),
               Text(
-                "${PriceUtil.toCurrency(shopController.cart.value.totalPrice() - shopController.cart.value.totalDiscount() - 20000)} VNĐ",
+                "${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice() - shoppingCartController.cart.value.totalDiscount() - 20000)} đ",
                 style: TextStyle(
                   color: Colors.redAccent,
                   fontWeight: FontWeight.bold,
@@ -174,19 +186,35 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             width: MediaQuery.of(context).size.width,
             child: TextButton(
               onPressed: () {
-                if (!authController.user.id == null) {
-                  Get.rawSnackbar(message: "Bạn chưa đăng nhập !");
+                if (authController.user.id == null) {
+                  Get.rawSnackbar(
+                    message: "Bạn chưa đăng nhập !",
+                    messageText: Center(
+                      child: Text(
+                        "Bạn chưa đăng nhập !",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    margin: EdgeInsets.only(bottom: 25),
+                    backgroundColor: Colors.white,
+                    snackPosition: SnackPosition.BOTTOM,
+                    duration: Duration(seconds: 1),
+                  );
                 } else {
-                  checkoutController.checkout(
-                      shopController.cart.value, authController.user);
+                  checkoutController.checkout();
                 }
               },
               child: Text(
                 "Đặt hàng",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
               style: TextButton.styleFrom(
-                backgroundColor: Colors.redAccent,
+                backgroundColor: Get.theme.primaryColor,
                 primary: Colors.white,
                 padding: EdgeInsets.symmetric(vertical: 15),
               ),
@@ -218,17 +246,36 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Tạm tính"),
               Text(
-                  "${PriceUtil.toCurrency(shopController.cart.value.totalPrice() - shopController.cart.value.totalDiscount())} đ"),
+                "Tạm tính",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                "${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice() - shoppingCartController.cart.value.totalDiscount())} đ",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Phí vận chuyển"),
-              Text("20,000 đ"),
+              Text(
+                "Phí vận chuyển",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                "20,000 đ",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ],
           ),
         ],

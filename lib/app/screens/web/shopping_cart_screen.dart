@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
-import 'package:mobile_nhom17_2021/app/data/models/cart.dart';
-import 'package:mobile_nhom17_2021/app/data/models/product.dart';
-import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
+import 'package:mobile_nhom17_2021/app/models/cart.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/shop_screen/shop_screen.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class ShoppingCartScreen extends StatefulWidget {
@@ -17,7 +19,9 @@ class ShoppingCartScreen extends StatefulWidget {
 
 class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   String _coupon;
-  ShopController shopController = Get.find<ShopController>();
+  ShoppingCartController shoppingCartController =
+      Get.find<ShoppingCartController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +31,15 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
           "Giỏ hàng",
           style: TextStyle(color: Colors.white),
         ),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.back();
+              GlobalKey<ShopScreenState>().currentState.setState(() {});
+            }),
         iconTheme: IconThemeData(
           color: Colors.white, //change your color here
         ),
@@ -37,19 +50,21 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
-            shopController.cart.value == null
+            shoppingCartController.cart.value.cartItems.length == 0
                 ? Text("Không có sản phẩm trong giỏ hàng")
-                : _buildItems(shopController.cart.value),
+                : Obx(() => _buildItems(shoppingCartController.cart.value)),
             SizedBox(height: 15),
-            shopController.cart.value == null ? Text("") : _buildCouponForm(),
-            SizedBox(height: 15),
-            shopController.cart.value == null
+            shoppingCartController.cart.value.cartItems.length == 0
                 ? Text("")
-                : _buildBasket(shopController.cart.value),
+                : _buildCouponForm(),
             SizedBox(height: 15),
-            shopController.cart.value == null
+            shoppingCartController.cart.value.cartItems.length == 0
                 ? Text("")
-                : _buildCheckoutBtn(shopController.cart.value),
+                : Obx(() => _buildBasket(shoppingCartController.cart.value)),
+            SizedBox(height: 15),
+            shoppingCartController.cart.value.cartItems.length == 0
+                ? Text("")
+                : _buildCheckoutBtn(shoppingCartController.cart.value),
           ],
         ),
       ),
@@ -59,8 +74,8 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
   Widget _buildCheckoutBtn(Cart cart) {
     return ElevatedButton(
         onPressed: () {
-          shopController.cart.value.cartItems.length > 0
-              ? Get.toNamed("/checkout")
+          shoppingCartController.cart.value.cartItems.length > 0
+              ? Get.toNamed(Routes.CHECKOUT)
               : Get.rawSnackbar(
                   message: "Không có sản phẩm nào trong giỏ hàng");
         },
@@ -75,7 +90,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
         ));
   }
 
-  Container _buildBasket(Cart cart) {
+  Widget _buildBasket(Cart cart) {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -114,35 +129,35 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               ],
             ),
           ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 20),
-            decoration: BoxDecoration(
-                border:
-                    Border(bottom: BorderSide(width: 1, color: Colors.grey))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Giao hàng tiêu chuẩn",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                    letterSpacing: 0.1,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  "Miễn phí",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                    letterSpacing: 0.1,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.symmetric(vertical: 20),
+          //   decoration: BoxDecoration(
+          //       border:
+          //           Border(bottom: BorderSide(width: 1, color: Colors.grey))),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Text(
+          //         "Giao hàng tiêu chuẩn",
+          //         style: TextStyle(
+          //           fontWeight: FontWeight.w300,
+          //           fontSize: 16,
+          //           letterSpacing: 0.1,
+          //           color: Colors.black,
+          //         ),
+          //       ),
+          //       Text(
+          //         "Miễn phí",
+          //         style: TextStyle(
+          //           fontWeight: FontWeight.w300,
+          //           fontSize: 16,
+          //           letterSpacing: 0.1,
+          //           color: Colors.black,
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
@@ -181,7 +196,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Tổng",
+                  "Tạm tính",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 16,
@@ -268,7 +283,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
     return null;
   }
 
-  Container _buildItems(Cart cart) {
+  Widget _buildItems(Cart cart) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -357,8 +372,13 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
-                        child:
-                            IconButton(icon: Icon(Icons.add), onPressed: () {}),
+                        child: IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              cart.cartItems[index].quantity++;
+                              shoppingCartController.updateCart(cart);
+                              setState(() {});
+                            }),
                       ),
                       Text(
                         "${cart.cartItems[index].quantity}",
@@ -368,7 +388,15 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                       ),
                       Expanded(
                         child: IconButton(
-                            icon: Icon(Icons.remove), onPressed: () {}),
+                            icon: Icon(Icons.remove),
+                            onPressed: () {
+                              if (cart.cartItems[index].quantity > 1)
+                                cart.cartItems[index].quantity--;
+                              else
+                                cart.cartItems.remove(cart.cartItems[index]);
+                              shoppingCartController.updateCart(cart);
+                              setState(() {});
+                            }),
                       ),
                     ],
                   ),

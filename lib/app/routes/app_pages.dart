@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/auth.binding.dart';
+import 'package:mobile_nhom17_2021/app/controllers/bindings/checkout_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/account_module/change_password.dart';
 import 'package:mobile_nhom17_2021/app/modules/account_module/my_details.dart';
 import 'package:mobile_nhom17_2021/app/modules/admin_categories.dart/list_product_screen.dart';
@@ -11,16 +12,15 @@ import 'package:mobile_nhom17_2021/app/screens/web/product_screen/product_screen
 import 'package:mobile_nhom17_2021/app/screens/web/register_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_screen.dart';
-import 'package:mobile_nhom17_2021/app/modules/checkout_module/checkout_binding.dart';
-import 'package:mobile_nhom17_2021/app/modules/checkout_module/checkout_info.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/checkout_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/home_module/home_screen.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/menu_binding.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/menu_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/order_module/order.dart';
-import 'package:mobile_nhom17_2021/app/modules/order_module/order_detail.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/order_detail_screen.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/shop_binding.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/shop_screen/shop_screen.dart';
-import 'package:mobile_nhom17_2021/app/screens/shopping_cart_screen.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/shopping_cart_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/whishlist_module/whishlist_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/root_util.dart';
 part './app_routes.dart';
@@ -67,7 +67,11 @@ abstract class AppPages {
     GetPage(
       name: Routes.BOTTOM_NAV,
       page: () => BottomNavScreen(),
-      binding: AuthBinding(),
+      bindings: [
+        AuthBinding(),
+        BottomNavBinding(),
+        MenuBinding(),
+      ],
     ),
     GetPage(
       name: Routes.WHISHLIST,
@@ -94,6 +98,7 @@ abstract class AppPages {
       name: Routes.SHOPPING_CART,
       page: () => ShoppingCartScreen(),
     ),
+
     GetPage(
       name: Routes.CHECKOUT,
       page: () => CheckOutScreen(),

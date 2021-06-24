@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/cart.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:mobile_nhom17_2021/app/services/auth_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   final AuthAPI authAPI = Get.put<AuthAPI>(AuthAPI());
 
+  SharedPreferences sprefs;
   //models
   Rx<User> _user = User().obs;
 
@@ -44,6 +49,12 @@ class AuthController extends GetxController {
         _user.value = User();
       } else {
         print("user id: ${_user.value.id}");
+
+        // Đăng nhập thành công => Thêm user vào shopping-cart
+        sprefs = await SharedPreferences.getInstance();
+        Cart cart = Cart.fromJson(json.decode(sprefs.getString("cart")));
+        cart.user = _user.value;
+        sprefs.setString("cart", json.encode(cart.toJson()));
       }
     } catch (e) {
       Get.snackbar(

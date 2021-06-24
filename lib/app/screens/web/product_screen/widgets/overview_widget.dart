@@ -4,7 +4,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
-import 'package:mobile_nhom17_2021/app/data/models/product.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

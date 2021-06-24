@@ -1,4 +1,4 @@
-import 'package:mobile_nhom17_2021/app/data/models/inventory.dart';
+import 'package:mobile_nhom17_2021/app/models/inventory.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cart_item.g.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user_info.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/user_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserAPI {

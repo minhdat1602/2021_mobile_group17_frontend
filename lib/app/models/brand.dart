@@ -1,4 +1,4 @@
-import 'package:mobile_nhom17_2021/app/data/models/collection.dart';
+import 'package:mobile_nhom17_2021/app/models/collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part "brand.g.dart";

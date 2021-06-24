@@ -2,18 +2,22 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
   final String title;
   const AppBarWidget({Key key, this.title}) : super(key: key);
   @override
-  _AppBarWidgetState createState() => _AppBarWidgetState();
+  AppBarWidgetState createState() => AppBarWidgetState();
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
 
-class _AppBarWidgetState extends State<AppBarWidget> {
+class AppBarWidgetState extends State<AppBarWidget> {
+  ShoppingCartController shoppingCartController =
+      Get.put(ShoppingCartController());
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -38,14 +42,14 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           SizedBox(width: 10),
           GestureDetector(
             onTap: () {
-              Get.toNamed("/shopping-cart");
+              Get.toNamed(Routes.SHOPPING_CART);
             },
             child: Badge(
               badgeColor: Colors.transparent,
               position: BadgePosition.topEnd(top: 0),
               badgeContent: Obx(
                 () => Text(
-                  "${Get.find<ShopController>().cart.value.cartItems.length}",
+                  "${shoppingCartController.cart.value.cartItems.length}",
                   style: TextStyle(
                     color: Colors.white,
                   ),

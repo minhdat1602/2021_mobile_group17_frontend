@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/menu_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
-import 'package:mobile_nhom17_2021/app/data/models/brand.dart';
-import 'package:mobile_nhom17_2021/app/data/models/category.dart';
+import 'package:mobile_nhom17_2021/app/models/brand.dart';
+import 'package:mobile_nhom17_2021/app/models/category.dart';
 
 class EndDrawerWidget extends StatefulWidget {
   const EndDrawerWidget({Key key}) : super(key: key);

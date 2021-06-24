@@ -1,5 +1,5 @@
-import 'package:mobile_nhom17_2021/app/data/models/cart_item.dart';
-import 'package:mobile_nhom17_2021/app/data/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/cart_item.dart';
+import 'package:mobile_nhom17_2021/app/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'cart.g.dart';
