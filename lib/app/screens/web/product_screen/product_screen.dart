@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/theme/pallete.dart';
-import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
+import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/models/product.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';

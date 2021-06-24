@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
+import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/models/product.dart';
 
 class DescriptionWidget extends StatelessWidget {

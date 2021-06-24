@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
-import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/models/product.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/shop_screen/shop_screen.dart';
+import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class ShoppingCartScreen extends StatefulWidget {

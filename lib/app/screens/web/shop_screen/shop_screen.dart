@@ -6,7 +6,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/theme/pallete.dart';
-import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/models/cart_item.dart';
 import 'package:mobile_nhom17_2021/app/models/inventory.dart';
@@ -16,6 +15,7 @@ import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/shop_screen/endrawer.dart';
+import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopScreen extends StatefulWidget {

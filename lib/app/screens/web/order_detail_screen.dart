@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/models/order.dart';
 import 'package:mobile_nhom17_2021/app/controllers/checkout_controller.dart';
+import 'package:mobile_nhom17_2021/app/models/product.dart';
+import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   static String routeName = "/order-detail";
@@ -224,8 +225,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             SizedBox(
                               width: 120,
                               height: 100,
-                              child: Image.network(
-                                  "${order.orderDetails[index].product.images[0].url}"),
+                              child: Image.network(_getDisplay(
+                                  order.orderDetails[index].product)),
                             ),
                             Expanded(
                               child: Column(
@@ -481,5 +482,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
         ],
       ),
     );
+  }
+
+  String _getDisplay(Product product) {
+    for (int i = 0; i < product.images.length; i++) {
+      if (product.images[i].display == 1) return product.images[i].url;
+    }
+    return null;
   }
 }

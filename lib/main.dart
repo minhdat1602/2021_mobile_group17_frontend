@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/core/theme/app_theme.dart';
-import 'package:mobile_nhom17_2021/app/core/utils/translates.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+
+import 'app/utils/translates.dart';
 
 void main() {
   runApp(
