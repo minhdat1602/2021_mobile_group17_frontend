@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mobile_nhom17_2021/app/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/models/user.dart';
+import 'package:mobile_nhom17_2021/app/models/user_info.dart';
 import 'package:mobile_nhom17_2021/app/services/auth_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -98,7 +99,7 @@ class AuthController extends GetxController {
       } else {
         Get.snackbar(
           "Đăng ký thất bại !",
-          "Vui lòng trở lại sau !",
+          "Địa chỉ email đã tồn tại !",
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.white,
         );
@@ -110,6 +111,52 @@ class AuthController extends GetxController {
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.white,
       );
+    }
+  }
+
+  void updateUser() async {
+    Get.dialog(Center(child: CircularProgressIndicator()));
+    User result = await authAPI.updateUser(_user.value);
+    Get.back();
+    if (result == null) {
+      _user.value = User.fromJson(json.decode(box.read("user")));
+      Get.snackbar(
+        "Cập nhất thất bại !",
+        "Vui lòng thử lại sau !",
+        snackPosition: SnackPosition.TOP,
+      );
+    } else {
+      _user.value = result;
+      Get.back();
+      Get.snackbar(
+        "Cập nhất thành công !",
+        "Thông tin đã được cập nhật !",
+        snackPosition: SnackPosition.TOP,
+      );
+      box.write("user", json.encode(result.toJson()));
+    }
+  }
+
+  void updateUserInfo() async {
+    Get.dialog(Center(child: CircularProgressIndicator()));
+    UserInfo result = await authAPI.updateUserInfo(_user.value.userInfo);
+    Get.back();
+    if (result == null) {
+      _user.value = User.fromJson(json.decode(box.read("user")));
+      Get.snackbar(
+        "Cập nhất thất bại !",
+        "Vui lòng thử lại sau !",
+        snackPosition: SnackPosition.TOP,
+      );
+    } else {
+      _user.value.userInfo = result;
+      Get.back();
+      Get.snackbar(
+        "Cập nhất thành công !",
+        "Thông tin đã được cập nhật !",
+        snackPosition: SnackPosition.TOP,
+      );
+      box.write("user", json.encode(result.toJson()));
     }
   }
 }

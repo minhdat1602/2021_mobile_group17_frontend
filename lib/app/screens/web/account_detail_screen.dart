@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
 import 'package:mobile_nhom17_2021/app/models/user.dart';
 
 class MyDetailsScreen extends StatefulWidget {
-  static String routeName = "/my-detail";
-  final User user;
-  const MyDetailsScreen({Key key, this.user}) : super(key: key);
+  const MyDetailsScreen({Key key}) : super(key: key);
 
   @override
   _MyDetailsScreenState createState() => _MyDetailsScreenState();
 }
 
 class _MyDetailsScreenState extends State<MyDetailsScreen> {
+  AuthController authController = Get.find<AuthController>();
   String _lastName, _firstName, _phone, _sonha, _xa, _huyen, _tinh;
   final _myDetailsForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              Get.back();
+            }),
         brightness: Brightness.dark, // Màu icon giờ pin trên status bar
         title: Text(
           "Thay đổi thông tin",
@@ -25,7 +34,6 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
         centerTitle: true,
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        actions: [],
       ),
       body: SafeArea(
         child: Form(
@@ -76,18 +84,14 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                       onPressed: () {
                         _myDetailsForm.currentState.save();
                         if (_myDetailsForm.currentState.validate()) {
-                          widget.user.userInfo.firstName = _firstName;
-                          widget.user.userInfo.lastName = _lastName;
-                          widget.user.userInfo.phone = _phone;
-                          widget.user.userInfo.sonha = _sonha;
-                          widget.user.userInfo.xa = _xa;
-                          widget.user.userInfo.huyen = _huyen;
-                          widget.user.userInfo.tinh = _tinh;
-                          // updateUserInfo(widget.user.userInfo).then(
-                          //   (value) => {
-                          //     Navigator.pop(context),
-                          //   },
-                          // );
+                          authController.user.userInfo.firstName = _firstName;
+                          authController.user.userInfo.lastName = _lastName;
+                          authController.user.userInfo.phone = _phone;
+                          authController.user.userInfo.sonha = _sonha;
+                          authController.user.userInfo.xa = _xa;
+                          authController.user.userInfo.huyen = _huyen;
+                          authController.user.userInfo.tinh = _tinh;
+                          authController.updateUserInfo();
                         }
                       },
                       child: Text(
@@ -113,7 +117,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     return TextFormField(
       onSaved: (value) => _lastName = value,
       // cursorColor: Styles.secondaryColor,
-      initialValue: widget.user.userInfo.lastName,
+      initialValue: authController.user.userInfo.lastName,
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
             // borderSide: BorderSide(color: Styles.secondaryColor, width: 2.5),
@@ -134,7 +138,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
   TextFormField _buildFirstNameTf() {
     return TextFormField(
       onSaved: (value) => _firstName = value,
-      initialValue: widget.user.userInfo.firstName,
+      initialValue: authController.user.userInfo.firstName,
       // cursorColor: Styles.secondaryColor,
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
@@ -157,7 +161,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     return TextFormField(
       onSaved: (value) => _sonha = value,
       // cursorColor: Styles.secondaryColor,
-      initialValue: widget.user.userInfo.sonha,
+      initialValue: authController.user.userInfo.sonha,
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
             // borderSide: BorderSide(color: Styles.secondaryColor, width: 2.5),
@@ -179,7 +183,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     return TextFormField(
       onSaved: (value) => _xa = value,
       // cursorColor: Styles.secondaryColor,
-      initialValue: widget.user.userInfo.xa,
+      initialValue: authController.user.userInfo.xa,
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
             // borderSide: BorderSide(color: Styles.secondaryColor, width: 2.5),
@@ -201,7 +205,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     return TextFormField(
       onSaved: (value) => _huyen = value,
       // cursorColor: Styles.secondaryColor,
-      initialValue: widget.user.userInfo.huyen,
+      initialValue: authController.user.userInfo.huyen,
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
             // borderSide: BorderSide(color: Styles.secondaryColor, width: 2.5),
@@ -223,7 +227,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     return TextFormField(
       onSaved: (value) => _tinh = value,
       // cursorColor: Styles.secondaryColor,
-      initialValue: widget.user.userInfo.tinh,
+      initialValue: authController.user.userInfo.tinh,
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
             // borderSide: BorderSide(color: Styles.secondaryColor, width: 2.5),
@@ -245,7 +249,7 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
     return TextFormField(
       onSaved: (value) => _phone = value,
       // cursorColor: Styles.secondaryColor,
-      initialValue: widget.user.userInfo.phone,
+      initialValue: authController.user.userInfo.phone,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(

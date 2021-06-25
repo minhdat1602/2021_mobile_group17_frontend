@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 class AccountScreen extends GetWidget<AuthController> {
   // AuthController controller = Get.put(AuthController());
@@ -24,7 +25,7 @@ class AccountScreen extends GetWidget<AuthController> {
       ),
       body: ListView(
         children: [
-          _buildMyDetails(context),
+          _buildMyDetails(),
           _buildChangePassword(),
           _buildOrder(),
         ],
@@ -134,7 +135,7 @@ class AccountScreen extends GetWidget<AuthController> {
     );
   }
 
-  Container _buildMyDetails(BuildContext context) {
+  Container _buildMyDetails() {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.all(10.0),
@@ -155,7 +156,7 @@ class AccountScreen extends GetWidget<AuthController> {
           children: [
             Text(
               "Địa chỉ nhận hàng",
-              style: Theme.of(context).textTheme.headline2,
+              style: Get.theme.textTheme.headline2,
             ),
             SizedBox(height: 15),
             Text(
@@ -194,7 +195,7 @@ class AccountScreen extends GetWidget<AuthController> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                  Get.toNamed("/account-detail");
+                  Get.toNamed(Routes.ACCOUNT_DETIAL);
                 },
                 child: Text(
                   "Chỉnh sửa",

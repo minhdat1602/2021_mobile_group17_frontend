@@ -1,6 +1,8 @@
 import 'package:badges/badges.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/controllers/notifications_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
@@ -32,7 +34,14 @@ class AppBarWidgetState extends State<AppBarWidget> {
         ),
         actions: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.find<NotificationController>()
+                  .showNotification(new RemoteMessage(
+                      notification: RemoteNotification(
+                title: "AAA",
+                body: "BBBB",
+              )));
+            },
             child: Icon(
               Icons.search,
               size: 30,
