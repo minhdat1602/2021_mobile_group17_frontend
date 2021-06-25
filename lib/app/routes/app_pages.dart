@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/auth.binding.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/checkout_binding.dart';
+import 'package:mobile_nhom17_2021/app/controllers/bindings/connectivity_binding.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/notification_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/account_module/change_password.dart';
+import 'package:mobile_nhom17_2021/app/screens/connectivity_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/account_detail_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/admin_categories.dart/list_product_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/admin_home_module/admin_home_screen.dart';
@@ -14,11 +16,12 @@ import 'package:mobile_nhom17_2021/app/screens/web/register_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/checkout_screen.dart';
-import 'package:mobile_nhom17_2021/app/modules/home_module/home_screen.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/home_screen.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/menu_binding.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/menu_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/order_module/order.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/order_detail_screen.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/notification_screen.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/shop_binding.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/shop_screen/shop_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/shopping_cart_screen.dart';
@@ -35,6 +38,7 @@ abstract class AppPages {
         BottomNavBinding(),
         MenuBinding(),
         NotificationBinding(),
+        ConnectivityBinding(),
       ],
     ),
 
@@ -140,6 +144,15 @@ abstract class AppPages {
       name: Routes.ADMIN_ORDER_DETAIL,
       page: () => OrderDetailAdminScreen(),
       binding: ListOrderBinding(),
+    ),
+    GetPage(
+      name: Routes.ADMIN_NOTIFICATION,
+      page: () => NotificationScreen(),
+    ),
+
+    GetPage(
+      name: Routes.CONNECTIVITY,
+      page: () => ConnectivityScreen(),
     ),
   ];
 }

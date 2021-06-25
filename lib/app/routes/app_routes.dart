@@ -25,8 +25,12 @@ abstract class Routes {
   static const SHOP = '/shop';
   static const SHOPPING_CART = '/shopping-cart';
 
+  static const CONNECTIVITY = '/connectivity';
+
   static const ADMIN_HOME = '/admin/home';
   static const ADMIN_LIST_PRODUCT = '/admin/list-product';
   static const ADMIN_LIST_ORDER = '/admin/list-order';
   static const ADMIN_ORDER_DETAIL = '/admin/order-detail';
+
+  static const ADMIN_NOTIFICATION = "/admin/notification";
 }

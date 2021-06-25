@@ -1,5 +1,9 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/controllers/menu_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,7 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.find<ShopController>().fetchProductAll();
+                    Get.to(Routes.SHOP);
+                  },
                   child: Text(
                     "Cửa hàng",
                     style: TextStyle(
@@ -110,7 +117,10 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Expanded(
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.find<ShopController>().fetchProducts("category", 2);
+                    Get.toNamed(Routes.SHOP);
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -136,7 +146,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(width: 15),
               Expanded(
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.find<ShopController>().fetchProducts("category", 1);
+                    Get.toNamed(Routes.SHOP);
+                  },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -172,7 +185,8 @@ class _HomeScreenState extends State<HomeScreen> {
       margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
       child: InkWell(
         onTap: () {
-          print("click sale");
+          Get.find<ShopController>().fetchProductAll();
+          Get.to(Routes.SHOP);
         },
         child: Column(
           children: [
@@ -213,7 +227,8 @@ class _HomeScreenState extends State<HomeScreen> {
       margin: EdgeInsets.symmetric(horizontal: 25),
       child: InkWell(
         onTap: () {
-          print("click sale");
+          Get.find<ShopController>().fetchProducts("discount", null);
+          Get.to(Routes.SHOP);
         },
         child: Column(
           children: [
@@ -261,14 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
         images: [
           InkWell(
             onTap: () {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    // return ShopScreen(fetchProduct: fetchProductAll());
-                  },
-                ),
-                (_) => true,
-              );
+              Get.find<ShopController>().fetchProductAll();
+              Get.toNamed(Routes.SHOP);
             },
             child: Stack(
               fit: StackFit.expand,
@@ -322,7 +331,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.find<ShopController>().fetchProductAll();
+                        Get.toNamed(Routes.SHOP);
+                      },
                       child: Text(
                         "Cửa hàng",
                         style: TextStyle(
@@ -361,7 +373,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.find<ShopController>().fetchProductAll();
+                        Get.to(Routes.SHOP);
+                      },
                       child: Text(
                         "Cửa hàng",
                         style: TextStyle(

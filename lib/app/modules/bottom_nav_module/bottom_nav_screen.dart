@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_controller.dart';
-import 'package:mobile_nhom17_2021/app/modules/home_module/home_screen.dart';
+import 'package:mobile_nhom17_2021/app/screens/web/home_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/menu_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/whishlist_module/whishlist_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/root_util.dart';

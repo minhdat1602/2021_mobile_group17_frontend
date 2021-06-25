@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({
     Key key,
   }) : super(key: key);
+
+  // url launcher
+  final _url =
+      'https://console.firebase.google.com/u/0/project/pushmessage-4f5c5/notification';
+  void _launchURL() async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw 'Could not launch $_url';
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +169,10 @@ class DrawerWidget extends StatelessWidget {
                   color: Colors.white60,
                   size: 20 * 1.6,
                 ),
-                onTap: () {},
+                onTap: () {
+                  // _launchURL();
+                  Get.toNamed(Routes.ADMIN_NOTIFICATION);
+                },
                 hoverColor: Colors.white60,
               ),
               ListTile(
