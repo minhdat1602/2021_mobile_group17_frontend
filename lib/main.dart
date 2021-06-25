@@ -1,24 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/routes.dart';
-import 'package:mobile_nhom17_2021/screens/web/bottom_nav_screen.dart';
+import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/core/theme/app_theme.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:get_storage/get_storage.dart';
+import 'app/utils/translates.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await GetStorage.init();
+  runApp(
+    GetMaterialApp(
+      title: "Giày DJ",
       debugShowCheckedModeBanner: false,
-      title: 'Shoes Project',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Colors.black,
-      ),
-      routes: routes,
-      initialRoute: BottomNavScreen.routeName,
-    );
-  }
+      translations: Translates(), // Thay đổi ngôn ngữ
+      initialRoute: Routes.INITIAL, // khởi tạo routeName
+      locale: Locale('vi', 'VN'), // vị trí để thay đổi ngôn ngữ
+      theme: appThemeData,
+      getPages: AppPages.pages, // routeName
+      defaultTransition: Transition.fade,
+    ),
+  );
 }

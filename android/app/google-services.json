@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "449140007499",
+    "project_id": "pushmessage-4f5c5",
+    "storage_bucket": "pushmessage-4f5c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:449140007499:android:8a0b1480c945f23d6363ce",
+        "android_client_info": {
+          "package_name": "com.example.mobile_nhom17_2021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "449140007499-lnl16k6bkccq5j5m0d0qdq6kmi16slbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdFUztyi5Cg4xF9gwTiWs1i5xZLMPP9gg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "449140007499-lnl16k6bkccq5j5m0d0qdq6kmi16slbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

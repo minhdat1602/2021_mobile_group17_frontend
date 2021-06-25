@@ -3,6 +3,10 @@
    <application
         android:label="mobile_nhom17_2021"
         android:icon="@mipmap/ic_launcher">
+
+        <!-- <uses-permission android:name="android.permission.VIBRATE" />
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> -->
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
