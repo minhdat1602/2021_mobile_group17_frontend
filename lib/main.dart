@@ -15,7 +15,7 @@ void main() async {
       title: "Giày DJ",
       debugShowCheckedModeBanner: false,
       translations: Translates(), // Thay đổi ngôn ngữ
-      initialRoute: Routes.INITIAL, // khởi tạo routeName
+      initialRoute: Routes.ADMIN_HOME, // khởi tạo routeName
       locale: Locale('vi', 'VN'), // vị trí để thay đổi ngôn ngữ
       theme: appThemeData,
       getPages: AppPages.pages, // routeName

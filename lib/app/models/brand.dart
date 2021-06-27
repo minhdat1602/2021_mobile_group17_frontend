@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part "brand.g.dart";
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class Brand {
   int id;
   String name;

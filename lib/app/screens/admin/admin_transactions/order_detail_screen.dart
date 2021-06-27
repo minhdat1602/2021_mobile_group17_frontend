@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/modules/admin_home_module/widgets/appbar.dart';
 import 'package:mobile_nhom17_2021/app/modules/admin_home_module/widgets/drawer.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_transactions/list_order_binding.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_transactions/list_order_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/bindings/list_order_binding.dart';
+import 'package:mobile_nhom17_2021/app/controllers/list_order_controller.dart';
 import 'package:timeago/timeago.dart';
 
 class OrderDetailAdminScreen extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/models/order.dart';
-import 'package:mobile_nhom17_2021/app/data/provider/order_api.dart';
+import 'package:mobile_nhom17_2021/app/models/order_statistics.dart';
+import 'package:mobile_nhom17_2021/app/services/order_api.dart';
 
 class ListOrderController extends GetxController {
   OrderAPI orderAPI = Get.put(OrderAPI());
@@ -8,9 +9,13 @@ class ListOrderController extends GetxController {
   var orders = Future.value(<Order>[]).obs;
   var order = Order().obs;
 
+  var orderStatistic = Future.value(OrderStatistics()).obs;
+
   @override
   void onInit() {
     orders.value = orderAPI.fetchOrders();
+    orderStatistic.value = orderAPI.fetchOrderStatistics();
+
     orders.value.then((value) => origin = value);
     super.onInit();
   }
