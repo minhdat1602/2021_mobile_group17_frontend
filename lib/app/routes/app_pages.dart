@@ -4,12 +4,12 @@ import 'package:mobile_nhom17_2021/app/controllers/bindings/checkout_binding.dar
 import 'package:mobile_nhom17_2021/app/controllers/bindings/connectivity_binding.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/notification_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/account_module/change_password.dart';
-import 'package:mobile_nhom17_2021/app/screens/admin/admin_transactions/list_order_screen.dart';
-import 'package:mobile_nhom17_2021/app/screens/admin/admin_transactions/order_detail_screen.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/admin_transactions_screen/list_order_screen.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/admin_transactions_screen/order_detail_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/connectivity_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/account_detail_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/admin_categories.dart/list_product_screen.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_home_module/admin_home_screen.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/admin_home_screen/admin_home_screen.dart';
 import 'package:mobile_nhom17_2021/app/controllers/bindings/list_order_binding.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/product_screen/product_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/register_screen.dart';

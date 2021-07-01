@@ -8,19 +8,28 @@ class OrderStatistics {
   double max;
   double min;
   double average;
+  int orderNumDay;
+  double salesDay;
+  double profitDay;
+  int userNewDay;
   int dayNum;
   int monthNum;
   int yearNum;
   List<SalesStatistics> sales;
 
-  OrderStatistics(
-      {this.max,
-      this.min,
-      this.average,
-      this.dayNum,
-      this.monthNum,
-      this.yearNum,
-      this.sales});
+  OrderStatistics({
+    this.max,
+    this.min,
+    this.average,
+    this.dayNum,
+    this.monthNum,
+    this.yearNum,
+    this.sales,
+    this.orderNumDay,
+    this.salesDay,
+    this.profitDay,
+    this.userNewDay,
+  });
 
   factory OrderStatistics.fromJson(Map<String, dynamic> json) =>
       _$OrderStatisticsFromJson(json);
