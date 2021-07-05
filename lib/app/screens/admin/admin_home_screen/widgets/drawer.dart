@@ -80,39 +80,23 @@ class DrawerWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              BuildItems(
-                title: "Giao dịch",
-                icon: Icons.category_outlined,
-                children: [
-                  BuildItem(
-                    title: "Đơn hàng",
-                    icon: Icons.arrow_right_alt,
-                    callback: () {
-                      Get.offNamed(Routes.ADMIN_LIST_ORDER);
-                    },
+              ListTile(
+                title: Text(
+                  "Đơn hàng",
+                  style: TextStyle(
+                    color: Colors.white60,
+                    fontSize: 20,
                   ),
-                  BuildItem(
-                    title: "Báo cáo",
-                    icon: Icons.arrow_right_alt,
-                    callback: () {
-                      Get.offNamed(Routes.ADMIN_LIST_PRODUCT);
-                    },
-                  ),
-                  BuildItem(
-                    title: "Nhập hàng",
-                    icon: Icons.arrow_right_alt,
-                    callback: () {
-                      Get.offNamed(Routes.ADMIN_LIST_PRODUCT);
-                    },
-                  ),
-                  BuildItem(
-                    title: "Đối tác",
-                    icon: Icons.arrow_right_alt,
-                    callback: () {
-                      Get.offNamed(Routes.ADMIN_LIST_PRODUCT);
-                    },
-                  ),
-                ],
+                ),
+                leading: Icon(
+                  Icons.assignment_sharp,
+                  color: Colors.white60,
+                  size: 20 * 1.6,
+                ),
+                onTap: () {
+                  Get.toNamed(Routes.ADMIN_LIST_ORDER);
+                },
+                hoverColor: Colors.white60,
               ),
               BuildItems(
                 title: "Quản lý giao diện",

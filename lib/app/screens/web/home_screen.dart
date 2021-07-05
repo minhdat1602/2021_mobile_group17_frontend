@@ -1,37 +1,21 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/controllers/menu_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
+import 'global_widgets/appbar.dart';
 
 class HomeScreen extends StatefulWidget {
-  static String routeName = "/home";
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  void initState() {
-    initData();
-    // fetchBrandAll();
-    // fetchCategoryAll();
-    super.initState();
-  }
-
-  void initData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("recentlyViewed");
-    prefs.clear();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBarWidget(title: "Trang chủ"),
+      appBar: AppBarWidget(title: "Trang chủ"),
       body: Container(
         width: double.infinity,
         color: Colors.white,
@@ -72,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TextButton(
                   onPressed: () {
                     Get.find<ShopController>().fetchProductAll();
-                    Get.to(Routes.SHOP);
+                    Get.to(Routes.USER_SHOP);
                   },
                   child: Text(
                     "Cửa hàng",
@@ -119,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: InkWell(
                   onTap: () {
                     Get.find<ShopController>().fetchProducts("category", 2);
-                    Get.toNamed(Routes.SHOP);
+                    Get.toNamed(Routes.USER_SHOP);
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: InkWell(
                   onTap: () {
                     Get.find<ShopController>().fetchProducts("category", 1);
-                    Get.toNamed(Routes.SHOP);
+                    Get.toNamed(Routes.USER_SHOP);
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: InkWell(
         onTap: () {
           Get.find<ShopController>().fetchProductAll();
-          Get.to(Routes.SHOP);
+          Get.to(Routes.USER_SHOP);
         },
         child: Column(
           children: [
@@ -228,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: InkWell(
         onTap: () {
           Get.find<ShopController>().fetchProducts("discount", null);
-          Get.to(Routes.SHOP);
+          Get.to(Routes.USER_SHOP);
         },
         child: Column(
           children: [
@@ -277,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
           InkWell(
             onTap: () {
               Get.find<ShopController>().fetchProductAll();
-              Get.toNamed(Routes.SHOP);
+              Get.toNamed(Routes.USER_SHOP);
             },
             child: Stack(
               fit: StackFit.expand,
@@ -333,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextButton(
                       onPressed: () {
                         Get.find<ShopController>().fetchProductAll();
-                        Get.toNamed(Routes.SHOP);
+                        Get.toNamed(Routes.USER_SHOP);
                       },
                       child: Text(
                         "Cửa hàng",
@@ -375,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TextButton(
                       onPressed: () {
                         Get.find<ShopController>().fetchProductAll();
-                        Get.to(Routes.SHOP);
+                        Get.to(Routes.USER_SHOP);
                       },
                       child: Text(
                         "Cửa hàng",

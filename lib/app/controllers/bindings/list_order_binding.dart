@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/controllers/list_order_controller.dart';
+
+import '../order_controller.dart';
 
 class ListOrderBinding implements Bindings {
   @override

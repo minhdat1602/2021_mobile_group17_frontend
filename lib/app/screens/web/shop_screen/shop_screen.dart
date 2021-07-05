@@ -19,7 +19,6 @@ import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopScreen extends StatefulWidget {
-  static String routeName = "/shop";
   ShopScreen({Key key}) : super(key: key);
   @override
   ShopScreenState createState() => ShopScreenState();

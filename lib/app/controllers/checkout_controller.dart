@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/order_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/models/order.dart';
@@ -15,23 +16,26 @@ class CheckoutController extends GetxController {
   AuthController auth = Get.put<AuthController>(AuthController());
   ShoppingCartController shoppingCart =
       Get.put<ShoppingCartController>(ShoppingCartController());
-
+  ListOrderController listOrderController = Get.put(ListOrderController());
   final box = GetStorage();
 
   void checkout() async {
     Cart cart = shoppingCart.cart.value;
     User user = auth.user;
-    Center(child: CircularProgressIndicator());
+    Get.dialog(Center(child: CircularProgressIndicator()));
     checkoutAPI.checkout(cart, user).then((value) {
       order.value = value;
+      listOrderController.order.value = value;
     }).whenComplete(() {
       Get.back();
       // xóa giỏ hàng
       box.remove("cart");
+      Cart cart = new Cart();
+      cart.cartItems = [];
+      shoppingCart.cart.value = cart;
 
       // Chuyển trang thông tin đơn hàng
-      Get.offAllNamed(Routes.ORDER_DETAIL);
-
+      Get.offAllNamed(Routes.MY_ORDER_DETAIL);
       //Thông báo đặt hàng thành công
       Get.rawSnackbar(
         messageText: Center(

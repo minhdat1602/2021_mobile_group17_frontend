@@ -4,10 +4,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_nhom17_2021/app/controllers/list_order_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/order_controller.dart';
 import 'package:mobile_nhom17_2021/app/models/order_statistics.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_home_module/widgets/appbar.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_home_module/widgets/drawer.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/admin_home_screen/widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/admin_home_screen/widgets/drawer.dart';
 import 'package:mobile_nhom17_2021/app/screens/admin/admin_transactions_screen/list_order_screen.dart';
 import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 
@@ -18,14 +18,23 @@ class AdminHomePage extends StatefulWidget {
 
 class _AdminHomePageState extends State<AdminHomePage> {
   String _timeString;
+  bool timer = true;
 
-  ListOrderController listOrderController = Get.put(ListOrderController());
+  ListOrderController listOrderController =
+      Get.put(ListOrderController(), permanent: true);
 
   @override
   void initState() {
+    timer = true;
     _timeString = _formatDateTime(DateTime.now());
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer = false;
+    super.dispose();
   }
 
   @override
@@ -33,62 +42,81 @@ class _AdminHomePageState extends State<AdminHomePage> {
     return Scaffold(
       appBar: AdminAppBar(),
       body: FutureBuilder(
-          future: listOrderController.orderStatistic.value,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return SingleChildScrollView(
-                child: Container(
-                  color: Color(0xFF212332),
-                  width: Get.width,
-                  height: Get.height,
-                  padding: EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 20),
-                      _dashboardAndClock(),
-                      Container(
-                        child: Column(
-                          children: [
-                            SizedBox(height: 20),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildUserNew(snapshot.data),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: _buildOrderNum(snapshot.data),
-                                ),
-                              ],
+        future: listOrderController.orderStatistic.value,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SingleChildScrollView(
+              child: Container(
+                color: Color(0xFF212332),
+                width: Get.width,
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 20),
+                    _dashboardAndClock(),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 20),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildUserNew(snapshot.data),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: _buildOrderNum(snapshot.data),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildSales(snapshot.data),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: _buildProfit(snapshot.data),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 30),
+                          Text(
+                            "Thống kê",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
                             ),
-                            SizedBox(height: 15),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildSales(snapshot.data),
-                                ),
-                                SizedBox(width: 10),
-                                Expanded(
-                                  child: _buildProfit(snapshot.data),
-                                ),
-                              ],
+                          ),
+                          SizedBox(height: 15),
+                          _buildStatistic(snapshot.data),
+                          SizedBox(height: 15),
+                          Container(
+                            width: Get.width,
+                            height: 300,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            SizedBox(height: 30),
-                            _buildStatistic(snapshot.data),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            } else if (snapshot.hasError) {
-              return Center(child: Text("Em sai rồi !"));
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          }),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Em sai rồi !"));
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
       drawer: DrawerWidget(),
     );
   }
@@ -319,8 +347,9 @@ class _AdminHomePageState extends State<AdminHomePage> {
   void _getTime() {
     final DateTime now = DateTime.now();
     final String formattedDateTime = _formatDateTime(now);
-    setState(() {
-      _timeString = formattedDateTime;
-    });
+    if (timer)
+      setState(() {
+        _timeString = formattedDateTime;
+      });
   }
 }

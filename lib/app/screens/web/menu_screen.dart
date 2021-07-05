@@ -3,14 +3,16 @@ import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/menu_controller.dart';
 import 'package:mobile_nhom17_2021/app/models/brand.dart';
 import 'package:mobile_nhom17_2021/app/models/category.dart';
-import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/bottom_nav_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'global_widgets/appbar.dart';
+import 'shop_screen/shop_screen.dart';
 
 class MenuScreen extends StatelessWidget {
-  MenuController menuController = Get.find<MenuController>();
+  MenuController menuController = Get.put(MenuController());
   BottomNavController bottomNavController = Get.find<BottomNavController>();
   ShopController shopController = Get.put(ShopController());
 
@@ -73,13 +75,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProductAll();
-        Get.toNamed(Routes.SHOP);
-        // pushNewScreen(
-        //   Get.context,
-        //   screen: ShopScreen(),
-        //   withNavBar: true, // OPTIONAL VALUE. True by default.
-        //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-        // );
+        Get.toNamed(Routes.USER_SHOP);
       },
     );
   }
@@ -91,7 +87,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("new", null);
-        Get.toNamed(Routes.SHOP);
+        Get.toNamed(Routes.USER_SHOP);
       },
     );
   }
@@ -103,7 +99,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("discount", null);
-        Get.toNamed(Routes.SHOP);
+        Get.toNamed(Routes.USER_SHOP);
       },
     );
   }
@@ -115,7 +111,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("type", 1);
-        Get.toNamed(Routes.SHOP);
+        Get.toNamed(Routes.USER_SHOP);
       },
     );
   }
@@ -127,7 +123,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("type", 2);
-        Get.toNamed(Routes.SHOP);
+        Get.toNamed(Routes.USER_SHOP);
       },
     );
   }
@@ -139,7 +135,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("type", 3);
-        Get.toNamed(Routes.SHOP);
+        Get.toNamed(Routes.USER_SHOP);
       },
     );
   }
@@ -165,7 +161,7 @@ class MenuScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     onTap: () {
                       shopController.fetchProducts("category", category.id);
-                      Get.toNamed(Routes.SHOP);
+                      Get.toNamed(Routes.USER_SHOP);
                     },
                   ),
                 )
@@ -200,7 +196,7 @@ class MenuScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     onTap: () {
                       shopController.fetchProducts("brand", brand.id);
-                      Get.toNamed(Routes.SHOP);
+                      Get.toNamed(Routes.USER_SHOP);
                     },
                   ),
                 )
@@ -247,7 +243,7 @@ class MenuScreen extends StatelessWidget {
                             onTap: () {
                               shopController.fetchProducts(
                                   "collection", collection.id);
-                              Get.toNamed(Routes.SHOP);
+                              Get.toNamed(Routes.USER_SHOP);
                             },
                           ),
                         )

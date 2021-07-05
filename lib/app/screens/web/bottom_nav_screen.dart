@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
-import 'package:mobile_nhom17_2021/app/modules/bottom_nav_module/bottom_nav_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/bottom_nav_controller.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/home_screen.dart';
 import 'package:mobile_nhom17_2021/app/screens/web/menu_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/whishlist_module/whishlist_screen.dart';
@@ -10,12 +10,6 @@ import 'package:mobile_nhom17_2021/app/screens/web/root_util.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class BottomNavScreen extends StatelessWidget {
-  static String routeName = "/bottom_nav";
-
-  PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
-
-  final AuthController c = Get.put(AuthController());
   BottomNavController bottomNavController = Get.find();
 
   @override
@@ -67,13 +61,9 @@ class BottomNavScreen extends StatelessWidget {
           controller: bottomNavController.ptController.value,
           screens: _buildScreens(),
           items: _navBarsItems(),
-          confineInSafeArea: true,
-
           backgroundColor: Colors.black, // Default is Colors.white.
-          handleAndroidBackButtonPress: true, // Default is true.
           resizeToAvoidBottomInset:
               true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-          stateManagement: true, // Default is true.
           hideNavigationBarWhenKeyboardShows:
               true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
           decoration: NavBarDecoration(
@@ -91,7 +81,7 @@ class BottomNavScreen extends StatelessWidget {
             // Screen transition animation on change of selected tab.
             animateTabTransition: true,
             curve: Curves.ease,
-            duration: Duration(milliseconds: 100),
+            duration: Duration(milliseconds: 300),
           ),
           navBarStyle: NavBarStyle
               .style6, // Choose the nav bar style with this property.

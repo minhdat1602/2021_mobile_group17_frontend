@@ -2,112 +2,67 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_nhom17_2021/app/controllers/order_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/status_controller.dart';
 import 'package:mobile_nhom17_2021/app/models/status.dart';
 import 'package:mobile_nhom17_2021/app/screens/admin/admin_home_screen/widgets/appbar.dart';
 import 'package:mobile_nhom17_2021/app/screens/admin/admin_home_screen/widgets/drawer.dart';
 import 'package:mobile_nhom17_2021/app/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/models/order.dart';
+import 'package:mobile_nhom17_2021/app/controllers/order_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 import 'package:mobile_nhom17_2021/app/models/sales_statistics.dart';
 import 'package:mobile_nhom17_2021/app/utils/utils.dart';
 
-class ListOrderScreen extends StatefulWidget {
-  const ListOrderScreen({Key key}) : super(key: key);
+class MyOrdersScreen extends StatefulWidget {
+  const MyOrdersScreen({Key key}) : super(key: key);
 
   @override
-  _ListOrderScreenState createState() => _ListOrderScreenState();
+  _MyOrdersScreenState createState() => _MyOrdersScreenState();
 }
 
-class _ListOrderScreenState extends State<ListOrderScreen> {
+class _MyOrdersScreenState extends State<MyOrdersScreen> {
   ListOrderController listOrderController = Get.find<ListOrderController>();
-  StatusController statusController =
-      Get.put(StatusController(), permanent: true);
-  String filter = "Trong ngày";
-  String sorted = "Tất cả";
+  StatusController statusController = Get.put(StatusController());
   int _currentIndex;
-  bool a = true;
 
   @override
   void initState() {
     _currentIndex = 0;
-    a = true;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AdminAppBar(),
-      drawer: DrawerWidget(),
+      appBar: AppBar(
+        brightness: Brightness.dark, // Màu icon giờ pin trên status bar
+        title: Text(
+          "Đơn hàng của bạn",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            )),
+      ),
       body: Container(
-        color: Color(0xFF212332),
+        color: Colors.black,
         child: ListView(
           children: [
-            Obx(() => FutureBuilder(
-                future: statusController.status.value,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    // _tabController = TabController(
-                    //     vsync: this, length: snapshot.data.length);
-                    if (a) {
-                      snapshot.data
-                          .insert(0, new Status(id: 0, name: "Tất cả"));
-                      a = false;
-                    }
-                    return DefaultTabController(
-                      length: snapshot.data.length,
-                      initialIndex: _currentIndex,
-                      child: PreferredSize(
-                        preferredSize: Size.fromHeight(30.0),
-                        child: Material(
-                          color: Colors.grey[100],
-                          child: TabBar(
-                            isScrollable: true,
-                            unselectedLabelColor: Colors.brown,
-                            indicatorColor: Colors.indigo[600],
-                            labelColor: Colors.indigo[600],
-                            onTap: (index) {
-                              setState(() {
-                                _currentIndex = index;
-                                if (index == 0)
-                                  listOrderController.getOrders();
-                                else
-                                  listOrderController.getOrdersByStatus(
-                                      snapshot.data[index].id);
-                                print(_currentIndex);
-                              });
-                            },
-                            tabs: List.generate(
-                              snapshot.data.length,
-                              (index) => Tab(
-                                child: Text(
-                                  "${snapshot.data[index].name}",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text("Error");
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                })),
+            _buildStatusBar(),
             SizedBox(height: 5),
             Obx(() => Column(
                   children: List.generate(
-                    listOrderController.orders.length,
+                    listOrderController.myOrders.length,
                     (index) =>
-                        _buildOrderItem(listOrderController.orders[index]),
+                        _buildOrderItem(listOrderController.myOrders[index]),
                   ),
                 )),
           ],
@@ -116,11 +71,65 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
     );
   }
 
+  Widget _buildStatusBar() {
+    return FutureBuilder(
+      future: statusController.status.value,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return DefaultTabController(
+            length: snapshot.data.length,
+            initialIndex: _currentIndex,
+            child: PreferredSize(
+              preferredSize: Size.fromHeight(30.0),
+              child: Material(
+                color: Colors.grey[100],
+                child: TabBar(
+                  isScrollable: true,
+                  unselectedLabelColor: Colors.brown,
+                  indicatorColor: Colors.indigo[600],
+                  labelColor: Colors.indigo[600],
+                  onTap: (index) {
+                    setState(() {
+                      // Thay đổi index của Trạng thái
+                      _currentIndex = index;
+                      // lấy Id của trạng thái
+                      int statusId =
+                          (index == 0 ? null : snapshot.data[index].id);
+                      // Lấy danh sách đơn hàng của user có trạng thái id là: lên
+                      listOrderController.getOrdersByUser(statusId);
+                    });
+                  },
+                  tabs: List.generate(
+                    snapshot.data.length,
+                    (index) => Tab(
+                      child: Text(
+                        "${snapshot.data[index].name}",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Text("Error");
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
   Widget _buildOrderItem(Order order) {
     return InkWell(
       onTap: () {
         listOrderController.order.value = order;
-        Get.toNamed(Routes.ADMIN_ORDER_DETAIL);
+        Get.toNamed(Routes.MY_ORDER_DETAIL);
       },
       child: Container(
         width: Get.width,
@@ -201,7 +210,7 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               listOrderController.order.value = order;
-                              Get.toNamed(Routes.ADMIN_ORDER_DETAIL);
+                              Get.toNamed(Routes.MY_ORDER_DETAIL);
                             },
                             clipBehavior: Clip.none,
                             style: ElevatedButton.styleFrom(

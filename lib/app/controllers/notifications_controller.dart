@@ -34,7 +34,7 @@ class NotificationController extends GetxController {
         // final routeFromMessage = message.data['route'];
         // print(routeFromMessage);
         Get.find<ShopController>().fetchProductAll();
-        Get.toNamed(Routes.SHOP);
+        Get.toNamed(Routes.USER_SHOP);
       }
     });
 
@@ -52,7 +52,7 @@ class NotificationController extends GetxController {
       print("listen:3");
       // final routeFromMessage = message.data['route'];
       Get.find<ShopController>().fetchProductAll();
-      Get.toNamed(Routes.SHOP);
+      Get.toNamed(Routes.USER_SHOP);
       // print(routeFromMessage);
     });
   }

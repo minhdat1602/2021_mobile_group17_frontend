@@ -1,10 +1,12 @@
 import 'dart:core';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/menu_controller.dart';
 import 'package:mobile_nhom17_2021/app/controllers/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/models/brand.dart';
 import 'package:mobile_nhom17_2021/app/models/category.dart';
+import 'package:shimmer/shimmer.dart';
 
 class EndDrawerWidget extends StatefulWidget {
   const EndDrawerWidget({Key key}) : super(key: key);
@@ -51,12 +53,17 @@ class _EndDrawerWidgetState extends State<EndDrawerWidget> {
                     color: Colors.black,
                   ),
                   child: Center(
-                    child: Text(
-                      "DJ",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.white,
+                      highlightColor: Colors.grey[400],
+                      direction: ShimmerDirection.ltr,
+                      child: Text(
+                        "DJ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

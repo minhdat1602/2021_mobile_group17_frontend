@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_home_module/widgets/appbar.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_home_module/widgets/drawer.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/admin_home_screen/widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/screens/admin/admin_home_screen/widgets/drawer.dart';
 
 class ListProductScreen extends StatefulWidget {
   static String routeName = "/admin/list-product";

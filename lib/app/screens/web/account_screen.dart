@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/controllers/auth_controller.dart';
+import 'package:mobile_nhom17_2021/app/controllers/order_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 class AccountScreen extends GetWidget<AuthController> {
   // AuthController controller = Get.put(AuthController());
+  ListOrderController listOrderController = Get.put(ListOrderController());
+
   @override
   Widget build(BuildContext context) {
     // Future.delayed(Duration(seconds: 2));
@@ -76,13 +79,19 @@ class AccountScreen extends GetWidget<AuthController> {
               fontSize: 18,
             ),
           ),
-          Text(
-            "XEM",
-            style: TextStyle(
-              color: Colors.indigo[400],
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              letterSpacing: 1,
+          TextButton(
+            onPressed: () async {
+              Get.toNamed(Routes.MY_ORDERS);
+              listOrderController.getOrdersByUser(null);
+            },
+            child: Text(
+              "XEM",
+              style: TextStyle(
+                color: Colors.indigo[400],
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                letterSpacing: 1,
+              ),
             ),
           ),
         ],

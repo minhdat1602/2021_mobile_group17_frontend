@@ -25,6 +25,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   int _currentIndex;
   ShoppingCartController shoppingCartController =
       Get.find<ShoppingCartController>();
+  TabController _tabController;
 
   @override
   void initState() {
