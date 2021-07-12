@@ -43,7 +43,7 @@ dependencies:
   timeago: ^3.0.2
   charts_flutter: ^0.10.0
   badges: ^2.0.1 # cái số trên giỏ hàng 
-  google_maps_flutter: ^2.0.6
+  # google_maps_flutter: ^2.0.6
   get: ^4.1.4 # GetXXXXXXXXXXXXXXXXXXX
   dio: ^4.0.0 # 
   get_storage: ^2.0.2 # Lưu data dạng key-value
@@ -56,6 +56,18 @@ dependencies:
   connectivity_plus: ^1.0.4 # Kiểm tra kết nối wifi của thiết bị
   flutter_slidable: ^0.6.0 # Slide cho list item (can be dissmissed)
   fl_chart: ^0.36.2 # chart
+  flutter_rating_bar: ^4.0.0 # Thanh đánh giá sản phẩm
+  percent_indicator: ^3.0.1 # Thanh phần trăm
+  image_picker: ^0.8.1+3 # Lấy hình ảnh từ camera hoặc image library
+  firebase_storage: ^9.0.0 # upload download file từ firebase
+  firebase_analytics: ^8.1.2
+  cloud_firestore: ^2.3.0
+  permission_handler: ^8.1.2 # Xin quyền trên điện thoại
+  # flutter_signin_button: ^2.0.0
+  sign_button: ^2.0.0
+  firebase_auth: ^2.0.0
+  google_sign_in: ^5.0.4
+  font_awesome_flutter: ^9.1.0
 
 
   # The following adds the Cupertino Icons font to your application.

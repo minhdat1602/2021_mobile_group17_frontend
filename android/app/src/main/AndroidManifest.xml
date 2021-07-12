@@ -3,7 +3,7 @@
    <application
         android:label="mobile_nhom17_2021"
         android:icon="@mipmap/ic_launcher">
-
+        android:requestLegacyExternalStorage="true"
         <!-- <uses-permission android:name="android.permission.VIBRATE" />
         <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> -->
 

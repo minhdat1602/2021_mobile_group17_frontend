@@ -18,11 +18,15 @@ abstract class Routes {
 
   // Trang điều hướng Trang QUẢN LÍ TÀI KHOẢN || ĐĂNG NHẬP cho user, item thứ 4///
   static const USER_ROOT = '/root';
-  // static const USER_ACCOUNT = '/account';
-  // static const USER_LOGIN = '/login';
+  static const USER_ACCOUNT = '/account';
+  static const USER_LOGIN = '/login';
 
   // Trang trưng bài sản phẩm của cửa hàng
   static const USER_SHOP = '/shop';
+
+  // Danh sách đánh giá và đánh giá sản phẩm
+  static const USER_REVIEW = '/reivew';
+  static const USER_RATING = "/rating";
 
   static const REGISTER = '/register';
   static const ACCOUNT_DETIAL = '/account-detail';

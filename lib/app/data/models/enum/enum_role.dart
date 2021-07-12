@@ -1,0 +1,8 @@
+enum EROLE {
+  USER,
+  ADMIN,
+  PRODUCT,
+  ORDER,
+  CONFIG,
+  DASHBOARD,
+}
