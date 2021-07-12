@@ -7,10 +7,9 @@ import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_binding.dar
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/login_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/register_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/root_util.dart';
-import 'package:mobile_nhom17_2021/app/modules/dj_module/connectivity_binding.dart';
-import 'package:mobile_nhom17_2021/app/modules/dj_module/connectivity_screen.dart';
+import 'package:mobile_nhom17_2021/app/modules/connectivity_module/notification_binding.dart';
+import 'package:mobile_nhom17_2021/app/modules/connectivity_module/notification_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/dj_module/dj_screen.dart';
-import 'package:mobile_nhom17_2021/app/modules/dj_module/notification_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_bottom_nav_module/bottom_nav_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_checkout_module/checkout_binding.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_checkout_module/checkout_screen.dart';
@@ -32,9 +31,10 @@ import 'package:mobile_nhom17_2021/app/modules/guest_rating_module/rating_screen
 import 'package:mobile_nhom17_2021/app/modules/guest_bottom_nav_module/bottom_nav_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_home_module/home_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_menu_module/menu_screen.dart';
-import 'package:mobile_nhom17_2021/app/modules/dj_module/notification_screen.dart';
 
 import 'package:mobile_nhom17_2021/app/modules/guest_shopping_cart_module/shopping_cart_screen.dart';
+import 'package:mobile_nhom17_2021/app/modules/notification_module/connectivity_binding.dart';
+import 'package:mobile_nhom17_2021/app/modules/notification_module/connectivity_screen.dart';
 part './app_routes.dart';
 
 abstract class AppPages {

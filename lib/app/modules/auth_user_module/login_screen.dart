@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
-import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
 import 'package:sign_button/sign_button.dart';
 
 class LoginScreen extends StatefulWidget {

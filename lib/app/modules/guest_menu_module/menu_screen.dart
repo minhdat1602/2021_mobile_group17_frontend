@@ -7,7 +7,7 @@ import 'package:mobile_nhom17_2021/app/modules/guest_menu_module/menu_controller
 import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
-import '../../screens/web/global_widgets/appbar.dart';
+import '../../global_widgets/appbar.dart';
 
 class MenuScreen extends StatelessWidget {
   MenuController menuController = Get.put(MenuController());

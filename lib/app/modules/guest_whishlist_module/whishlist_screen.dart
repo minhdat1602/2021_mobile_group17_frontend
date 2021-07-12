@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_whishlist_module/component/body.dart';
-import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
 
 class WhishlistScreen extends StatefulWidget {
   static String routeName = "/whishlist";

@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/modules/dj_module/notifications_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/connectivity_module/notifications_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shopping_cart_module/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 

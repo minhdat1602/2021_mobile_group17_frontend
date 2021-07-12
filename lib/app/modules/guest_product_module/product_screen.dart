@@ -8,7 +8,7 @@ import 'package:mobile_nhom17_2021/app/modules/guest_shopping_cart_module/shoppi
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/data/models/product.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
-import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
 
 import 'widgets/delivery_widget.dart';
 import 'widgets/overview_widget.dart';

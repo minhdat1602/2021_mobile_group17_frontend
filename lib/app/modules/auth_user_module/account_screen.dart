@@ -6,12 +6,10 @@ import 'package:mobile_nhom17_2021/app/data/models/user.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 class AccountScreen extends GetWidget<AuthController> {
-  // AuthController controller = Get.put(AuthController());
   ListOrderController listOrderController = Get.put(ListOrderController());
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(Duration(seconds: 2));
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark, // Màu icon giờ pin trên status bar
@@ -31,12 +29,19 @@ class AccountScreen extends GetWidget<AuthController> {
         init: AuthController(),
         initState: (_) {},
         builder: (_) {
-          return ListView(
-            children: [
-              _buildMyDetails(controller.user),
-              _buildChangePassword(),
-              _buildOrder(),
-            ],
+          return Container(
+            padding: EdgeInsets.all(16),
+            child: ListView(
+              children: [
+                _buildMyDetails(controller.user),
+                SizedBox(height: 10),
+                _buildChangePassword(),
+                SizedBox(height: 10),
+                _buildOrder(),
+                SizedBox(height: 10),
+                _buildSignOutBtn(),
+              ],
+            ),
           );
         },
       ),
@@ -60,11 +65,36 @@ class AccountScreen extends GetWidget<AuthController> {
     );
   }
 
+  Widget _buildSignOutBtn() {
+    return Container(
+      width: Get.width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[300],
+            blurRadius: 1,
+          )
+        ],
+      ),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          "Đăng xuất",
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildOrder() {
     return Container(
-      width: double.infinity,
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(15.0),
+      width: Get.width,
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -108,9 +138,8 @@ class AccountScreen extends GetWidget<AuthController> {
 
   Container _buildChangePassword() {
     return Container(
-      width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.all(15.0),
+      width: Get.width,
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -153,9 +182,8 @@ class AccountScreen extends GetWidget<AuthController> {
 
   Container _buildMyDetails(UserModel user) {
     return Container(
-      width: double.infinity,
-      margin: EdgeInsets.all(10.0),
-      padding: EdgeInsets.all(15.0),
+      width: Get.width,
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [

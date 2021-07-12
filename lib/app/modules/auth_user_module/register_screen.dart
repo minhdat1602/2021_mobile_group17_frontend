@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.dart';
 import 'package:mobile_nhom17_2021/app/data/models/user.dart';
 import 'package:mobile_nhom17_2021/app/data/models/user_info.dart';
-import 'package:mobile_nhom17_2021/app/screens/web/global_widgets/appbar.dart';
+import 'package:mobile_nhom17_2021/app/global_widgets/appbar.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
