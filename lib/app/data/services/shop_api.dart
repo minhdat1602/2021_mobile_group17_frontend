@@ -2,6 +2,8 @@ import 'package:mobile_nhom17_2021/app/data/models/product.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'contants.dart';
+
 class ShopAPI {
   Future<List<Product>> fetchProductAll() async {
     Uri url = Uri.parse("https://mobile2021group17.herokuapp.com/product/all");
@@ -9,7 +11,7 @@ class ShopAPI {
     List<Product> products = [];
     if (response.statusCode == 200) {
       try {
-        Iterable data = json.decode(response.body.toString());
+        Iterable data = json.decode(utf8.decode(response.bodyBytes));
         products = data.map((product) => Product.fromJson(product)).toList();
       } catch (e) {
         print("Something get wrong!:");
@@ -28,7 +30,7 @@ class ShopAPI {
     List<Product> products = [];
     if (response.statusCode == 200) {
       try {
-        Iterable data = json.decode(response.body);
+        Iterable data = json.decode(utf8.decode(response.bodyBytes));
         products = data.map((product) => Product.fromJson(product)).toList();
       } catch (e) {
         print("Something get wrong!");
@@ -41,12 +43,11 @@ class ShopAPI {
 
   Future<List<Product>> fetchProductNew() async {
     Uri url = Uri.parse("https://mobile2021group17.herokuapp.com/product/new");
-    var response = await http
-        .get(url, headers: {"Content-Type": "application/json; charset=utf-8"});
+    var response = await http.get(url, headers: headers);
     List<Product> products = [];
     if (response.statusCode == 200) {
       try {
-        Iterable data = json.decode(response.body);
+        Iterable data = json.decode(utf8.decode(response.bodyBytes));
         products = data.map((product) => Product.fromJson(product)).toList();
       } catch (e) {
         print("Something get wrong!");
@@ -60,8 +61,7 @@ class ShopAPI {
   Future<List<Product>> fetchProductDiscount() async {
     Uri url =
         Uri.parse("https://mobile2021group17.herokuapp.com/product/discount");
-    var response = await http
-        .get(url, headers: {"Content-Type": "application/json; charset=utf-8"});
+    var response = await http.get(url, headers: headers);
     List<Product> products = [];
     if (response.statusCode == 200) {
       try {

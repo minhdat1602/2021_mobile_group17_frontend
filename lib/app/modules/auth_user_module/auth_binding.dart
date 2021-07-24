@@ -4,6 +4,6 @@ import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.
 class AuthBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => AuthController());
+    Get.put<AuthController>(AuthController(), permanent: true);
   }
 }

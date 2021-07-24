@@ -1,10 +1,22 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html_editor_enhanced/utils/utils.dart';
+import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
+import 'package:mobile_nhom17_2021/app/core/utils/utils.dart';
+import 'package:mobile_nhom17_2021/app/global_widgets/progress.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_bottom_nav_module/bottom_nav_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_home_module/home_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_product_module/product_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:transparent_image/transparent_image.dart';
+import 'package:video_player/video_player.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../global_widgets/appbar.dart';
+import 'widgets/product_carousel.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,24 +24,126 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeController homeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(title: "Trang chủ"),
-      body: Container(
-        width: double.infinity,
-        color: Colors.white,
-        child: ListView(
-          children: [
-            _buildCarouselComponent(),
-            SizedBox(height: 15),
-            _buildCategoryComponent(),
-            _buildSportComponent(),
-            _buildMember(),
-            _buildSaleoffComponent(),
-            SizedBox(height: 50),
-          ],
-        ),
+      body: Obx(() => homeController.loaded
+          ? Container(
+              width: Get.width,
+              color: Colors.white,
+              padding: EdgeInsets.only(bottom: 30),
+              child: ListView(
+                children: [
+                  _buildBanner(),
+                  SizedBox(height: 40),
+                  _buildHighLigh(),
+                  SizedBox(height: 40),
+                  _buildBestSeller(),
+
+                  // SizedBox(height: 15),
+                  // _buildCategoryComponent(),
+                  // _buildSportComponent(),
+                  // _buildMember(),
+                  // _buildSaleoffComponent(),
+                  // SizedBox(height: 50),
+                ],
+              ),
+            )
+          : CustomProgress()),
+    );
+  }
+
+  Widget _buildHighLigh() {
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Gợi ý hôm nay",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Get.find<ShopController>().fetchProducts("highligh", null);
+                    Get.toNamed(Routes.SHOP);
+                  },
+                  child: Text(
+                    "Xem thêm",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          ProductCarousel(
+            imageCarouselController: homeController.imageCarouselController,
+            products: homeController.discount,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildBestSeller() {
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Sản phẩm bán chạy",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Get.find<ShopController>().fetchProducts("hot", null);
+                    Get.toNamed(Routes.SHOP);
+                  },
+                  child: Text(
+                    "Xem thêm",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 14,
+                      decoration: TextDecoration.underline,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 15),
+          ProductCarousel(
+            imageCarouselController: homeController.imageCarouselController,
+            products: homeController.bestseller,
+          ),
+        ],
       ),
     );
   }
@@ -56,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TextButton(
                   onPressed: () {
                     Get.find<ShopController>().fetchProductAll();
-                    Get.to(Routes.USER_SHOP);
+                    Get.to(Routes.SHOP);
                   },
                   child: Text(
                     "Cửa hàng",
@@ -103,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: InkWell(
                   onTap: () {
                     Get.find<ShopController>().fetchProducts("category", 2);
-                    Get.toNamed(Routes.USER_SHOP);
+                    Get.toNamed(Routes.SHOP);
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         child: Image.asset(
                           "assets/images/7.jpg",
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
                       SizedBox(height: 5),
@@ -132,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: InkWell(
                   onTap: () {
                     Get.find<ShopController>().fetchProducts("category", 1);
-                    Get.toNamed(Routes.USER_SHOP);
+                    Get.toNamed(Routes.SHOP);
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: InkWell(
         onTap: () {
           Get.find<ShopController>().fetchProductAll();
-          Get.to(Routes.USER_SHOP);
+          Get.to(Routes.SHOP);
         },
         child: Column(
           children: [
@@ -212,7 +326,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: InkWell(
         onTap: () {
           Get.find<ShopController>().fetchProducts("discount", null);
-          Get.to(Routes.USER_SHOP);
+          Get.to(Routes.SHOP);
         },
         child: Column(
           children: [
@@ -247,143 +361,201 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SizedBox _buildCarouselComponent() {
+  SizedBox _buildBanner() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.65,
       child: Carousel(
         dotSize: 5.0,
         dotSpacing: 15.0,
+        autoplayDuration: Duration(seconds: 6),
+        autoplay: false,
         dotColor: Colors.black,
         indicatorBgPadding: 10,
         dotBgColor: Colors.transparent,
         images: [
-          InkWell(
-            onTap: () {
-              Get.find<ShopController>().fetchProductAll();
-              Get.toNamed(Routes.USER_SHOP);
-            },
-            child: Stack(
-              fit: StackFit.expand,
-              alignment: Alignment.bottomCenter,
-              children: [
-                Image.asset(
-                  "assets/images/3.jpg",
-                  fit: BoxFit.cover,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 45),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Cửa hàng",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                          letterSpacing: 1.5,
+          _buildVideoPlayer(),
+          Stack(
+            fit: StackFit.expand,
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                height: Get.height * 0.65,
+                color: Colors.black,
+                alignment: Alignment.center,
+                child: Image.asset("assets/images/3.jpg", fit: BoxFit.cover),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: Get.width * 0.15),
+                  width: Get.width * 0.65,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(5, 5),
+                        color: Colors.blue[50],
+                      ),
+                    ],
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      Get.find<ShopController>().fetchProductAll();
+                      Get.toNamed(Routes.SHOP);
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Cửa hàng",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                            letterSpacing: 1.5,
+                          ),
                         ),
+                        Icon(Icons.arrow_forward, color: Colors.black),
+                      ],
+                    ),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      elevation: 0.2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
                       ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 0.2,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          InkWell(
-            onTap: () {
-              print("click picture 2");
-            },
-            child: Stack(
-              fit: StackFit.expand,
-              alignment: Alignment.topCenter,
-              children: [
-                Image.asset(
-                  "assets/images/1.jpg",
-                  fit: BoxFit.cover,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 45),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TextButton(
-                      onPressed: () {
-                        Get.find<ShopController>().fetchProductAll();
-                        Get.toNamed(Routes.USER_SHOP);
-                      },
-                      child: Text(
-                        "Cửa hàng",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                          letterSpacing: 1.5,
+          Stack(
+            fit: StackFit.expand,
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                height: Get.height * 0.65,
+                color: Colors.black,
+                alignment: Alignment.center,
+                child: Image.asset("assets/images/2.jpg", fit: BoxFit.cover),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(bottom: Get.width * 0.15),
+                  width: Get.width * 0.65,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(5, 5),
+                        color: Colors.blue[50],
+                      ),
+                    ],
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      Get.find<ShopController>().fetchProductAll();
+                      Get.toNamed(Routes.SHOP);
+                    },
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Cửa hàng",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                            letterSpacing: 1.5,
+                          ),
                         ),
+                        Icon(Icons.arrow_forward, color: Colors.black),
+                      ],
+                    ),
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      elevation: 0.2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
                       ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 0.2,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              print("click picture 1");
-            },
-            child: Stack(
-              fit: StackFit.expand,
-              alignment: Alignment.bottomCenter,
-              children: [
-                Image.asset(
-                  "assets/images/2.jpg",
-                  fit: BoxFit.cover,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 45),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: TextButton(
-                      onPressed: () {
-                        Get.find<ShopController>().fetchProductAll();
-                        Get.to(Routes.USER_SHOP);
-                      },
-                      child: Text(
-                        "Cửa hàng",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        elevation: 0.2,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 60),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildVideoPlayer() {
+    return Stack(
+      fit: StackFit.expand,
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          height: Get.height * 0.65,
+          color: Colors.black,
+          alignment: Alignment.center,
+          child: AspectRatio(
+            aspectRatio: 0.65,
+            child: VideoPlayer(homeController.videoPlayerController),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            margin: EdgeInsets.only(bottom: Get.width * 0.15),
+            width: Get.width * 0.65,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(5, 5),
+                  color: Colors.blue[50],
+                ),
+              ],
+            ),
+            child: TextButton(
+              onPressed: () {
+                Get.find<ShopController>().fetchProductAll();
+                Get.toNamed(Routes.SHOP);
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Cửa hàng",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                  Icon(Icons.arrow_forward, color: Colors.black),
+                ],
+              ),
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                elevation: 0.2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

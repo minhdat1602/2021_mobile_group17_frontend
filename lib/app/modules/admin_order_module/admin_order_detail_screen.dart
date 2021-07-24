@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/appbar.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/drawer.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/admin_appbar.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/admin_menu_drawer.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_order_module/admin_order_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_order_module/admin_status_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_order_module/order_controller.dart';
 import 'package:mobile_nhom17_2021/app/data/models/status.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_order_module/status_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/utils.dart';
 
-class OrderDetailAdminScreen extends StatefulWidget {
+class AdminOrderDetailScreen extends StatefulWidget {
   @override
-  _OrderDetailAdminScreenState createState() => _OrderDetailAdminScreenState();
+  _AdminOrderDetailScreenState createState() => _AdminOrderDetailScreenState();
 }
 
-class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
-  ListOrderController listOrderController = Get.put(ListOrderController());
-  StatusController statusController = Get.put(StatusController());
+class _AdminOrderDetailScreenState extends State<AdminOrderDetailScreen> {
+  AdminOrderController adminOrderController = Get.put(AdminOrderController());
+  AdminStatusController adminStatusController =
+      Get.put(AdminStatusController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdminAppBar(),
-      drawer: DrawerWidget(),
+      drawer: AdminDrawer(),
       body: ListView(
         children: [
           Container(
@@ -53,7 +56,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                   children: [
                     Obx(
                       () => Text(
-                        "Mã đơn hàng: ${listOrderController.order.value.code}",
+                        "Mã đơn hàng: ${adminOrderController.order.code}",
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
@@ -63,7 +66,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      "Ngày đặt hàng: ${DateFormat('kk:mm dd-MM-yyyy').format(listOrderController.order.value.createdDate)}",
+                      "Ngày đặt hàng: ${DateFormat('kk:mm dd-MM-yyyy').format(adminOrderController.order.createdDate)}",
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.black54,
@@ -71,7 +74,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                     ),
                     SizedBox(height: 5),
                     Obx(() => Text(
-                          "${listOrderController.order.value.status.name}",
+                          "${adminOrderController.order.status.name}",
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.black54,
@@ -120,7 +123,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            "${listOrderController.order.value.user.userInfo.firstName} ${listOrderController.order.value.user.userInfo.lastName}",
+                            "${adminOrderController.order.user.userInfo.firstName} ${adminOrderController.order.user.userInfo.lastName}",
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.black,
@@ -129,7 +132,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                           SizedBox(height: 5),
                           Container(
                             child: Text(
-                              "${listOrderController.order.value.user.userInfo.phone}",
+                              "${adminOrderController.order.user.userInfo.phone}",
                               style: TextStyle(
                                 fontSize: 13,
                                 color: Colors.black54,
@@ -138,7 +141,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                           ),
                           SizedBox(height: 5),
                           Text(
-                            "${listOrderController.order.value.user.userInfo.sonha}, ${listOrderController.order.value.user.userInfo.xa}, ${listOrderController.order.value.user.userInfo.huyen}, ${listOrderController.order.value.user.userInfo.tinh}",
+                            "${adminOrderController.order.user.userInfo.sonha}, ${adminOrderController.order.user.userInfo.xa}, ${adminOrderController.order.user.userInfo.huyen}, ${adminOrderController.order.user.userInfo.tinh}",
                             style: TextStyle(
                               fontSize: 13,
                               color: Colors.black54,
@@ -189,7 +192,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                 Obx(
                   () => Column(
                     children: List.generate(
-                      listOrderController.order.value.orderDetails.length,
+                      adminOrderController.order.orderDetails.length,
                       (index) => Column(
                         children: [
                           Row(
@@ -199,7 +202,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                                 width: 120,
                                 height: 80,
                                 child: Image.network(
-                                  "${ProjectUtil.getDisplay(listOrderController.order.value.orderDetails[index].product)}",
+                                  "${ProjectUtil.getDisplay(adminOrderController.order.orderDetails[index].product)}",
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -210,7 +213,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                                   children: [
                                     Obx(
                                       () => Text(
-                                        "${listOrderController.order.value.orderDetails[index].product.name}",
+                                        "${adminOrderController.order.orderDetails[index].product.name}",
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 16,
@@ -229,7 +232,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                                     SizedBox(height: 10),
                                     Obx(
                                       () => Text(
-                                        "${PriceUtil.toCurrency(listOrderController.order.value.orderDetails[index].product.price)} đ x ${listOrderController.order.value.orderDetails[index].quantity}",
+                                        "${PriceUtil.toCurrency(adminOrderController.order.orderDetails[index].product.price)} đ x ${adminOrderController.order.orderDetails[index].quantity}",
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
@@ -375,7 +378,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                     ),
                     Obx(
                       () => Text(
-                        "${PriceUtil.toCurrency(listOrderController.order.value.totalMoney)} đ",
+                        "${PriceUtil.toCurrency(adminOrderController.order.totalMoney)} đ",
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.black,
@@ -420,7 +423,7 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                     ),
                     Obx(
                       () => Text(
-                        "${PriceUtil.toCurrency(listOrderController.order.value.totalMoney - 20000)} đ",
+                        "${PriceUtil.toCurrency(adminOrderController.order.totalMoney - 20000)} đ",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -452,26 +455,13 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
                   Center(
                     child: Container(
                       color: Colors.transparent,
-                      child: FutureBuilder(
-                        future: statusController.status.value,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return _buildConfirmChangeStatus(snapshot.data);
-                          } else if (snapshot.hasError) {
-                            return Center(child: Text("ERROR"));
-                          } else {
-                            return Center(
-                                child: CircularProgressIndicator(
-                                    color: Colors.red));
-                          }
-                        },
-                      ),
+                      child: _buildConfirmChangeStatus(),
                     ),
                   ),
                 );
               },
               child: Text(
-                "${listOrderController.order.value.status.name}",
+                "${adminOrderController.order.status.name}",
                 style: TextStyle(
                   color: Colors.blue,
                   fontSize: 16,
@@ -492,48 +482,48 @@ class _OrderDetailAdminScreenState extends State<OrderDetailAdminScreen> {
     );
   }
 
-  Column _buildConfirmChangeStatus(List<Status> status) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: List.generate(
-        status.length,
-        (index) => index > 0
-            ? Container(
-                width: Get.width * 3 / 5,
-                margin: EdgeInsets.symmetric(vertical: 5),
-                child: TextButton(
-                  onPressed: () {
-                    Get.back();
-                    Get.defaultDialog(
-                      title: "NHẮC LẠI",
-                      content:
-                          Text("Bạn đã chắc thay đổi trạng thái đơn hàng này"),
-                      textConfirm: "Thay đổi",
-                      textCancel: "Hủy",
-                      cancelTextColor: Colors.red,
-                      onConfirm: () {
-                        listOrderController.updateStatus(status[index]);
-                        setState(() {});
+  Widget _buildConfirmChangeStatus() {
+    return Obx(() => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: List.generate(
+            adminStatusController.statuses.length,
+            (index) => index > 0
+                ? Container(
+                    width: Get.width * 3 / 5,
+                    margin: EdgeInsets.symmetric(vertical: 5),
+                    child: TextButton(
+                      onPressed: () {
+                        Get.back();
+                        Get.defaultDialog(
+                          title: "NHẮC LẠI",
+                          content: Text(
+                              "Bạn đã chắc thay đổi trạng thái đơn hàng này"),
+                          textConfirm: "Thay đổi",
+                          textCancel: "Hủy",
+                          cancelTextColor: Colors.red,
+                          onConfirm: () {
+                            // listOrderController.updateStatus(status[index]);
+                            setState(() {});
+                          },
+                        );
                       },
-                    );
-                  },
-                  child: Text(
-                    "${status[index].name}",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      child: Text(
+                        "${adminStatusController.statuses[index].name}",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.all(16),
+                      ),
                     ),
-                  ),
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: EdgeInsets.all(16),
-                  ),
-                ),
-              )
-            : Text(""),
-      ),
-    );
+                  )
+                : Text(""),
+          ),
+        ));
   }
 }

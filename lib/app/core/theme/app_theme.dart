@@ -3,15 +3,7 @@ import 'package:flutter/material.dart';
 final ThemeData appThemeData = ThemeData(
   primaryColor: Color.fromARGB(255, 67, 213, 176),
   accentColor: Color.fromARGB(255, 35, 103, 148),
-  appBarTheme: AppBarTheme(
-    backgroundColor: Colors.black,
-    brightness: Brightness.dark,
-    centerTitle: true,
-    foregroundColor: Colors.white,
-    iconTheme: IconThemeData(
-      color: Colors.black,
-    ),
-  ),
+  // appBarTheme: customeAppBarTheme,
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Colors.black,
     selectedItemColor: Colors.white,

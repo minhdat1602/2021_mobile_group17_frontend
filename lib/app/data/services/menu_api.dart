@@ -4,24 +4,27 @@ import 'package:mobile_nhom17_2021/app/data/models/brand.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile_nhom17_2021/app/data/models/category.dart';
 
+import 'contants.dart';
+
 const baseUrl = 'http://gerador-nomes.herokuapp.com/nomes/10';
 
 class MenuAPI extends GetConnect {
   Future<List<Brand>> fetchBrandAll() async {
     Uri url = Uri.parse("https://mobile2021group17.herokuapp.com/brand/all");
-    var response = await http.Client()
-        .get(url, headers: {"Content-Type": "application/json"});
-    List<Brand> brands = [];
+    var response = await http.Client().get(url, headers: headers);
+
     if (response.statusCode == 200) {
       try {
-        Iterable data = json.decode(response.body);
-        brands = data.map((brand) => Brand.fromJson(brand)).toList();
+        Iterable data = json.decode(utf8.decode(response.bodyBytes));
+        return data.map((brand) => Brand.fromJson(brand)).toList();
       } catch (e) {
-        print("Something get wrong!");
+        print("Something get wrong!: $e");
+        throw e;
       }
-    } else
+    } else {
       print("Something get wrong! Status code ${response.statusCode}");
-    return brands;
+      throw new Exception("fetch error");
+    }
   }
 
   Future<List<Category>> fetchCategoryAll() async {

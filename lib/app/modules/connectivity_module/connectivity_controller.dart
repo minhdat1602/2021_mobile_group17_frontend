@@ -25,7 +25,7 @@ class ConnectivityController extends GetxController {
           isOnline.value = isConnected;
           print("true");
           print(Get.previousRoute);
-          Get.offNamed(Routes.INITIAL);
+          Get.offNamed(Routes.BOTTOM_NAV);
         });
       }
     });

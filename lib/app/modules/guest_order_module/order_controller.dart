@@ -13,11 +13,8 @@ class ListOrderController extends GetxController {
   var order = Order().obs;
   var myOrders = <Order>[].obs;
 
-  var orderStatistic = Future.value(OrderStatistics()).obs;
-
   @override
   void onInit() async {
-    orderStatistic.value = orderAPI.fetchOrderStatistics();
     // orders.value = await orderAPI.fetchOrders();
     super.onInit();
   }

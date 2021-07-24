@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                         }); // Thực hiện đăng nhập
                         // Tắt Loading animation
-                        if (previousRoute == Routes.USER_REVIEW) Get.back();
+                        if (previousRoute == Routes.REVIEW) Get.back();
                       },
                       icon: FaIcon(
                         FontAwesomeIcons.google,
@@ -220,7 +220,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Redirect đến trang phú hợp với authorization
                 for (String role in authController.user.role) {
                   if (role == "ADMIN" || role == "DASHBOARD")
-                    Get.offAllNamed(Routes.ADMIN_HOME);
+                    Get.offAllNamed(Routes.ADMIN_DASHBOARD);
                   else if (role == "ORDER")
                     Get.offAllNamed(Routes.ADMIN_LIST_ORDER);
                   else if (role == "PRODUCT")
@@ -229,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
               }
             }); // Thực hiện đăng nhập
             // Tắt Loading animation
-            if (previousRoute == Routes.USER_REVIEW) Get.back();
+            if (previousRoute == Routes.REVIEW) Get.back();
           }
         },
         child: Text("Đăng nhập"),

@@ -13,11 +13,11 @@ void main() async {
   await GetStorage.init();
   runApp(
     GetMaterialApp(
-      title: "Giày DJ",
+      title: "Giày ANT",
       debugShowCheckedModeBanner: false,
       translations: Translates(), // Thay đổi ngôn ngữ
-      initialRoute: Routes.GLOBAL_DJ, // khởi tạo routeName
-      // initialRoute: Routes.USER_RATING,
+      initialRoute: Routes.INITIAL, // khởi tạo routeName
+      // initialRoute: Routes.ADMIN_ADD_PRODUCT,
       // home: RatingScreen(),
       locale: Locale('vi', 'VN'), // vị trí để thay đổi ngôn ngữ
       theme: appThemeData,

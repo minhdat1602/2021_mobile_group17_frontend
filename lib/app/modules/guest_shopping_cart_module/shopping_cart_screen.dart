@@ -51,7 +51,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
         child: Column(
           children: [
             shoppingCartController.cart.value.cartItems.length == 0
-                ? Text("Không có sản phẩm trong giỏ hàng")
+                ? Text("Giỏ hàng rỗng", style: TextStyle(color: Colors.black))
                 : Obx(() => _buildItems(shoppingCartController.cart.value)),
             SizedBox(height: 15),
             shoppingCartController.cart.value.cartItems.length == 0

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.dart';
 
 class AdminAppBar extends StatelessWidget with PreferredSizeWidget {
-  const AdminAppBar({
-    Key key,
-  }) : super(key: key);
-
+  AuthController authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
         appBarTheme: AppBarTheme(
-          backgroundColor: Color(0xFF212332),
+          backgroundColor: Color(0xff11101d),
           brightness: Brightness.dark,
         ),
         backgroundColor: Color(0xFF212332),
@@ -23,7 +22,7 @@ class AdminAppBar extends StatelessWidget with PreferredSizeWidget {
           decoration: InputDecoration(
             hintText: "Tìm kiếm",
             hintStyle: TextStyle(color: Colors.white70),
-            fillColor: Color(0xFF2A2D3E),
+            fillColor: Color(0xFF1d1b31),
             filled: true,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
@@ -45,17 +44,16 @@ class AdminAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
         actions: [
           Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16 / 2,
-            ),
+            width: Get.width / 3,
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16 / 2),
-                  child: Text("Angelina Joli"),
+                  child: Obx(
+                      () => Text("${authController.user.userInfo.lastName}")),
                 ),
-                Icon(Icons.keyboard_arrow_down),
+                Expanded(child: Icon(Icons.keyboard_arrow_down)),
               ],
             ),
           )

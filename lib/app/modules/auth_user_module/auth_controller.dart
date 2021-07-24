@@ -146,6 +146,18 @@ class AuthController extends GetxController {
     }
   }
 
+  bool isPermission(String permission) {
+    if (user.id == 0)
+      return false;
+    else {
+      List<String> role = user.role;
+      for (String r in role) {
+        if (r == permission) return true;
+      }
+      return false;
+    }
+  }
+
   // Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
   // User getCurrentUser() => FirebaseAuth.instance.currentUser;

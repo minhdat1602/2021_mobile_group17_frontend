@@ -14,7 +14,8 @@ class _DJScreenState extends State<DJScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 4), () => {Get.offNamed(Routes.INITIAL)});
+    Future.delayed(
+        Duration(seconds: 10), () => {Get.offNamed(Routes.BOTTOM_NAV)});
   }
 
   @override
@@ -27,11 +28,11 @@ class _DJScreenState extends State<DJScreen> {
         child: Center(
           child: Shimmer.fromColors(
             child: Text(
-              "DJ",
+              "ANT",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 50,
+                fontSize: 40,
               ),
             ),
             baseColor: Colors.white,

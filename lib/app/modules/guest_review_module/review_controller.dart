@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.dart';
 import 'package:mobile_nhom17_2021/app/data/models/review.dart';
-import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
-import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_product_module/product_controller.dart';
 import 'package:mobile_nhom17_2021/app/data/services/review_api.dart';
 
 class ReviewController extends GetxController {
@@ -22,10 +20,10 @@ class ReviewController extends GetxController {
   // Đánh giá sản phẩm
 
   AuthController authController = Get.put(AuthController());
-  ShopController shopController = Get.put(ShopController());
+  ProductController productController = Get.put(ProductController());
   Future<void> rating(Review review) async {
     review.user = authController.user;
-    review.product = shopController.product.value;
+    review.product = productController.product;
     if (review.product != null && review.user != null && review.rate != null) {
       Review response =
           await reviewAPI.rating(review); // Gửi đánh giá đến server
@@ -50,8 +48,8 @@ class ReviewController extends GetxController {
   void onInit() {
     super.onInit();
     // Lấy danh sách đánh giá của sản phẩm.
-    if (shopController.product.value != null)
-      getReviews(shopController.product.value.id);
+    if (productController.product != null)
+      getReviews(productController.product.id);
 
     // set số lượng cho mỗi số sao và số sao trung bình cho tất cả đánh giá
     // star_5.value = 0;

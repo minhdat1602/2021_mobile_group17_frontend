@@ -4,12 +4,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_product_module/product_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_review_module/review_controller.dart';
 import 'package:mobile_nhom17_2021/app/data/models/image.dart';
 import 'package:mobile_nhom17_2021/app/data/models/product.dart';
 import 'package:mobile_nhom17_2021/app/data/models/review.dart';
 import 'package:mobile_nhom17_2021/app/data/models/user.dart';
-import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/data/services/review_api.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -25,12 +25,12 @@ class RatingController extends GetxController {
 
   // Thực hiện đánh giá tới server
   AuthController authController = Get.put(AuthController());
-  ShopController shopController = Get.put(ShopController());
+  ProductController productController = Get.put(ProductController());
   ReviewController reviewController = Get.put(ReviewController());
   ReviewAPI reviewAPI = Get.put(ReviewAPI());
   Future rating() async {
     UserModel user = authController.user;
-    Product product = shopController.product.value;
+    Product product = productController.product;
 
     // Kiểm tra thông tin đánh giá
     if (rate > 0 && user.id > 0 && product.id > 0) {

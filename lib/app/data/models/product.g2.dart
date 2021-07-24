@@ -23,8 +23,8 @@ Product _$ProductFromJson2(Map<String, dynamic> json) {
             e == null ? null : ImageModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     types: (json['types'] as List)
-        ?.map(
-            (e) => e == null ? null : Type.fromJson(e as Map<String, dynamic>))
+        ?.map((e) =>
+            e == null ? null : TypeModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     collection: json['collection'] == null
         ? null

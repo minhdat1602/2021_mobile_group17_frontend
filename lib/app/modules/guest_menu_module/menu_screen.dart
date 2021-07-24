@@ -5,12 +5,14 @@ import 'package:mobile_nhom17_2021/app/data/models/category.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_bottom_nav_module/bottom_nav_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_menu_module/menu_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_screen.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../../global_widgets/appbar.dart';
 
 class MenuScreen extends StatelessWidget {
-  MenuController menuController = Get.put(MenuController());
+  MenuController menuController = Get.find();
   BottomNavController bottomNavController = Get.find<BottomNavController>();
   ShopController shopController = Get.put(ShopController());
 
@@ -33,6 +35,10 @@ class MenuScreen extends StatelessWidget {
               _buildShopAllBtn(),
               Divider(color: Colors.white54),
               _buildNewBtn(),
+              Divider(color: Colors.white54),
+              _buildHotBtn(),
+              Divider(color: Colors.white54),
+              _buildHighlighBtn(),
               Divider(color: Colors.white54),
               _buildSaleBtn(),
               Divider(color: Colors.white54),
@@ -61,7 +67,7 @@ class MenuScreen extends StatelessWidget {
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
-        bottomNavController.ptController.value.index = 0;
+        bottomNavController.ptController.index = 0;
       },
     );
   }
@@ -73,7 +79,36 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProductAll();
-        Get.toNamed(Routes.USER_SHOP);
+        pushNewScreen(
+          Get.context,
+          screen: ShopScreen(),
+          withNavBar: true, // OPTIONAL VALUE. True by default.
+          pageTransitionAnimation: PageTransitionAnimation.cupertino,
+        );
+      },
+    );
+  }
+
+  ListTile _buildHotBtn() {
+    return ListTile(
+      title: Text("Bán chạy", style: TextStyle(color: Colors.white54)),
+      hoverColor: Colors.white54,
+      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+      onTap: () {
+        shopController.fetchProducts("hot", null);
+        Get.toNamed(Routes.SHOP);
+      },
+    );
+  }
+
+  ListTile _buildHighlighBtn() {
+    return ListTile(
+      title: Text("Nổi bật", style: TextStyle(color: Colors.white54)),
+      hoverColor: Colors.white54,
+      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+      onTap: () {
+        shopController.fetchProducts("highligh", null);
+        Get.toNamed(Routes.SHOP);
       },
     );
   }
@@ -85,7 +120,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("new", null);
-        Get.toNamed(Routes.USER_SHOP);
+        Get.toNamed(Routes.SHOP);
       },
     );
   }
@@ -97,7 +132,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("discount", null);
-        Get.toNamed(Routes.USER_SHOP);
+        Get.toNamed(Routes.SHOP);
       },
     );
   }
@@ -109,7 +144,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("type", 1);
-        Get.toNamed(Routes.USER_SHOP);
+        Get.toNamed(Routes.SHOP);
       },
     );
   }
@@ -121,7 +156,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("type", 2);
-        Get.toNamed(Routes.USER_SHOP);
+        Get.toNamed(Routes.SHOP);
       },
     );
   }
@@ -133,7 +168,7 @@ class MenuScreen extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
         shopController.fetchProducts("type", 3);
-        Get.toNamed(Routes.USER_SHOP);
+        Get.toNamed(Routes.SHOP);
       },
     );
   }
@@ -159,7 +194,7 @@ class MenuScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     onTap: () {
                       shopController.fetchProducts("category", category.id);
-                      Get.toNamed(Routes.USER_SHOP);
+                      Get.toNamed(Routes.SHOP);
                     },
                   ),
                 )
@@ -194,7 +229,7 @@ class MenuScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.symmetric(horizontal: 20),
                     onTap: () {
                       shopController.fetchProducts("brand", brand.id);
-                      Get.toNamed(Routes.USER_SHOP);
+                      Get.toNamed(Routes.SHOP);
                     },
                   ),
                 )
@@ -241,7 +276,7 @@ class MenuScreen extends StatelessWidget {
                             onTap: () {
                               shopController.fetchProducts(
                                   "collection", collection.id);
-                              Get.toNamed(Routes.USER_SHOP);
+                              Get.toNamed(Routes.SHOP);
                             },
                           ),
                         )

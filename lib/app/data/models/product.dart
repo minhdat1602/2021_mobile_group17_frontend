@@ -23,10 +23,11 @@ class Product {
   int isHot;
   int isNew;
   int isHighlign;
+  int active;
 
   List<Inventory> inventories;
   List<ImageModel> images;
-  List<Type> types;
+  List<TypeModel> types;
   Collection collection;
   Category category;
   List<InputDetail> inputDetails;
@@ -51,7 +52,8 @@ class Product {
       this.inventories,
       this.isHighlign,
       this.originPrice,
-      this.reviews});
+      this.reviews,
+      this.active});
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
   Map<String, dynamic> toJson() => _$ProductToJson(this);

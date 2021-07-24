@@ -2,37 +2,36 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/appbar.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/drawer.dart';
-import 'package:mobile_nhom17_2021/app/modules/guest_order_module/order_controller.dart';
-import 'package:mobile_nhom17_2021/app/data/models/status.dart';
-import 'package:mobile_nhom17_2021/app/modules/guest_order_module/status_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/admin_appbar.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/admin_menu_drawer.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/data/models/order.dart';
-import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 import 'package:mobile_nhom17_2021/app/data/models/sales_statistics.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/utils.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
-class ListOrderScreen extends StatefulWidget {
-  const ListOrderScreen({Key key}) : super(key: key);
+import 'admin_order_controller.dart';
+import 'admin_status_controller.dart';
 
+class AdminListOrderScreen extends StatefulWidget {
+  const AdminListOrderScreen({Key key}) : super(key: key);
   @override
-  _ListOrderScreenState createState() => _ListOrderScreenState();
+  _AdminListOrderScreenState createState() => _AdminListOrderScreenState();
 }
 
-class _ListOrderScreenState extends State<ListOrderScreen> {
-  ListOrderController listOrderController = Get.find<ListOrderController>();
-  StatusController statusController =
-      Get.put(StatusController(), permanent: true);
-  String filter = "Trong ngày";
-  String sorted = "Tất cả";
+class _AdminListOrderScreenState extends State<AdminListOrderScreen> {
+  AdminOrderController adminOrderController = Get.find();
+  AdminStatusController adminStatusController = Get.find();
+
+  // StatusController statusController =
+  //     Get.put(StatusController(), permanent: true);
+  // String filter = "Trong ngày";
+  // String sorted = "Tất cả";
   int _currentIndex;
-  bool a = true;
 
   @override
   void initState() {
     _currentIndex = 0;
-    a = true;
     super.initState();
   }
 
@@ -40,86 +39,72 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdminAppBar(),
-      drawer: DrawerWidget(),
-      body: Container(
-        color: Color(0xFF212332),
-        child: ListView(
-          children: [
-            Obx(() => FutureBuilder(
-                future: statusController.status.value,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    // _tabController = TabController(
-                    //     vsync: this, length: snapshot.data.length);
-                    if (a) {
-                      snapshot.data
-                          .insert(0, new Status(id: 0, name: "Tất cả"));
-                      a = false;
-                    }
-                    return DefaultTabController(
-                      length: snapshot.data.length,
-                      initialIndex: _currentIndex,
-                      child: PreferredSize(
-                        preferredSize: Size.fromHeight(30.0),
-                        child: Material(
-                          color: Colors.grey[100],
-                          child: TabBar(
-                            isScrollable: true,
-                            unselectedLabelColor: Colors.brown,
-                            indicatorColor: Colors.indigo[600],
-                            labelColor: Colors.indigo[600],
-                            onTap: (index) {
-                              setState(() {
-                                _currentIndex = index;
-                                if (index == 0)
-                                  listOrderController.getOrders();
-                                else
-                                  listOrderController.getOrdersByStatus(
-                                      snapshot.data[index].id);
-                                print(_currentIndex);
-                              });
-                            },
-                            tabs: List.generate(
-                              snapshot.data.length,
-                              (index) => Tab(
-                                child: Text(
-                                  "${snapshot.data[index].name}",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
+      drawer: AdminDrawer(),
+      body: Obx(() => adminOrderController.loaded
+          ? Container(
+              color: Color(0xFF212332),
+              child: ListView(
+                children: [
+                  Obx(() => adminStatusController.statuses.isNotEmpty
+                      ? DefaultTabController(
+                          length: adminStatusController.statuses.length,
+                          initialIndex: _currentIndex,
+                          child: PreferredSize(
+                            preferredSize: Size.fromHeight(30.0),
+                            child: Material(
+                              color: Colors.grey[100],
+                              child: TabBar(
+                                isScrollable: true,
+                                unselectedLabelColor: Colors.brown,
+                                indicatorColor: Colors.indigo[600],
+                                labelColor: Colors.indigo[600],
+                                onTap: (index) async {
+                                  setState(() {
+                                    _currentIndex = index;
+                                    print(_currentIndex);
+                                  });
+                                  await adminOrderController
+                                      .getOrderByStatus(index);
+                                },
+                                tabs: List.generate(
+                                  adminStatusController.statuses.length,
+                                  (index) => Tab(
+                                    child: Text(
+                                      "${adminStatusController.statuses[index].name}",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 0.5,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text("Error");
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                })),
-            SizedBox(height: 5),
-            Obx(() => Column(
-                  children: List.generate(
-                    listOrderController.orders.length,
-                    (index) =>
-                        _buildOrderItem(listOrderController.orders[index]),
-                  ),
-                )),
-          ],
-        ),
-      ),
+                        )
+                      : Text("")),
+                  SizedBox(height: 5),
+                  Obx(() => adminOrderController.orders.isNotEmpty
+                      ? Column(
+                          children: List.generate(
+                            adminOrderController.orders.length,
+                            (index) => _buildOrderItem(
+                                adminOrderController.orders[index]),
+                          ),
+                        )
+                      : Text("")),
+                ],
+              ),
+            )
+          : Center(child: CircularProgressIndicator())),
     );
   }
 
   Widget _buildOrderItem(Order order) {
     return InkWell(
       onTap: () {
-        listOrderController.order.value = order;
+        adminOrderController.order = order;
         Get.toNamed(Routes.ADMIN_ORDER_DETAIL);
       },
       child: Container(
@@ -200,8 +185,8 @@ class _ListOrderScreenState extends State<ListOrderScreen> {
                           alignment: Alignment.bottomRight,
                           child: ElevatedButton(
                             onPressed: () {
-                              listOrderController.order.value = order;
-                              Get.toNamed(Routes.ADMIN_ORDER_DETAIL);
+                              // listOrderController.order.value = order;
+                              // Get.toNamed(Routes.ADMIN_ORDER_DETAIL);
                             },
                             clipBehavior: Clip.none,
                             style: ElevatedButton.styleFrom(

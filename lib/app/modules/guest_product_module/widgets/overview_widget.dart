@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/core/utils/utils.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/core/utils/price_toVnd.dart';
 import 'package:mobile_nhom17_2021/app/data/models/product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../product_controller.dart';
 
 class OverviewWidget extends StatefulWidget {
   final Product product;
@@ -202,11 +205,12 @@ class _OverviewWidgetState extends State<OverviewWidget> {
   Widget _buildRecentlyViewedItems() {
     return Expanded(
       child: ListView.builder(
+        controller: Get.find<ProductController>().scrollController,
         scrollDirection: Axis.horizontal,
-        itemCount: Get.find<ShopController>().recentlyViews.value.length,
+        itemCount: Get.find<ProductController>().recentlyViews.length - 1,
         shrinkWrap: true,
         itemBuilder: (context, index) => _buildRecentlyViewedItem(
-            Get.find<ShopController>().recentlyViews[index]),
+            Get.find<ProductController>().recentlyViews[index]),
       ),
     );
   }
@@ -217,11 +221,13 @@ class _OverviewWidgetState extends State<OverviewWidget> {
       child: Material(
         color: Colors.grey[800],
         child: InkWell(
-          onTap: () {}, // needed
+          onTap: () {
+            // Get.find<ProductController>().product = product;
+          }, // needed
           child: Ink.image(
             width: 150,
             height: 120,
-            image: NetworkImage(_getDisplay(product)),
+            image: NetworkImage(ProjectUtil.getDisplay(product)),
             fit: BoxFit.cover,
           ),
         ),
@@ -229,27 +235,21 @@ class _OverviewWidgetState extends State<OverviewWidget> {
     );
   }
 
-  Future<List<Product>> getRecentlyViewed() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> recentlyViewedStrs = prefs.getStringList("recentlyViewed");
-    List<Product> products = [];
-    for (int i = 0; i < recentlyViewedStrs.length; i++) {
-      products.add(Product.fromJson(json.decode(recentlyViewedStrs[i])));
-    }
-    recentlyViewedStrs.map((recentlyViewedStr) => {
-          products.add(Product.fromJson(json.decode(recentlyViewedStr))),
-        });
+  // Future<List<Product>> getRecentlyViewed() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   List<String> recentlyViewedStrs = prefs.getStringList("recentlyViewed");
+  //   List<Product> products = [];
+  //   for (int i = 0; i < recentlyViewedStrs.length; i++) {
+  //     products.add(Product.fromJson(json.decode(recentlyViewedStrs[i])));
+  //   }
+  //   recentlyViewedStrs.map((recentlyViewedStr) => {
+  //         products.add(Product.fromJson(json.decode(recentlyViewedStr))),
+  //       });
 
-    print("product length:${products.length}");
-    print("recentlyViewedStrs length:${recentlyViewedStrs.length}");
+  //   print("product length:${products.length}");
+  //   print("recentlyViewedStrs length:${recentlyViewedStrs.length}");
 
-    return products;
-  }
+  //   return products;
+  // }
 
-  String _getDisplay(Product product) {
-    for (int i = 0; i < product.images.length; i++) {
-      if (product.images[i].display == 1) return product.images[i].url;
-    }
-    return null;
-  }
 }

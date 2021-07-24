@@ -358,9 +358,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 onPressed: () {
                   if (authController.user.id == null ||
                       authController.user.id <= 0) {
-                    Get.toNamed(Routes.USER_LOGIN);
+                    Get.toNamed(Routes.LOGIN);
                   } else
-                    Get.toNamed(Routes.USER_RATING);
+                    Get.toNamed(Routes.RATING);
                 },
                 child: Text(
                   "Viết nhận xét",

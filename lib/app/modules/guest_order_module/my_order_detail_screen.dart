@@ -58,7 +58,7 @@ class _MyOrderDetailScreenState extends State<MyOrderDetailScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Get.offNamed(Routes.INITIAL);
+                Get.offNamed(Routes.BOTTOM_NAV);
               },
               child: Text(
                 "Trang chủ",

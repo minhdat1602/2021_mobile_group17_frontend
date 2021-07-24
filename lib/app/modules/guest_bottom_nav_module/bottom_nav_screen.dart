@@ -8,9 +8,7 @@ import 'package:mobile_nhom17_2021/app/modules/guest_menu_module/menu_screen.dar
 import 'package:mobile_nhom17_2021/app/modules/guest_whishlist_module/whishlist_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-class BottomNavScreen extends StatelessWidget {
-  BottomNavController bottomNavController = Get.find();
-
+class BottomNavScreen extends GetWidget<BottomNavController> {
   @override
   Widget build(BuildContext context) {
     List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -57,7 +55,7 @@ class BottomNavScreen extends StatelessWidget {
 
     return Obx(() => PersistentTabView(
           context,
-          controller: bottomNavController.ptController.value,
+          controller: controller.ptController,
           screens: _buildScreens(),
           items: _navBarsItems(),
           backgroundColor: Colors.black, // Default is Colors.white.
@@ -80,7 +78,7 @@ class BottomNavScreen extends StatelessWidget {
             // Screen transition animation on change of selected tab.
             animateTabTransition: true,
             curve: Curves.ease,
-            duration: Duration(milliseconds: 300),
+            duration: Duration(milliseconds: 400),
           ),
           navBarStyle: NavBarStyle
               .style6, // Choose the nav bar style with this property.

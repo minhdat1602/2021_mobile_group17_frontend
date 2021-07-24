@@ -10,10 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class ShopController extends GetxController {
   ShopAPI shopAPI = Get.put<ShopAPI>(ShopAPI());
-
   var products = Future.value(<Product>[]).obs;
-  var product = Product().obs;
-  var recentlyViews = <Product>[].obs;
+  // var product = Product().obs;
+  // var recentlyViews = <Product>[].obs;
   var total = 0.obs;
 
   var orginList;
@@ -21,7 +20,6 @@ class ShopController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    recentlyViews.value = [];
   }
 
   void fetchProductAll() {
@@ -93,10 +91,6 @@ class ShopController extends GetxController {
     total.value = result2.length;
   }
 
-  void addRecentlyViewed(Product product) {
-    recentlyViews.add(product);
-    if (recentlyViews.length > 6) recentlyViews.removeAt(0);
-  }
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
   //   bool isStored = false;
   //   String productJson = json.encode(product.toJson());

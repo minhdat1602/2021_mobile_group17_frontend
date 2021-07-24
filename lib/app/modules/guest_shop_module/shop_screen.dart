@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/core/theme/pallete.dart';
+import 'package:mobile_nhom17_2021/app/core/utils/utils.dart';
 import 'package:mobile_nhom17_2021/app/data/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/data/models/cart_item.dart';
 import 'package:mobile_nhom17_2021/app/data/models/inventory.dart';
 import 'package:mobile_nhom17_2021/app/data/models/product.dart';
 import 'package:mobile_nhom17_2021/app/data/models/user.dart';
-import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/endrawer.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_product_module/product_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/widgets/endrawer.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shopping_cart_module/shopping-cart_controller.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
@@ -25,9 +27,10 @@ class ShopScreen extends StatefulWidget {
 }
 
 class ShopScreenState extends State<ShopScreen> {
-  ShopController shopController = Get.put(ShopController());
+  ShopController shopController = Get.find();
   ShoppingCartController shoppingCartController =
       Get.put(ShoppingCartController());
+  ProductController productController = Get.put(ProductController());
   final shopKey = GlobalKey<ScaffoldState>();
   var rowNum;
   @override
@@ -51,10 +54,7 @@ class ShopScreenState extends State<ShopScreen> {
       appBar: AppBarWidget(title: "Cửa hàng"),
       body: Column(
         children: [
-          Expanded(
-            child: _buildHeader(),
-            flex: 1,
-          ),
+          _buildHeader(),
           Expanded(
             child: Padding(
               padding:
@@ -81,6 +81,8 @@ class ShopScreenState extends State<ShopScreen> {
   Container _buildHeader() {
     return Container(
       color: Colors.white,
+      width: Get.width,
+      height: 50,
       padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 12.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -153,8 +155,8 @@ class ShopScreenState extends State<ShopScreen> {
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: rowNum,
                   childAspectRatio: 0.65,
-                  mainAxisSpacing: Get.width * 0.02,
-                  crossAxisSpacing: Get.width * 0.02,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 5,
                 ),
                 itemBuilder: (context, index) =>
                     _buildItem(snapshot.data[index]),
@@ -169,24 +171,22 @@ class ShopScreenState extends State<ShopScreen> {
   }
 
   Widget _buildItem(Product product) {
-    return Material(
-      child: InkWell(
-        onTap: () {
-          shopController.addRecentlyViewed(product);
-          shopController.product.value = product;
-          Get.toNamed(Routes.PRODUCT);
-        },
-        child: Ink(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(2),
-            boxShadow: [
-              BoxShadow(
-                  spreadRadius: 1,
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 2)
-            ],
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[600],
+          )
+        ],
+      ),
+      child: Material(
+        child: InkWell(
+          onTap: () {
+            productController.addRecentlyViewed(product);
+            productController.product = product;
+            Get.toNamed(Routes.PRODUCT);
+          },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -195,7 +195,7 @@ class ShopScreenState extends State<ShopScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(_getDisplay(product)),
+                        image: NetworkImage(ProjectUtil.getDisplay(product)),
                         fit: BoxFit.cover,
                       ),
                     ),

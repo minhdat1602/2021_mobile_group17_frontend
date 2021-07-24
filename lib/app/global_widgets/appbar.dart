@@ -2,8 +2,9 @@ import 'package:badges/badges.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_nhom17_2021/app/modules/connectivity_module/notifications_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shopping_cart_module/shopping-cart_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/notification_module/notifications_controller.dart';
+import 'package:mobile_nhom17_2021/app/modules/search_module/search_screen.dart';
 import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
@@ -25,21 +26,30 @@ class AppBarWidgetState extends State<AppBarWidget> {
       data: Theme.of(context),
       child: AppBar(
         iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.black,
+        brightness: Brightness.dark,
         title: Text(
           widget.title,
           style: TextStyle(
-            color: Theme.of(context).appBarTheme.foregroundColor,
+            color: Colors.white,
           ),
         ),
+        centerTitle: true,
         actions: [
           GestureDetector(
             onTap: () {
-              Get.find<NotificationController>()
-                  .showNotification(new RemoteMessage(
-                      notification: RemoteNotification(
-                title: "AAA",
-                body: "BBBB",
-              )));
+              Get.to(
+                SearchScreen(),
+                transition: Transition.rightToLeft,
+                curve: Curves.linear,
+              );
+              // Scaffold.of(context).openEndDrawer();
+              // Get.find<NotificationController>()
+              //     .showNotification(new RemoteMessage(
+              //         notification: RemoteNotification(
+              //   title: "AAA",
+              //   body: "BBBB",
+              // )));
             },
             child: Icon(
               Icons.search,

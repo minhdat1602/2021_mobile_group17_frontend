@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/appbar.dart';
-import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/drawer.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/admin_appbar.dart';
+import 'package:mobile_nhom17_2021/app/modules/admin_dashboard_module/widgets/admin_menu_drawer.dart';
 
 class ListProductScreen extends StatefulWidget {
   static String routeName = "/admin/list-product";
@@ -16,7 +16,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdminAppBar(),
-      drawer: DrawerWidget(),
+      drawer: AdminDrawer(),
       backgroundColor: Color(0xFF2A2D3E),
       body: ListView(
         children: [

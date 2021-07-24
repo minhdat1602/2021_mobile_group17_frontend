@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/core/theme/pallete.dart';
+import 'package:mobile_nhom17_2021/app/modules/guest_product_module/product_controller.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_product_module/widgets/description_widget.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_review_module/review_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_controller.dart';
@@ -32,9 +33,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void initState() {
     super.initState();
     _currentIndex = 0;
+    product = Get.find<ProductController>().product;
   }
 
-  Product product = Get.find<ShopController>().product.value;
+  Product product;
   @override
   Widget build(BuildContext context) {
     List<Widget> _bodyWidget = [
