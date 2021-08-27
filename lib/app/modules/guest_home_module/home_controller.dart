@@ -30,17 +30,9 @@ class HomeController extends GetxController {
     videoPlayerController = VideoPlayerController.asset(asset)
       ..addListener(() {})
       ..setLooping(true)
-      ..initialize().then((_) => videoPlayerController.play());
-    // youtubePlayerController = YoutubePlayerController(
-    //   initialVideoId: _videoId,
-    //   flags: YoutubePlayerFlags(
-    //     autoPlay: true,
-    //     mute: true,
-    //     loop: true,
-    //     hideControls: true,
-    //     hideThumbnail: true,
-    //   ),
-    // );
+      // ..initialize().then((_) => videoPlayerController.play());
+      ..initialize();
+  
     initData();
   }
 

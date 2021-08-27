@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/modules/search_module/search_controller.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key key}) : super(key: key);
@@ -8,6 +10,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  SearchController searchController = Get.put(SearchController());
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -24,16 +28,22 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: TextField(
-            cursorColor: Colors.black45,
-            autofocus: true,
-            decoration: InputDecoration(
-              hintText: "Sản phẩm, thương hiệu và mọi thứ bạn cần...",
+          title: Obx(
+            () => TextFormField(
+              cursorColor: Colors.black45,
+              autofocus: true,
+              onChanged: (value) => searchController.keyword.value = value,
+              initialValue: searchController.keyword.value,
+              decoration: InputDecoration(
+                hintText: "Sản phẩm, thương hiệu và mọi thứ bạn cần...",
+              ),
             ),
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                await searchController.searchByKeyword();
+              },
               icon: Icon(Icons.search),
             ),
           ],
