@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_nhom17_2021/app/data/models/coupon.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.dart';
 import 'package:mobile_nhom17_2021/app/data/models/order.dart';
 import 'package:mobile_nhom17_2021/app/data/models/order_statistics.dart';
@@ -12,10 +13,10 @@ class ListOrderController extends GetxController {
   var orders = <Order>[].obs;
   var order = Order().obs;
   var myOrders = <Order>[].obs;
+  Rx<bool> loaded = false.obs;
 
   @override
   void onInit() async {
-    // orders.value = await orderAPI.fetchOrders();
     super.onInit();
   }
 

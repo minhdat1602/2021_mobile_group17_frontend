@@ -53,35 +53,35 @@ class BottomNavScreen extends GetWidget<BottomNavController> {
       ];
     }
 
-    return Obx(() => PersistentTabView(
-          context,
-          controller: controller.ptController,
-          screens: _buildScreens(),
-          items: _navBarsItems(),
-          backgroundColor: Colors.black, // Default is Colors.white.
-          resizeToAvoidBottomInset:
-              true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-          hideNavigationBarWhenKeyboardShows:
-              true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-          decoration: NavBarDecoration(
-            borderRadius: BorderRadius.circular(0.0),
-            colorBehindNavBar: Colors.black,
-          ),
-          popAllScreensOnTapOfSelectedTab: true,
-          popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: ItemAnimationProperties(
-            // Navigation Bar's items animation properties.
-            duration: Duration(milliseconds: 200),
-            curve: Curves.ease,
-          ),
-          screenTransitionAnimation: ScreenTransitionAnimation(
-            // Screen transition animation on change of selected tab.
-            animateTabTransition: true,
-            curve: Curves.ease,
-            duration: Duration(milliseconds: 400),
-          ),
-          navBarStyle: NavBarStyle
-              .style6, // Choose the nav bar style with this property.
-        ));
+    return PersistentTabView(
+      context,
+      controller: controller.ptController,
+      screens: _buildScreens(),
+      items: _navBarsItems(),
+      backgroundColor: Colors.black, // Default is Colors.white.
+      resizeToAvoidBottomInset:
+          true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+      hideNavigationBarWhenKeyboardShows:
+          true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+      decoration: NavBarDecoration(
+        borderRadius: BorderRadius.circular(0.0),
+        colorBehindNavBar: Colors.black,
+      ),
+      popAllScreensOnTapOfSelectedTab: true,
+      popActionScreens: PopActionScreensType.all,
+      itemAnimationProperties: ItemAnimationProperties(
+        // Navigation Bar's items animation properties.
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease,
+      ),
+      screenTransitionAnimation: ScreenTransitionAnimation(
+        // Screen transition animation on change of selected tab.
+        animateTabTransition: true,
+        curve: Curves.ease,
+        duration: Duration(milliseconds: 400),
+      ),
+      navBarStyle:
+          NavBarStyle.style6, // Choose the nav bar style with this property.
+    );
   }
 }

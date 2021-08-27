@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 part 'coupon.g.dart';
 
@@ -22,4 +24,6 @@ class Coupon {
 
   factory Coupon.fromJson(Map<String, dynamic> json) => _$CouponFromJson(json);
   Map<String, dynamic> toJson() => _$CouponToJson(this);
+
+  Coupon couponFromJson(String str) => Coupon.fromJson(json.decode(str));
 }

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/data/models/cart.dart';
+import 'package:mobile_nhom17_2021/app/data/models/coupon.dart';
 import 'package:mobile_nhom17_2021/app/data/models/product.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shop_module/shop_screen.dart';
 import 'package:mobile_nhom17_2021/app/modules/guest_shopping_cart_module/shopping-cart_controller.dart';
@@ -129,35 +130,6 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
               ],
             ),
           ),
-          // Container(
-          //   padding: EdgeInsets.symmetric(vertical: 20),
-          //   decoration: BoxDecoration(
-          //       border:
-          //           Border(bottom: BorderSide(width: 1, color: Colors.grey))),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Text(
-          //         "Giao hàng tiêu chuẩn",
-          //         style: TextStyle(
-          //           fontWeight: FontWeight.w300,
-          //           fontSize: 16,
-          //           letterSpacing: 0.1,
-          //           color: Colors.black,
-          //         ),
-          //       ),
-          //       Text(
-          //         "Miễn phí",
-          //         style: TextStyle(
-          //           fontWeight: FontWeight.w300,
-          //           fontSize: 16,
-          //           letterSpacing: 0.1,
-          //           color: Colors.black,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
@@ -221,6 +193,8 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
     );
   }
 
+  final _couponForm = GlobalKey<FormState>();
+
   Container _buildCouponForm() {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -229,28 +203,90 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
         color: Colors.white,
         boxShadow: [BoxShadow(color: Colors.grey)],
       ),
-      child: Form(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              flex: 5,
-              child: _buildCouponTf(),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 5,
+                child: _buildCouponTf(),
+              ),
+              SizedBox(width: 40),
+              Expanded(
+                flex: 2,
+                child: _buildCouponBtn(),
+              ),
+            ],
+          ),
+          Obx(
+            () => Container(
+              height: shoppingCartController.coupons.length * 40.0,
+              child: ListView.builder(
+                itemCount: shoppingCartController.coupons.length,
+                itemBuilder: (context, index) {
+                  return _buildCouponItem(
+                      shoppingCartController.coupons[index]);
+                },
+              ),
             ),
-            SizedBox(width: 40),
-            Expanded(
-              flex: 2,
-              child: _buildCouponBtn(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Row _buildCouponItem(Coupon coupon) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "${coupon.code}",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+          ),
+        ),
+        IconButton(
+          onPressed: () {
+            Get.dialog(
+              AlertDialog(
+                title: Text("Xóa mã giảm giá"),
+                content: Text("Bạn muốn xóa mã giảm giá này"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Get.reset();
+                    },
+                    child: Text("Hủy"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      shoppingCartController.coupons.remove(coupon);
+                    },
+                    child: Text("OK"),
+                  ),
+                ],
+              ),
+            );
+          },
+          icon: Icon(
+            Icons.remove,
+          ),
+        ),
+      ],
     );
   }
 
   TextButton _buildCouponBtn() {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        _couponForm.currentState.save();
+        print(_couponForm.currentState.validate());
+        if (_couponForm.currentState.validate()) {
+          shoppingCartController.addCoupon(_coupon);
+        }
+      },
       child: Text(
         "Áp dụng",
         style: TextStyle(color: Colors.grey),
@@ -262,16 +298,25 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
     );
   }
 
-  TextFormField _buildCouponTf() {
-    return TextFormField(
-      onSaved: (value) => _coupon = value,
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.zero,
-        labelText: "Mã giảm giá",
-        labelStyle: TextStyle(color: Get.theme.primaryColor),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(width: 1, color: Colors.green),
+  Widget _buildCouponTf() {
+    return Form(
+      key: _couponForm,
+      child: TextFormField(
+        onSaved: (value) => _coupon = value,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.zero,
+          labelText: "Mã giảm giá",
+          labelStyle: TextStyle(color: Get.theme.primaryColor),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(width: 1, color: Colors.green),
+          ),
         ),
+        validator: (value) {
+          if (value.isEmpty) {
+            return "Mã giảm giá trống";
+          }
+          return null;
+        },
       ),
     );
   }

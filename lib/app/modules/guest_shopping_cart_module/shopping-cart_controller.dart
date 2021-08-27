@@ -5,8 +5,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mobile_nhom17_2021/app/data/models/cart.dart';
 import 'package:mobile_nhom17_2021/app/data/models/cart_item.dart';
+import 'package:mobile_nhom17_2021/app/data/models/coupon.dart';
 import 'package:mobile_nhom17_2021/app/data/models/inventory.dart';
 import 'package:mobile_nhom17_2021/app/data/models/product.dart';
+import 'package:mobile_nhom17_2021/app/data/services/coupon_api.dart';
 import 'package:mobile_nhom17_2021/app/data/services/shopping-cart_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,18 +16,16 @@ class ShoppingCartController extends GetxController {
   ShoppingCartAPI shoppingCartAPI = Get.put<ShoppingCartAPI>(ShoppingCartAPI());
 
   Rx<Cart> cart = Cart().obs;
-  SharedPreferences sprefs;
 
   final box = GetStorage();
 
   @override
   void onInit() {
-    initCart();
+    initData();
     super.onInit();
   }
 
-  void initCart() async {
-    // sprefs = await SharedPreferences.getInstance();
+  void initData() async {
     var cartStr = box.read("cart");
     if (cartStr != null) {
       cart.value = Cart.fromJson(json.decode(cartStr));
@@ -104,5 +104,55 @@ class ShoppingCartController extends GetxController {
     } catch (e) {
       print(e.message);
     }
+  }
+
+  // COUPON SECTION
+  RxList<Coupon> coupons = <Coupon>[].obs;
+  CouponApi couponApi = Get.put(CouponApi());
+
+  Future addCoupon(String code) async {
+    if (existCoupon(code)) {
+      Get.dialog(
+        AlertDialog(
+          title: Text("Thất bại"),
+          content: Text("Mã giảm giá chỉ sử dụng được một lần !"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (Get.isDialogOpen) Get.back();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+    } else {
+      try {
+        Coupon coupon = await couponApi.findByCode(code);
+        coupons.add(coupon);
+      } catch (e) {
+        Get.dialog(
+          AlertDialog(
+            title: Text("Thất bại"),
+            content: Text("Mã giảm giá không hợp lệ !"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  if (Get.isDialogOpen) Get.back();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+  }
+
+  bool existCoupon(String code) {
+    for (Coupon cou in coupons) {
+      if (cou.code == code) return true;
+    }
+    return false;
   }
 }
