@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mobile_nhom17_2021/app/modules/auth_user_module/auth_controller.dart';
+import 'package:mobile_nhom17_2021/app/routes/app_pages.dart';
 
 class AdminAppBar extends StatelessWidget with PreferredSizeWidget {
   AuthController authController = Get.find<AuthController>();
@@ -43,20 +44,18 @@ class AdminAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
         ),
         actions: [
-          Container(
-            width: Get.width / 3,
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16 / 2),
-                  child: Obx(
-                      () => Text("${authController.user.userInfo.lastName}")),
-                ),
-                Expanded(child: Icon(Icons.keyboard_arrow_down)),
-              ],
+          TextButton(
+            onPressed: () {
+              Get.put(AuthController()).signOut();
+              Get.offAllNamed(Routes.BOTTOM_NAV);
+            },
+            child: Text(
+              "Đăng xuất",
+              style: TextStyle(
+                color: Colors.white,
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

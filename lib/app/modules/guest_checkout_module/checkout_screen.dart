@@ -169,7 +169,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     color: Colors.redAccent,
                   )),
               Text(
-                "${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice() - shoppingCartController.cart.value.totalDiscount() - 20000)} đ",
+                "${PriceUtil.toCurrency(shoppingCartController.getPrice() - 20000)} đ",
                 style: TextStyle(
                   color: Colors.redAccent,
                   fontWeight: FontWeight.bold,
@@ -250,7 +250,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                 ),
               ),
               Text(
-                "${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice() - shoppingCartController.cart.value.totalDiscount())} đ",
+                "${PriceUtil.toCurrency(shoppingCartController.getPrice())} đ",
                 style: TextStyle(
                   color: Colors.black,
                 ),

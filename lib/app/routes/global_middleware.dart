@@ -20,16 +20,16 @@ class GlobalMiddleWare extends GetMiddleware {
         for (String r in role) {
           print("ROLE: $r");
           switch (r) {
-            case "ADMIN":
+            case "ROLE_ADMIN":
               return RouteSettings(name: Routes.ADMIN_DASHBOARD);
               break;
-            case "DASHBOARD":
+            case "ROLE_DASHBOARD":
               return RouteSettings(name: Routes.ADMIN_DASHBOARD);
               break;
-            case "ORDER":
+            case "ROLE_ORDER":
               return RouteSettings(name: Routes.ADMIN_LIST_ORDER);
               break;
-            case "PRODUCT":
+            case "ROLE_PRODUCT":
               return RouteSettings(name: Routes.ADMIN_LIST_PRODUCT);
               break;
             // case "CONFIG":
@@ -40,10 +40,10 @@ class GlobalMiddleWare extends GetMiddleware {
         }
       }
     }
-    // print("MIDDLEWAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!");
-    // return authController.user.id == 0
-    // ? null
-    // : RouteSettings(name: Routes.ADMIN_HOME);
+    print("MIDDLEWAREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE!!!!!!!!!!!!");
+    return authController.user.id == 0
+        ? null
+        : RouteSettings(name: Routes.ADMIN_DASHBOARD);
   }
 
   @override

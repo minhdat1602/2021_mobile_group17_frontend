@@ -20,10 +20,7 @@ class AccountScreen extends GetWidget<AuthController> {
         centerTitle: true,
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
-        actions: [
-          _logoutBtn(),
-          SizedBox(width: 10),
-        ],
+        actions: [],
       ),
       body: GetBuilder<AuthController>(
         init: AuthController(),
@@ -78,7 +75,9 @@ class AccountScreen extends GetWidget<AuthController> {
         ],
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          controller.signOut();
+        },
         child: Text(
           "Đăng xuất",
           style: TextStyle(

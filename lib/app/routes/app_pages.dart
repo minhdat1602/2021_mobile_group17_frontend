@@ -53,8 +53,7 @@ abstract class AppPages {
       bindings: [
         NotificationBinding(),
         ConnectivityBinding(),
-
-        // AuthBinding(),
+        AuthBinding(),
       ],
     ),
     GetPage(
@@ -64,6 +63,8 @@ abstract class AppPages {
         BottomNavBinding(),
         HomeBinding(),
         MenuBinding(),
+        AuthBinding(),
+        WhishListBinding(),
       ],
       // middlewares: [GlobalMiddleWare()],
     ),
@@ -130,16 +131,16 @@ abstract class AppPages {
       binding: AuthBinding(),
     ),
 
-    GetPage(
-      name: Routes.BOTTOM_NAV,
-      page: () => BottomNavScreen(),
-      bindings: [
-        AuthBinding(),
-        BottomNavBinding(),
-        MenuBinding(),
-      ],
-      // middlewares: [GlobalMiddleWare()],
-    ),
+    // GetPage(
+    //   name: Routes.BOTTOM_NAV,
+    //   page: () => BottomNavScreen(),
+    //   bindings: [
+    //     AuthBinding(),
+    //     BottomNavBinding(),
+    //     MenuBinding(),
+    //   ],
+    //   middlewares: [GlobalMiddleWare()],
+    // ),
 
     GetPage(
       name: Routes.CHANGE_PASSWORD,

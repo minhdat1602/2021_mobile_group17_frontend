@@ -147,15 +147,15 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                     letterSpacing: 0.1,
                   ),
                 ),
-                Text(
-                  "${PriceUtil.toCurrency(cart.totalDiscount())} đ",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black,
-                    fontSize: 16,
-                    letterSpacing: 0.1,
-                  ),
-                ),
+                Obx(() => Text(
+                      "${PriceUtil.toCurrency(shoppingCartController.getDiscount())} đ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        color: Colors.black,
+                        fontSize: 16,
+                        letterSpacing: 0.1,
+                      ),
+                    )),
               ],
             ),
           ),
@@ -177,7 +177,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   ),
                 ),
                 Text(
-                  "${PriceUtil.toCurrency(cart.totalPrice() - cart.totalDiscount())} đ",
+                  "${PriceUtil.toCurrency(shoppingCartController.getPrice())} đ",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 16,

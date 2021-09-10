@@ -32,7 +32,7 @@ class AdminDrawer extends StatelessWidget {
               DrawerHeader(
                 child: Center(
                   child: Text(
-                    "DJ",
+                    "ANT",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -151,61 +151,71 @@ class AdminDrawer extends StatelessWidget {
           size: 20 * 1.6,
         ),
         onTap: () {
-          Get.toNamed(Routes.ADMIN_LIST_ORDER);
+          if (authController.isPermission("ROLE_ADMIN") ||
+              authController.isPermission("ROLE_ORDER")) {
+            Get.toNamed(Routes.ADMIN_LIST_ORDER);
+          }
         },
         hoverColor: Colors.white,
       ),
     );
   }
 
-  ExpansionTile _buildCatagories() {
-    return ExpansionTile(
-      title: Text(
-        "Danh mục",
-        style: TextStyle(
+  Widget _buildCatagories() {
+    return Container(
+      child: ExpansionTile(
+        title: Text(
+          "Danh mục",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
+        leading: Icon(
+          Icons.category,
           color: Colors.white,
-          fontSize: 20,
+          size: 20 * 1.6,
         ),
-      ),
-      leading: Icon(
-        Icons.category,
-        color: Colors.white,
-        size: 20 * 1.6,
-      ),
-      backgroundColor: Color(0xFF2A2D3E),
-      childrenPadding: EdgeInsets.only(left: 16),
-      children: [
-        ListTile(
-          title: Text(
-            "Sản phẩm",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
+        backgroundColor: Color(0xFF2A2D3E),
+        childrenPadding: EdgeInsets.only(left: 16),
+        children: [
+          ListTile(
+            title: Text(
+              "Sản phẩm",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
             ),
-          ),
-          leading: Icon(
-            Icons.production_quantity_limits,
-            color: Colors.white,
-            size: 16 * 1.6,
-          ),
-          onTap: () {},
-        ),
-        ListTile(
-          title: Text(
-            "Thương hiệu",
-            style: TextStyle(
+            leading: Icon(
+              Icons.production_quantity_limits,
               color: Colors.white,
-              fontSize: 16,
+              size: 16 * 1.6,
             ),
+            onTap: () {
+              if (authController.isPermission("ROLE_ADMIN") ||
+                  authController.isPermission("ROLE_PRODUCT")) {
+                Get.toNamed(Routes.ADMIN_LIST_PRODUCT);
+              }
+            },
           ),
-          leading: Icon(
-            Icons.branding_watermark,
-            color: Colors.white,
-            size: 16 * 1.6,
-          ),
-          onTap: () {},
-        )
-      ],
+          ListTile(
+            title: Text(
+              "Thương hiệu",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+            leading: Icon(
+              Icons.branding_watermark,
+              color: Colors.white,
+              size: 16 * 1.6,
+            ),
+            onTap: () {},
+          )
+        ],
+      ),
     );
   }
 
@@ -233,8 +243,8 @@ class AdminDrawer extends StatelessWidget {
         ),
         onTap: () {
           if (authController.user.id > 0) {
-            if (authController.isPermission("ADMIN") ||
-                authController.isPermission("DASHBOARD")) {
+            if (authController.isPermission("ROLE_ADMIN") ||
+                authController.isPermission("ROLE_DASHBOARD")) {
               Get.offNamed(Routes.ADMIN_DASHBOARD);
             } else {
               Get.dialog(

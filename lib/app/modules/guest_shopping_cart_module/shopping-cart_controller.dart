@@ -106,6 +106,21 @@ class ShoppingCartController extends GetxController {
     }
   }
 
+  double getDiscount() {
+    double price = cart.value.totalDiscount();
+    for (Coupon cou in coupons) {
+      print('discount: ' + cou.discount.toString());
+      price += cou.discount;
+    }
+    print(price);
+    return price;
+  }
+
+  double getPrice() {
+    double price = cart.value.totalPrice();
+    return price - getDiscount();
+  }
+
   // COUPON SECTION
   RxList<Coupon> coupons = <Coupon>[].obs;
   CouponApi couponApi = Get.put(CouponApi());

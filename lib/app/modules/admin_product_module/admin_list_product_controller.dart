@@ -16,4 +16,9 @@ class AdminListProductController extends GetxController {
     super.onInit();
     _products.value = productAPI.fetchAll();
   }
+
+  void input() {}
+  void detail() {}
+
+  void delete() {}
 }

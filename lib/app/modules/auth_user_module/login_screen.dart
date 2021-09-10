@@ -57,54 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Container(
-                    width: Get.width,
-                    child: ElevatedButton.icon(
-                      onPressed: () async {
-                        String previousRoute = Get.previousRoute;
-                        print("previousRoute: $previousRoute");
-                        await authController.googleLogin().then((value) {
-                          if (value == "fail") {
-                            Get.dialog(AlertDialog(
-                              title: Text("Đăng nhập thất bại"),
-                              content: Text("Vui lòng thử lại !"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Get.back();
-                                    },
-                                    child: Text("OK"))
-                              ],
-                            ));
-                          } else if (value == "saved") {
-                            Get.toNamed(Routes.ACCOUNT_DETIAL);
-                            if (Get.isDialogOpen) Get.back();
-                          } else {
-                            if (Get.isDialogOpen) Get.back();
-                          }
-                        }); // Thực hiện đăng nhập
-                        // Tắt Loading animation
-                        if (previousRoute == Routes.REVIEW) Get.back();
-                      },
-                      icon: FaIcon(
-                        FontAwesomeIcons.google,
-                        color: Colors.orangeAccent,
-                        // color: Colors.blue,
-                      ),
-                      label: Text(
-                        "Sign In with Google",
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        primary: Colors.white,
-                        elevation: 1,
-                      ),
-                    ),
-                  ),
+                  _buildGoogleSignIn(),
                   SizedBox(height: 15),
                   Container(
                     width: Get.width,
@@ -132,6 +85,57 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  Container _buildGoogleSignIn() {
+    return Container(
+      width: Get.width,
+      child: ElevatedButton.icon(
+        onPressed: () async {
+          String previousRoute = Get.previousRoute;
+          print("previousRoute: $previousRoute");
+          await authController.googleLogin().then((value) {
+            if (value == "fail") {
+              Get.dialog(AlertDialog(
+                title: Text("Đăng nhập thất bại"),
+                content: Text("Vui lòng thử lại !"),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: Text("OK"))
+                ],
+              ));
+            } else if (value == "saved") {
+              Get.toNamed(Routes.ACCOUNT_DETIAL);
+              if (Get.isDialogOpen) Get.back();
+            } else {
+              if (Get.isDialogOpen) Get.back();
+            }
+          }); // Thực hiện đăng nhập
+          // Tắt Loading animation
+          if (previousRoute == Routes.REVIEW) Get.back();
+        },
+        icon: FaIcon(
+          FontAwesomeIcons.google,
+          color: Colors.orangeAccent,
+          // color: Colors.blue,
+        ),
+        label: Text(
+          "Sign In with Google",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 12),
+          primary: Colors.white,
+          elevation: 1,
         ),
       ),
     );
@@ -219,11 +223,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (Get.isDialogOpen) Get.back();
                 // Redirect đến trang phú hợp với authorization
                 for (String role in authController.user.role) {
-                  if (role == "ADMIN" || role == "DASHBOARD")
+                  if (role == "ROLE_ADMIN" || role == "ROLE_DASHBOARD")
                     Get.offAllNamed(Routes.ADMIN_DASHBOARD);
-                  else if (role == "ORDER")
+                  else if (role == "ROLE_ORDER")
                     Get.offAllNamed(Routes.ADMIN_LIST_ORDER);
-                  else if (role == "PRODUCT")
+                  else if (role == "ROLE_PRODUCT")
                     Get.offAllNamed(Routes.ADMIN_LIST_PRODUCT);
                 }
               }
