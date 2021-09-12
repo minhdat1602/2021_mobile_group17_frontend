@@ -62,7 +62,7 @@ class RatingScreen extends GetWidget<RatingController> {
                           width: Get.width,
                           child: TextButton.icon(
                             onPressed: () async {
-                              controller.getImage();
+                              await controller.getImage();
                             },
                             icon: Icon(Icons.add_a_photo,
                                 color: Colors.blue[900]),

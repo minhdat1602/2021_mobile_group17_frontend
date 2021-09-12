@@ -1,12 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mobile_nhom17_2021">
+
+    <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> -->
+    <uses-permission android:name="android.permission.CAMERA"/>
    <application
         android:label="mobile_nhom17_2021"
         android:icon="@mipmap/ic_launcher">
         android:requestLegacyExternalStorage="true"
-        <!-- <uses-permission android:name="android.permission.VIBRATE" />
-        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> -->
-        <!-- <uses-permission android:name="android.permission.INTERNET"/> -->
+        
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -42,4 +44,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    
 </manifest>

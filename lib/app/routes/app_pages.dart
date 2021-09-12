@@ -66,7 +66,7 @@ abstract class AppPages {
         AuthBinding(),
         WhishListBinding(),
       ],
-      // middlewares: [GlobalMiddleWare()],
+      middlewares: [GlobalMiddleWare()],
     ),
     GetPage(
       name: Routes.HOME,

@@ -29,6 +29,13 @@ class RatingController extends GetxController {
   ReviewController reviewController = Get.put(ReviewController());
   ReviewAPI reviewAPI = Get.put(ReviewAPI());
   Future rating() async {
+    // Check permission
+    // var permission = await Permission.photos.status;
+
+    // if (!permission.isGranted) {
+    //   await Permission.photos.request();
+    // }
+
     UserModel user = authController.user;
     Product product = productController.product;
 
@@ -64,6 +71,26 @@ class RatingController extends GetxController {
 
   // Lấy hình ảnh từ Library hình ảnh
   Future getImage() async {
+    // Check permission
+    var cameraPermission = await Permission.camera.status;
+    var storagePermission = await Permission.storage.status;
+
+    print(cameraPermission);
+    print(storagePermission);
+    await Permission.camera.request();
+    if (cameraPermission.isDenied) await Permission.camera.request();
+    if (storagePermission.isDenied) await Permission.storage.request();
+    cameraPermission = await Permission.camera.status;
+    storagePermission = await Permission.storage.status;
+    print(cameraPermission);
+    print(storagePermission);
+
+    if (!cameraPermission.isGranted || !storagePermission.isGranted) return;
+
+    // if (!permission.isGranted) {
+    //   await Permission.photos.request();
+    // }
+
     final _picker = ImagePicker();
     List<PickedFile> pickedFiles = await _picker.getMultiImage();
     try {
@@ -94,10 +121,6 @@ class RatingController extends GetxController {
   Future<String> uploadImageItem(File file) async {
     final _storage = FirebaseStorage.instance;
     String filename = file.path;
-
-    // Check permission
-    var permission = await Permission.photos.status;
-    if (permission.isGranted) print("isGranted");
 
     // upload lên folder comments/
     var snapshot =
