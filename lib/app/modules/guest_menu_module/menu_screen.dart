@@ -19,7 +19,7 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: "Danh mục"),
+      appBar: AppBarWidget(title: "menu".tr),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -63,7 +63,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildHomeBtn() {
     return ListTile(
-      title: Text("Trang chủ", style: TextStyle(color: Colors.white54)),
+      title: Text("home".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -74,7 +74,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildShopAllBtn() {
     return ListTile(
-      title: Text("Tất cả sản phẩm", style: TextStyle(color: Colors.white54)),
+      title: Text("shop-all".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -91,7 +91,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildHotBtn() {
     return ListTile(
-      title: Text("Bán chạy", style: TextStyle(color: Colors.white54)),
+      title: Text("hot".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -103,7 +103,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildHighlighBtn() {
     return ListTile(
-      title: Text("Nổi bật", style: TextStyle(color: Colors.white54)),
+      title: Text("highlight".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -115,7 +115,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildNewBtn() {
     return ListTile(
-      title: Text("Mới nhất", style: TextStyle(color: Colors.white54)),
+      title: Text("new".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -127,7 +127,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildSaleBtn() {
     return ListTile(
-      title: Text("Giảm giá", style: TextStyle(color: Colors.white54)),
+      title: Text("discount".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -139,7 +139,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildMaleBtn() {
     return ListTile(
-      title: Text("Nam", style: TextStyle(color: Colors.white54)),
+      title: Text("men".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -151,7 +151,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildFemaleBtn() {
     return ListTile(
-      title: Text("Nữ", style: TextStyle(color: Colors.white54)),
+      title: Text("woman".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -163,7 +163,7 @@ class MenuScreen extends StatelessWidget {
 
   ListTile _buildChildrenBtn() {
     return ListTile(
-      title: Text("Trẻ em", style: TextStyle(color: Colors.white54)),
+      title: Text("children".tr, style: TextStyle(color: Colors.white54)),
       hoverColor: Colors.white54,
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       onTap: () {
@@ -179,8 +179,7 @@ class MenuScreen extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ExpansionTile(
-            title:
-                Text("Loại sản phẩm", style: TextStyle(color: Colors.white54)),
+            title: Text("category".tr, style: TextStyle(color: Colors.white54)),
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             expandedAlignment: Alignment.centerLeft,
             backgroundColor: Colors.black,
@@ -201,7 +200,7 @@ class MenuScreen extends StatelessWidget {
                 .toList(),
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text("Có gì đó sai sai"));
+          return Center(child: Text("Lỗi!"));
         } else {
           return Center(child: CircularProgressIndicator());
         }
@@ -215,7 +214,7 @@ class MenuScreen extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ExpansionTile(
-            title: Text("Thương hiệu", style: TextStyle(color: Colors.white54)),
+            title: Text("brand".tr, style: TextStyle(color: Colors.white54)),
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             expandedAlignment: Alignment.centerLeft,
             backgroundColor: Colors.black,
@@ -236,7 +235,7 @@ class MenuScreen extends StatelessWidget {
                 .toList(),
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text("Có gì đó sai sai"));
+          return Center(child: Text("Lỗi"));
         } else {
           return Center(child: CircularProgressIndicator());
         }
@@ -250,7 +249,8 @@ class MenuScreen extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ExpansionTile(
-            title: Text("Bộ sưu tập", style: TextStyle(color: Colors.white54)),
+            title:
+                Text("collection".tr, style: TextStyle(color: Colors.white54)),
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             expandedAlignment: Alignment.centerLeft,
             backgroundColor: Colors.black,
@@ -286,7 +286,7 @@ class MenuScreen extends StatelessWidget {
                 .toList(),
           );
         } else if (snapshot.hasError) {
-          return Center(child: Text("Có gì đó sai sai"));
+          return Center(child: Text("Lỗi"));
         } else {
           return Center(child: CircularProgressIndicator());
         }

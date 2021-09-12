@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -24,7 +25,7 @@ class _BodyState extends State<Body> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Danh sách yêu thích",
+              "whishlist".tr,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
@@ -32,7 +33,7 @@ class _BodyState extends State<Body> {
             ),
             SizedBox(height: 5),
             Text(
-              "0 sản phẩm",
+              "0 " + "product".tr,
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.blue[900],

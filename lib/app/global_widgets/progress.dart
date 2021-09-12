@@ -12,7 +12,7 @@ class CustomProgress extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Lấy dữ liệu",
+            "fetch".tr,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.w300,

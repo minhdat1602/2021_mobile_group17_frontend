@@ -30,9 +30,9 @@ class HomeController extends GetxController {
     videoPlayerController = VideoPlayerController.asset(asset)
       ..addListener(() {})
       ..setLooping(true)
-      // ..initialize().then((_) => videoPlayerController.play());
-      ..initialize();
-  
+      ..initialize().then((_) => videoPlayerController.play());
+    // ..initialize();
+
     initData();
   }
 

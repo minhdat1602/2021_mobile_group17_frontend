@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(title: "Trang chủ"),
+      appBar: AppBarWidget(title: "home".tr),
       body: Obx(() => homeController.loaded
           ? Container(
               width: Get.width,
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Gợi ý hôm nay",
+                  "discount".tr,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Get.toNamed(Routes.SHOP);
                   },
                   child: Text(
-                    "Xem thêm",
+                    "see-more".tr,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Sản phẩm bán chạy",
+                  "hot".tr,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Get.toNamed(Routes.SHOP);
                   },
                   child: Text(
-                    "Xem thêm",
+                    "see-more".tr,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w400,
@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Get.to(Routes.SHOP);
                   },
                   child: Text(
-                    "Cửa hàng",
+                    "shop".tr,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,
@@ -408,7 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Cửa hàng",
+                          "shop-now".tr,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
@@ -466,7 +466,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Cửa hàng",
+                          "shop-now".tr,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
@@ -533,7 +533,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Cửa hàng",
+                    "shop-now".tr,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w400,

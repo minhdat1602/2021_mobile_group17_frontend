@@ -14,7 +14,7 @@ class AccountScreen extends GetWidget<AuthController> {
       appBar: AppBar(
         brightness: Brightness.dark, // Màu icon giờ pin trên status bar
         title: Text(
-          "Tài khoản",
+          "account".tr,
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -51,7 +51,7 @@ class AccountScreen extends GetWidget<AuthController> {
         controller.signOut();
       },
       child: Text(
-        "Đăng xuất",
+        "sign-out".tr,
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class AccountScreen extends GetWidget<AuthController> {
           controller.signOut();
         },
         child: Text(
-          "Đăng xuất",
+          "sign-out".tr,
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -108,7 +108,7 @@ class AccountScreen extends GetWidget<AuthController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Quản lý đơn hàng",
+            "orders".tr,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class AccountScreen extends GetWidget<AuthController> {
               listOrderController.getOrdersByUser(null);
             },
             child: Text(
-              "XEM",
+              "view".tr,
               style: TextStyle(
                 color: Colors.indigo[400],
                 fontWeight: FontWeight.bold,
@@ -153,7 +153,7 @@ class AccountScreen extends GetWidget<AuthController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Thay đổi mật khẩu",
+            "change-pw".tr,
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
@@ -165,7 +165,7 @@ class AccountScreen extends GetWidget<AuthController> {
               Get.toNamed("/change-password");
             },
             child: Text(
-              "Thay đổi",
+              "change".tr,
               style: TextStyle(
                 color: Colors.indigo[400],
                 fontWeight: FontWeight.bold,
@@ -197,7 +197,7 @@ class AccountScreen extends GetWidget<AuthController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Địa chỉ nhận hàng",
+            "address".tr,
             style: Get.theme.textTheme.headline2,
           ),
           SizedBox(height: 15),
@@ -219,7 +219,7 @@ class AccountScreen extends GetWidget<AuthController> {
           ),
           SizedBox(height: 3),
           Text(
-            "Liên lạc: ${user.userInfo.phone}",
+            "contact".tr + ": ${user.userInfo.phone}",
             style: TextStyle(
               color: Colors.black,
               fontSize: 15,
@@ -227,7 +227,8 @@ class AccountScreen extends GetWidget<AuthController> {
           ),
           SizedBox(height: 3),
           Text(
-            "Địa chỉ: ${user.userInfo.sonha}, ${user.userInfo.xa}, ${user.userInfo.huyen}, ${user.userInfo.tinh}",
+            "address".tr +
+                ": ${user.userInfo.sonha}, ${user.userInfo.xa}, ${user.userInfo.huyen}, ${user.userInfo.tinh}",
             style: TextStyle(
               color: Colors.black,
               fontSize: 15,
@@ -240,7 +241,7 @@ class AccountScreen extends GetWidget<AuthController> {
                 Get.toNamed(Routes.ACCOUNT_DETIAL);
               },
               child: Text(
-                "Chỉnh sửa",
+                "edit".tr,
                 style: TextStyle(
                   color: Colors.indigo[400],
                   fontWeight: FontWeight.bold,

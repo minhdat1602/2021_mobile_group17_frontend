@@ -51,7 +51,7 @@ class ShopScreenState extends State<ShopScreen> {
       key: shopKey,
       floatingActionButton: _filterFloatBtn(),
       endDrawer: EndDrawerWidget(),
-      appBar: AppBarWidget(title: "Cửa hàng"),
+      appBar: AppBarWidget(title: "shop".tr),
       body: Column(
         children: [
           _buildHeader(),
@@ -93,7 +93,7 @@ class ShopScreenState extends State<ShopScreen> {
             children: [
               Expanded(
                 child: Text(
-                  "Tất cả",
+                  "all".tr,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -103,7 +103,7 @@ class ShopScreenState extends State<ShopScreen> {
               ),
               Expanded(
                 child: Obx(() => Text(
-                      "${shopController.total.value} sản phẩm",
+                      "${shopController.total.value} " + "product".tr,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -162,7 +162,7 @@ class ShopScreenState extends State<ShopScreen> {
                     _buildItem(snapshot.data[index]),
               );
             } else if (snapshot.hasError) {
-              return Center(child: Text("Có gì đó sai sai"));
+              return Center(child: Text("Lỗi!"));
             } else {
               return Center(child: CircularProgressIndicator());
             }
@@ -231,7 +231,7 @@ class ShopScreenState extends State<ShopScreen> {
                       Get.bottomSheet(_buildSizeBSheet(product));
                     },
                     child: Text(
-                      "MUA NHANH",
+                      "quick-buy".tr,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15.0,
@@ -318,7 +318,7 @@ class ShopScreenState extends State<ShopScreen> {
                       Get.back();
                       Get.toNamed(Routes.SHOPPING_CART);
                     },
-                    child: Text("Thanh toán"),
+                    child: Text("checkout".tr),
                     style: TextButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 15),
                       alignment: Alignment.center,
@@ -331,7 +331,8 @@ class ShopScreenState extends State<ShopScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: Text(
-                      "Tổng giá: ${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice())} đ",
+                      "total-price".tr +
+                          ": ${PriceUtil.toCurrency(shoppingCartController.cart.value.totalPrice())} đ",
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w400,
@@ -396,7 +397,7 @@ class ShopScreenState extends State<ShopScreen> {
                                             style:
                                                 TextStyle(color: Colors.black)),
                                         Text(
-                                          "Còn lại",
+                                          "rest".tr,
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Get.theme.primaryColor,

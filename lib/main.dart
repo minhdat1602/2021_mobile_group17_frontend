@@ -19,7 +19,7 @@ void main() async {
       initialRoute: Routes.INITIAL, // khởi tạo routeName
       // initialRoute: Routes.ADMIN_ADD_PRODUCT,
       // home: RatingScreen(),
-      locale: Locale('vi', 'VN'), // vị trí để thay đổi ngôn ngữ
+      locale: Locale('vi'), // vị trí để thay đổi ngôn ngữ
       theme: appThemeData,
       getPages: AppPages.pages, // routeName
       defaultTransition: Transition.fade,

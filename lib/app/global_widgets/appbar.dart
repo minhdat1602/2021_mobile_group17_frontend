@@ -20,6 +20,14 @@ class AppBarWidget extends StatefulWidget with PreferredSizeWidget {
 class AppBarWidgetState extends State<AppBarWidget> {
   ShoppingCartController shoppingCartController =
       Get.put(ShoppingCartController());
+  String language;
+  @override
+  void initState() {
+    super.initState();
+
+    language = Get.locale.countryCode;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -78,7 +86,23 @@ class AppBarWidgetState extends State<AppBarWidget> {
               ),
             ),
           ),
-          SizedBox(width: 20),
+          SizedBox(width: 10),
+          IconButton(
+            onPressed: () {
+              print(Get.locale);
+              if (Get.locale.languageCode == "vi") {
+                var locale = Locale('en', 'US');
+                Get.updateLocale(locale);
+                print(locale);
+              } else {
+                var locale = Locale('vi');
+                Get.updateLocale(locale);
+              }
+            },
+            icon: Get.locale.languageCode == 'vi'
+                ? Image.asset('assets/images/vn_flag.png')
+                : Image.asset('assets/images/usa_flag.png'),
+          ),
         ],
       ),
     );

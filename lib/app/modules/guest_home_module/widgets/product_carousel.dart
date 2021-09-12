@@ -93,7 +93,7 @@ class ProductCarousel extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "Giá: ${PriceUtil.toCurrency(product.price)} đ",
+                  "price".tr + ": ${PriceUtil.toCurrency(product.price)} đ",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -109,7 +109,7 @@ class ProductCarousel extends StatelessWidget {
                   Get.toNamed(Routes.PRODUCT);
                 },
                 child: Text(
-                  "Mua ngay",
+                  "buy-now".tr,
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,

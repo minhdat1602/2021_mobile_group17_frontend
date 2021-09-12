@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-        appBar: AppBarWidget(title: "Đăng nhập"),
+        appBar: AppBarWidget(title: "login".tr),
         body: Form(
           key: _loginKey,
           child: Container(
@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Thôn tin đăng nhập",
+                    "login-info".tr,
                     style: Theme.of(context).textTheme.headline3,
                   ),
                   _buildEmailTf(),
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 50),
                   Center(
                     child: Text(
-                      "- hoặc -",
+                      "- " + "or".tr + " -",
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w400,
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Get.theme.primaryColor, width: 2.5),
         ),
-        labelText: "Địa chỉ email",
+        labelText: "email-address".tr,
         labelStyle: TextStyle(color: Get.theme.primaryColor),
       ),
       validator: (value) {
@@ -177,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
         focusedBorder: UnderlineInputBorder(
             borderSide:
                 BorderSide(color: Theme.of(context).primaryColor, width: 2.5)),
-        labelText: "Mật khẩu",
+        labelText: "password".tr,
         labelStyle: TextStyle(color: Theme.of(context).primaryColor),
       ),
       validator: (value) {
@@ -236,7 +236,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (previousRoute == Routes.REVIEW) Get.back();
           }
         },
-        child: Text("Đăng nhập"),
+        child: Text("login".tr),
         style: ElevatedButton.styleFrom(
           alignment: Alignment.center,
           elevation: 0.0,
@@ -254,7 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: ElevatedButton(
         onPressed: () async {},
         child: Text(
-          "Quên mật khẩu?",
+          "forgot-pw".tr,
           style: TextStyle(
             color: Theme.of(context).accentColor,
             fontWeight: FontWeight.bold,
@@ -278,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () {
           Get.toNamed(Routes.REGISTER);
         },
-        child: Text("Đăng ký"),
+        child: Text("register".tr),
         style: ElevatedButton.styleFrom(
           alignment: Alignment.center,
           elevation: 0.0,
